@@ -1,1 +1,0 @@
-"use strict";import{runtime}from"./ext.js";import{dom}from"./dom.js";{const t=runtime.getManifest();dom.text("#aboutNameVer",`${t.name} ${t.version}`)}dom.attr("a","target","_blank"),dom.on("#dashboard-nav","click",".tabButton",(t=>{dom.body.dataset.pane=t.target.dataset.pane}));
