@@ -1,34 +1,31 @@
-// Function to remove ads and popups from video iframes
-function removeAdsAndPopups() {
-    // Get all iframes on the page
-    var iframes = document.querySelectorAll('iframe');
+function blockAds() {
+    // Remove elements by class name
+    document.querySelectorAll('.ad, .ads, .advert, .advertisement, .ad-container, .ad-wrapper').forEach(function(element) {
+        element.remove();
+    });
 
-    // Loop through each iframe
-    iframes.forEach(function(iframe) {
-        try {
-            // Try to access the iframe's contentWindow
-            var contentWindow = iframe.contentWindow;
-
-            // Check if the contentWindow is accessible
-            if (contentWindow) {
-                // Access the document inside the iframe
-                var doc = contentWindow.document;
-
-                // Check if the document is accessible
-                if (doc) {
-                    // Get all elements with class containing 'ad' or 'popup' and remove them
-                    var elements = doc.querySelectorAll('[class*=ad], [class*=popup]');
-                    elements.forEach(function(element) {
-                        element.remove();
-                    });
-                }
-            }
-        } catch (e) {
-            // Handle any errors that occur while accessing the iframe
-            console.error('Error accessing iframe content:', e);
+    // Remove elements by tag name
+    document.querySelectorAll('iframe, script').forEach(function(element) {
+        // Check if the src attribute contains 'ads' or 'ad'
+        if (element.tagName === 'IFRAME' && (element.src.includes('ads') || element.src.includes('ad'))) {
+            element.remove();
         }
+    });
+
+    // Remove elements by ID
+    var adIds = ['ad', 'ads', 'advert', 'advertisement'];
+    adIds.forEach(function(id) {
+        var element = document.getElementById(id);
+        if (element) {
+            element.remove();
+        }
+    });
+
+    // Remove elements by inline styles
+    document.querySelectorAll('*[style*="display: none"], *[style*="visibility: hidden"]').forEach(function(element) {
+        element.remove();
     });
 }
 
 // Call the function when the page is loaded
-window.onload = removeAdsAndPopups;
+window.onload = blockAds;
