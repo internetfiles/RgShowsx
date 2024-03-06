@@ -1,0 +1,1 @@
+"use strict";function fetchJSON(t){return fetch(`${t}.json`).then((t=>t.json())).catch((t=>{console.info(t)}))}export{fetchJSON};

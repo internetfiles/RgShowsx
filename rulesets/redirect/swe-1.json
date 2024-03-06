@@ -1,0 +1,176 @@
+[
+{
+ "action": {
+  "redirect": {
+   "extensionPath": "/web_accessible_resources/32x32.png"
+  },
+  "type": "redirect"
+ },
+ "condition": {
+  "isUrlFilterCaseSensitive": false,
+  "resourceTypes": [
+   "image"
+  ],
+  "urlFilter": "||mediacreeper.com/image"
+ },
+ "id": 1195,
+ "priority": 2
+},
+{
+ "action": {
+  "redirect": {
+   "extensionPath": "/web_accessible_resources/32x32.png"
+  },
+  "type": "redirect"
+ },
+ "condition": {
+  "isUrlFilterCaseSensitive": false,
+  "resourceTypes": [
+   "image"
+  ],
+  "urlFilter": "||mediacreeper.se/image"
+ },
+ "id": 1196,
+ "priority": 2
+},
+{
+ "action": {
+  "redirect": {
+   "extensionPath": "/web_accessible_resources/noop.js"
+  },
+  "type": "redirect"
+ },
+ "condition": {
+  "initiatorDomains": [
+   "fotbollskanalen.se",
+   "koket.se",
+   "tv4.se",
+   "tv4play.se"
+  ],
+  "isUrlFilterCaseSensitive": false,
+  "resourceTypes": [
+   "script"
+  ],
+  "urlFilter": "/aab/tv4play"
+ },
+ "id": 1197,
+ "priority": 2
+},
+{
+ "action": {
+  "redirect": {
+   "extensionPath": "/web_accessible_resources/noop.js"
+  },
+  "type": "redirect"
+ },
+ "condition": {
+  "initiatorDomains": [
+   "tv2.no"
+  ],
+  "requestDomains": [
+   "k5a.io"
+  ],
+  "resourceTypes": [
+   "script"
+  ]
+ },
+ "id": 1198,
+ "priority": 2
+},
+{
+ "action": {
+  "redirect": {
+   "extensionPath": "/web_accessible_resources/noop.js"
+  },
+  "type": "redirect"
+ },
+ "condition": {
+  "isUrlFilterCaseSensitive": false,
+  "resourceTypes": [
+   "script"
+  ],
+  "urlFilter": "||widget.playoncenter.com/newplayer/js/pb_"
+ },
+ "id": 1199,
+ "priority": 2
+},
+{
+ "action": {
+  "redirect": {
+   "extensionPath": "/web_accessible_resources/empty"
+  },
+  "type": "redirect"
+ },
+ "condition": {
+  "isUrlFilterCaseSensitive": false,
+  "resourceTypes": [
+   "xmlhttprequest"
+  ],
+  "urlFilter": "||kyrkanstidning.se/firstvisit"
+ },
+ "id": 1200,
+ "priority": 2
+},
+{
+ "action": {
+  "redirect": {
+   "extensionPath": "/web_accessible_resources/click2load.html"
+  },
+  "type": "redirect"
+ },
+ "condition": {
+  "initiatorDomains": [
+   "nordiskradio.se"
+  ],
+  "requestDomains": [
+   "peertube.se"
+  ],
+  "resourceTypes": [
+   "sub_frame"
+  ]
+ },
+ "id": 1201,
+ "priority": 2
+},
+{
+ "action": {
+  "redirect": {
+   "extensionPath": "/web_accessible_resources/click2load.html"
+  },
+  "type": "redirect"
+ },
+ "condition": {
+  "initiatorDomains": [
+   "breakit.se"
+  ],
+  "requestDomains": [
+   "player.vimeo.com"
+  ],
+  "resourceTypes": [
+   "sub_frame"
+  ]
+ },
+ "id": 1202,
+ "priority": 2
+},
+{
+ "action": {
+  "redirect": {
+   "extensionPath": "/web_accessible_resources/click2load.html"
+  },
+  "type": "redirect"
+ },
+ "condition": {
+  "initiatorDomains": [
+   "ordfrontmagasin.se"
+  ],
+  "isUrlFilterCaseSensitive": false,
+  "resourceTypes": [
+   "sub_frame"
+  ],
+  "urlFilter": "||youtube.com/embed"
+ },
+ "id": 1203,
+ "priority": 2
+}
+]
