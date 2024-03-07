@@ -1,343 +1,600 @@
 // ==UserScript==
-// @name            RemoveAds
-// @name:en         RemoveAds
-// @version         1.9.35
-// @description     需要配合AdBlock类软件使用！该脚本可以移除那些规避反广告功能或要求解除反广告功能的广告，仅此而已。
-// @description:en  This script needs AD block extension running to work. This script can remove the ads which avoiding or requesting you to stop blocking them. Just it.
-// @author          AnnAngela
-// @match           *://*/*
-// @run-at          document-start
-// @grant           unsafeWindow
-// @namespace       https://greasyfork.org/users/129402
-// @license         GNU General Public License v3.0 or later
-// @compatible      chrome 90
-// @downloadURL https://update.greasyfork.org/scripts/30310/RemoveAds.user.js
-// @updateURL https://update.greasyfork.org/scripts/30310/RemoveAds.meta.js
+// @name        ABPVN AdsBlock
+// @namespace   ABPVN
+// @author      ABPVN
+// @copyright   ABPVN
+// @homepage    https://abpvn.com
+// @supportURL  https://github.com/abpvn/abpvn/issues
+// @icon        https://abpvn.com/icon.png
+// @description Script block ads, remove wating of ABPVN
+// @description:vi Script chặn quảng cáo,loại bỏ chờ đợi của ABPVN
+// @contributionURL https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=donghoang.nguyen@gmail.com&item_name=ABPVN Donation
+// @grant       GM_getValue
+// @grant       GM_setValue
+// @grant       GM_openInTab
+// @grant       GM_registerMenuCommand
+// @include     http://*
+// @include     https://*
+// @version     2.3.25
+// @change-log  Add redirect.dafontvn.com auto redirect
+// @run-at      document-end
+// @downloadURL https://update.greasyfork.org/scripts/9099/ABPVN%20AdsBlock.user.js
+// @updateURL https://update.greasyfork.org/scripts/9099/ABPVN%20AdsBlock.meta.js
 // ==/UserScript==
-"use strict";
-(function () {
-    if (location.host === "adsrff.web.sdo.com") { return location.replace("https://ff.web.sdo.com/web8/index.html#/home"); }
-    class Stack extends Error {
-        constructor(...a) {
-            super(...a);
-        }
-        getStack(offset = 4) {
-            return typeof this.stack === "string" ? this.stack.replace(/^Error\n +/, "").replace(/\n +/g, `\n${" ".repeat(offset)}`) : this.stack;
-        }
-    }
-    const removedAds = [];
-    /**
-     * @type {Window & typeof globalThis} doc
-     */
-    const win = unsafeWindow;
-    /**
-     * @type {Document} doc
-     */
-    const doc = win.document;
-    const MutationObserver = win.MutationObserver;
-    /**
-     * @argument {string} selector
-     * @returns {HTMLElement | null} element
-     */
-    const $ = (selector) => doc.querySelector(selector);
-    /**
-     * @argument {string} selector
-     * @returns {NodeListOf<HTMLElement> | null} element
-     */
-    const $$ = (selector) => doc.querySelectorAll(selector);
-    const info = (that) => {
-        console.info("RemoveAds: ", removedAds.push(that), "\nTarget:", that, "\nParentNode:", that.parentNode, "\nInnerText:", that.innerText);
-    };
-    const suffixList = {};
-    const getRandomSuffix = (str) => {
-        if (typeof suffixList[str] !== "string") {
-            suffixList[str] = "";
-            while (suffixList[str].length < 16) {
-                suffixList[str] += (+`${Math.random()}`.substring(2)).toString(36).replace(suffixList[str].length === 0 ? /^\d+/ : "", "");
-            }
-        }
-        return suffixList[str];
-    };
-    let localstorage;
-    try {
-        localstorage = win.localStorage;
-    } catch (e) {
-        console.info("RemoveAds: Tried to get `localStorage` but got an error - ", e);
-        localstorage = {
-            length: 0,
-            key: () => null,
-            getItem: () => null,
-            setItem: () => { },
-            removeItem: () => { },
-        };
-    }
-    let sessionStorage;
-    try {
-        sessionStorage = win.sessionStorage;
-    } catch (e) {
-        console.info("RemoveAds: Tried to get `sessionStorage` but got an error - ", e);
-        sessionStorage = {
-            length: 0,
-            key: () => null,
-            getItem: () => null,
-            setItem: () => { },
-            removeItem: () => { },
-        };
-    }
-
-    if (location.hostname.endsWith(".ff14angler.com")) {
-        const removeChild = win.Node.prototype.removeChild;
-        win.Node.prototype.removeChild = function (e) {
-            if (e.id === "contents") {
-                console.info("RemoveAds: Tried to remove contents", e, "but rejected.\n", new Stack().getStack(9));
-                return false;
-            }
-            return removeChild.bind(this)(e);
-        };
-    } else if ((location.host.includes("bbs.nga.cn") || location.host.includes("bbs.ngacn.cc")) && location.pathname.includes("adpage_insert")) {
-        const stylesheet = document.createElement("style");
-        stylesheet.innerText = "html, body, * { display: none!important; }";
-        doc.body.appendChild(stylesheet);
-        const jump = function jump() {
-            if (win.getJump) {
-                const _getJump = win.getJump.bind(win);
-                win.getJump = function () { };
-                _getJump();
-            }
-        };
-        setInterval(jump, 10);
-    } else if (location.hostname === "www.ruanyifeng.com") {
-        console.info("RemoveAds: removed the anti-adb checker.");
-        const c = setInterval(() => {
-            const img = $('a > img[src*="wangbase.com/blogimg/asset/"]');
-            if (img) {
-                img.remove();
-            } else {
-                const entrySponsor = $(".entry-sponsor");
-                if (entrySponsor) {
-                    entrySponsor.remove();
-                    clearInterval(c);
+/* String Prototype */
+String.prototype.startWith = function (str) {
+    return typeof this.indexOf === 'function' && this.indexOf(str) === 0;
+};
+String.prototype.ismatch = function (regex) {
+    return typeof this.match === 'function' && this.match(regex) !== null;
+};
+//Bypass Class
+var byPass = {
+    hideLinkUnlock: function () {
+        var contentDiv = document.querySelectorAll('.onp-sl-content,.onp-locker-call,[data-locker-id]');
+        if (contentDiv.length) {
+            ABPVN.cTitle();
+            //Add style tag to hide all .onp-sl and show all .onp-sl-content
+            if (!document.getElementById('abpvn_style')) {
+                var style = document.createElement('style');
+                style.id = 'abpvn_style';
+                style.innerHTML = '.onp-sl-content{display:block!important;}.onp-sl,.onp-sl-overlap-box{display:none!important;}.onp-sl-blur-area{filter: none!important;}';
+                document.body.appendChild(style);
+            } //ShowALl ContentDiv
+            for (var i in contentDiv) {
+                if (contentDiv[i].firstChild && contentDiv[i].firstChild.innerText != 'Unlocked by ABPVN.COM') {
+                    var creditDiv = document.createElement('div');
+                    creditDiv.innerHTML = '<a href="http://abpvn.com" target="_blank" style="color: #08BE54;font-weight: bold;">Unlocked by ABPVN.COM</a>';
+                    creditDiv.style.textAlign = 'right';
+                    contentDiv[i].insertBefore(creditDiv, contentDiv[i].firstChild);
+                }
+                if (contentDiv[i].style) {
+                    contentDiv[i].style.display = 'block';
+                }
+            } //Hide All LockDiv
+            var lockDiv = document.querySelectorAll('.onp-sl,div[id^="content-locker"]');
+            for (var j in lockDiv) {
+                if (lockDiv[j].style) {
+                    lockDiv[j].style.display = 'none !important';
+                    lockDiv[j].setAttribute('hidden', 'hidden');
                 }
             }
-        }, 10);
-    } else if (location.hostname.includes("mrcong.com")) {
-        const style = document.createElement("style");
-        style.innerText = "#fukie1{display:none !important}#fukie2{display:block !important}";
-        document.head.appendChild(style);
-    }
-    const secretKey = `${Math.random().toString(36).substring(2)}${Math.random().toString(36).substring(2)}${Math.random().toString(36).substring(2)}`;
-    class BlockAdBlock {
-        constructor(...args) {
-            if (args[0] !== secretKey) {
-                console.info("RemoveAds: Got a call to construct BlockAdBlock but denied,\nwith arguments", ...args, ",\nin stack", new Stack().getStack(9));
+        }
+    },
+    removeShortLink: function () {
+        var allShortLink = document.querySelectorAll('a[href*="/full/?api="]');
+        var count = 0;
+        if (allShortLink.length) {
+            ABPVN.cTitle();
+            for (var i = 0; i < allShortLink.length; i++) {
+                var processingLink = allShortLink[i];
+                var href = processingLink.getAttribute('href');
+                var tmp = href.match(/url=(.+?)&|$/);
+                if (tmp[1]) {
+                    processingLink.setAttribute('href', atob(tmp[1].replace(/=+$/, '')));
+                    var oldTitle = processingLink.getAttribute('title');
+                    processingLink.setAttribute('title', oldTitle ? (oldTitle + ' ') : '' + 'Short link by pass by ABPVN.COM');
+                    count++;
+                }
             }
+            Logger.info("By pass " + count + " short link");
         }
-        check(...args) {
-            console.info("RemoveAds: Got a call to blockAdBlock.check but denied,\nwith arguments", ...args, ",\nin stack", new Stack().getStack(9));
-        }
-        clearEvent(...args) {
-            console.info("RemoveAds: Got a call to blockAdBlock.clearEvent but denied,\nwith arguments", ...args, ",\nin stack", new Stack().getStack(9));
-        }
-        emitEvent(...args) {
-            console.info("RemoveAds: Got a call to blockAdBlock.emitEvent but denied,\nwith arguments", ...args, ",\nin stack", new Stack().getStack(9));
-        }
-        setOption(...args) {
-            console.info("RemoveAds: Got a call to blockAdBlock.setOption but denied,\nwith arguments", ...args, ",\nin stack", new Stack().getStack(9));
-        }
-        on(detected, fn) {
-            this[detected === true ? "onDetected" : "onNotDetected"](fn);
-            return this;
-        }
-        onDetected(...args) {
-            console.info("RemoveAds: Got a call to blockAdBlock.onDetected but denied,\nwith arguments", ...args, ",\nin stack", new Stack().getStack(9));
-            return this;
-        }
-        onNotDetected(...args) {
-            if (typeof args[0] === "function") {
-                args[0]();
-            }
-            console.info("RemoveAds: Got a call to blockAdBlock.onNotDetected but denied,\nwith arguments", ...args, ",\nin stack", new Stack().getStack(9));
-            return this;
-        }
-    }
-    const blockAdBlock = new BlockAdBlock(secretKey);
-    const blockAdBlockProps = {
-        configurable: false,
-        enumerable: false,
-        get: () => blockAdBlock,
-        set: (...args) => {
-            console.info("RemoveAds: Got a call to set window.blockAdBlock but denied,\nwith arguments", ...args, ",\nin stack", new Stack().getStack(9));
-        },
-    };
-    const BlockAdBlockProps = {
-        configurable: false,
-        enumerable: false,
-        get: () => BlockAdBlock,
-        set: (...args) => {
-            console.info("RemoveAds: Got a call to set window.BlockAdBlock but denied,\nwith arguments", ...args, ",\nin stack", new Stack().getStack(9));
-        },
-    };
-    const fabList = ["fuckAdBlock", "blockAdBlock", "sniffAdBlock"];
-    const FABList = ["FuckAdBlock", "BlockAdBlock", "SniffAdBlock"];
-    fabList.forEach((n) => {
-        if (Object.prototype.hasOwnProperty.bind(win)(n)) {
-            win[n].__proto__ = new BlockAdBlock(secretKey);
-        } else {
-            Object.defineProperty(win, n, blockAdBlockProps);
-        }
-    });
-    FABList.forEach((n) => {
-        if (Object.prototype.hasOwnProperty.bind(win)(n)) {
-            win[n].prototype = BlockAdBlock;
-        } else {
-            Object.defineProperty(win, n, BlockAdBlockProps);
-        }
-    });
-
-    const constantVariabls = [
-        ["admiral", undefined],
-        ["runAntiAdBlock", undefined],
-        ["DHAntiAdBlocker", true],
-        ["canRunAds", true],
-        ["__jsadsuccess", true],
-        ["adBlockNotDetected", () => { }],
-        ["adBlockDetected", () => { }],
-        ["adsBlocked", () => { }],
-        ["importFAB", undefined],
-        ["adblock", false],
-        ["loadErrorTip", () => { }],
-        ["checkAdBlocker", () => { }],
-        ["var_do", false],
-        ["ads", {}],
-    ];
-    for (const [name, value] of constantVariabls) {
-        try {
-            Object.defineProperty(win, name, {
-                configurable: false,
-                enumerable: true,
-                get() {
-                    console.info(`RemoveAds: Got a call trying to get \`${name}\` but denied with returning`, value, ":\n", new Stack().getStack(9));
-                    return value;
-                },
-                set(v) {
-                    console.info(`RemoveAds: Got a call trying to set \`${name}\` to this below but denied:\n`, v, "\n", new Stack().getStack(9));
-                },
-            });
-        } catch (e) {
+    },
+    showBodyLinkByPassAndRedirect: function (link) {
+        document.body.innerHTML = '<style>html,body{background: #fff !important;}h1{color: #00dc58;}a{color: #015199}a h1{color: #015199;}</style><center><h1>ABPVN quick bypass đã hoạt động</h1><a href=\'https://abpvn.com/donate\'><h1>Ủng hộ ABPVN</h1></a><br/>Không tự chuyển trang? <a href=\'' + link + '\' title=\'Chuyển trang\'>Click vào đây</a></center>';
+        setTimeout(() => location.href = link, 500);
+    },
+    quickByPassLink: function () {
+        var regex = /123link\..*|phlame.pw|megaurl\.*|www.123l\.*|vinaurl\.*|share4you.pro|doxeaz10.site|derow.win|linkviet.net|ez4linkss.com|ckk.ai|link.codevn.net|linksht.com|beta.shortearn.eu|getlink.tienichmaytinh.net|download.baominh.tech|download3s.net/;
+        var largeTimeoutHost = /share4you.pro|derow.win/;
+        var autoCaptchaOnlyList = /megaurl\.*|vinaurl\.*|doxeaz10.site|linkviet.net|ez4linkss.com|ckk.ai|link.codevn.net|beta.shortearn.eu|getlink.tienichmaytinh.net|download.baominh.tech|download3s.net/;
+        if (regex.test(location.hostname)) {
             try {
-                win[name] = value;
-                delete win[name];
-                Object.defineProperty(win, name, {
-                    configurable: false,
-                    enumerable: true,
-                    get() {
-                        console.info(`RemoveAds: Got a call trying to get \`${name}\` but denied with returning`, value, ":\n", new Stack().getStack(9));
-                        return value;
-                    },
-                    set(v) {
-                        console.info(`RemoveAds: Got a call trying to get \`${name}\` to this but denied:\n`, v, "\n", new Stack().getStack(9));
-                    },
-                });
-                console.info(`RemoveAds: Cannot set global variable \`${name}\` to`, value, "from", win[name], "because:\n", new Stack().getStack.bind(e)(9));
-            } catch (err) {
-                console.info(`RemoveAds: Cannot set global variable \`${name}\` to`, value, "because:\n", new Stack().getStack.bind(e)(9), "\nand\n", new Stack().getStack.bind(err)(9));
-            }
-        }
-    }
-
-    sessionStorage.setItem("daau_dissmissed", "true");
-    win.addEventListener("error", (e) => {
-        const originalErrorHandler = e.target?.onerror;
-        const onerror = originalErrorHandler?.toString?.();
-        if (/([a-z]+)\.data=[a-z]+.ui,\1.build_ui\(\)|window\.adblock/i.test(onerror || "")) {
-            sessionStorage.setItem("daau_dissmissed", "true");
-            e.target.onerror = () => {
-                console.info("RemoveAds: Got a call trying to trigger error handler to anti adb but denied:", originalErrorHandler);
-            };
-        }
-    }, {
-        capture: true,
-    });
-
-
-    // let blockBlockAdBlockFlag = false;
-    function removeAd() {
-        if (!location.host.includes("getadmiral.com")) {
-            Array.from($$(`body > :not([${getRandomSuffix("rmAd-admiral")}])`)).forEach((that) => {
-                that.setAttribute(getRandomSuffix("rmAd-admiral"), "");
-                if (that.querySelector('a[href^="https://getadmiral.com/pb"]')) {
-                    info(that);
-                    that.remove();
-                }
-            });
-        }
-        if (location.host.endsWith("gamepedia.com")) {
-            const siderail = $("#siderail");
-            if (siderail) { siderail.remove(); }
-            const globalWrapper = $("#global-wrapper.with-siderail");
-            if (globalWrapper) { globalWrapper.classList.remove("with-siderail"); }
-        } else if (!location.host.includes("amplitude.com")) {
-            try {
-                const keys = [];
-                const length = (localstorage || win.localStorage).length;
-                for (let i = 0; i < length; i++) {
-                    keys.push((localstorage || win.localStorage).key(i));
-                }
-                keys.filter((k) => k.startsWith("amplitude_")).forEach((k) => {
-                    const c = (localstorage || win.localStorage).getItem(k);
-                    (localstorage || win.localStorage).removeItem(k);
-                    console.info("RemoveAds: Remove the track info from amplitude", removedAds.push([k, c]), "\n", `${k}: ${c}`);
-                });
-            } catch (e) { }
-        }
-        if (location.hostname.includes("aternos.org")) {
-            const i = doc.querySelector("body > span i.fas.fa-ban");
-            const c = win.$('body > div > div> div[style*="overflow: hidden"]');
-            if (i || c) {
-                c.children().appendTo(".page-content");
-                i?.closest?.("body > span")?.remove?.();
-                win.$(".body, .header").each(function () {
-                    this.style.setProperty("display", "");
-                    this.style.setProperty("height", "");
-                });
-                win.$("#start").each(function () {
-                    this._ready = true;
-                });
-            }
-        }
-    }
-    document.addEventListener("DOMContentLoaded", () => {
-        const callback = function () {
-            removeAd();
-            if (location.href.indexOf("www.baidu.com/s") !== -1) {
-                Array.from($$(`#content_left .c-container:not([${getRandomSuffix("rmAd-baidu")}])`)).forEach((ele) => {
-                    ele.setAttribute(getRandomSuffix("rmAd-baidu"), "");
-                    if (ele.querySelector(".icon-unsafe-icon")) { ele.remove(); }
-                    if (!ele.attachShadow) {
-                        console.info("RemoveAds (shadowRoot): ", removedAds.push(ele), "\nTarget:", ele, "\nParentNode:", ele.parentNode, "\nInnerText", ele.innerText);
-                        const html = ele.outerHTML;
-                        const node = doc.createElement("div");
-                        ele.before(node);
-                        node.outerHTML = html;
-                        ele.remove();
+                var checkClick = function (mutation) {
+                    if (mutation.attributeName === "disabled" && !mutation.target.disabled) {
+                        return true;
                     }
-                });
-            }
-        };
-        const observer = new MutationObserver(callback);
-        observer.observe(doc.body, { attributes: true, childList: true, subtree: true });
-        removeAd();
-    });
-    {
-        const append = win.DocumentFragment.prototype.append;
-        win.DocumentFragment.prototype.append = function (...nodes) {
-            append.bind(this)(...nodes.filter((node) => {
-                if (node === doc.body) {
-                    console.info("RemoveAds: Got a call trying to remove document.body but denied", ":\n", new Stack().getStack(9));
+                    if (mutation.attributeName === "class" && !mutation.target.classList.contains('disabled')) {
+                        return true;
+                    }
                     return false;
                 }
-                return true;
-            }));
-        };
+                var link;
+                // Set up a new observer
+                var observer = new MutationObserver((mutations) => {
+                    mutations.forEach((mutation) => {
+                        // Check the modified attributeName is "disabled"
+                        if (checkClick(mutation)) {
+                            mutation.target.click();
+                        }
+                        if (mutation.attributeName === "href") {
+                            link = mutation.target.getAttribute("href");
+                            this.showBodyLinkByPassAndRedirect(link);
+                        }
+                    });
+                });
+                // Configure to only listen to attribute changes
+                var config = {
+                    attributes: true
+                };
+                var button = document.getElementById('invisibleCaptchaShortlink') || document.querySelector('.download_1');
+                if (button) {
+                    observer.observe(button, config);
+                } else if (document.querySelector('#originalLink')) {
+                    link = document.querySelector('#originalLink').getAttribute("href");
+                    this.showBodyLinkByPassAndRedirect(link);
+                } else {
+                    var getLinkl = document.querySelector('.get-link');
+                    var timeout = largeTimeoutHost.test(location.hostname) ? 6000 : 100;
+                    if (getLinkl) {
+                        observer.observe(getLinkl, config);
+                        if (!autoCaptchaOnlyList.test(location.hostname)) {
+                            setTimeout(function () {
+                                $("#go-link").addClass("go-link").trigger("submit.adLinkFly.counterSubmit").one("submit.adLinkFly.counterSubmit", function (e) {
+                                    e.preventDefault();
+                                    if (!largeTimeoutHost.test(location.hostname)) {
+                                        location.reload();
+                                    }
+                                });
+                            }, timeout);
+                        }
+                    }
+                }
+            } catch (e) {
+                Logger.error(e);
+            }
+        }
+    },
+    wikiall_org: function () {
+        if (location.hostname == 'wikiall.org' && document.querySelector('#timer')) {
+            var observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    // Check the modified childList of place
+                    if (mutation.type == 'childList') {
+                        var targetA = mutation.target.querySelector('a');
+                        this.showBodyLinkByPassAndRedirect(targetA.getAttribute('href'));
+                    }
+                });
+            });
+            // Configure to only listen to attribute changes
+            var place = document.querySelector('#place');
+            observer.observe(place, {
+                childList: true
+            });
+        }
+    },
+    link1s_com: function () {
+        window.addEventListener("DOMContentLoaded", () => {
+            // step 1
+            let link1sgo = document.querySelector('a#link1s');
+            if (link1sgo && link1sgo.getAttribute('href').match(/http?s:\/\//)) {
+                Logger.info('Link1s.com step 1 match');
+                let link = link1sgo.getAttribute('href');
+                this.showBodyLinkByPassAndRedirect(link);
+                return;
+            }
+            // step 2
+            let btnGo = document.querySelector('#link1s-snp .btn-primary');
+            if (btnGo) {
+                Logger.info('Link1s.com step 2 match');
+                Logger.info('Finding next url');
+                let allScriptText = [...document.querySelectorAll('script')].map(el => el.innerText).join("\n");
+                let nextUrlMatch = allScriptText.match(/link1sLink\s=\s\'(.+)\';/);
+                if (nextUrlMatch && nextUrlMatch[1]) {
+                    this.showBodyLinkByPassAndRedirect(nextUrlMatch[1]);
+                    return;
+                }
+            }
+            // step 3
+            var observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    // Check the modified attributeName is "disabled"
+                    if (mutation.attributeName === "href") {
+                        link = mutation.target.getAttribute("href");
+                        this.showBodyLinkByPassAndRedirect(link);
+                    }
+                });
+            });
+            var config = {
+                attributes: true,
+                subtree: true
+            };
+            if (location.hostname === 'link1s.com' && (document.querySelector('.get-link') || document.querySelector('.skip-ad'))) {
+                Logger.info('Link1s.com step 3 match');
+                observer.observe((document.querySelector('.get-link') || document.querySelector('.skip-ad')), config);
+            }
+        });
+    },
+    init: function () {
+        if (configure.getValue('unlock_content', true)) {
+            window.addEventListener('DOMContentLoaded', this.hideLinkUnlock);
+            window.addEventListener('load', this.hideLinkUnlock);
+            this.hideLinkUnlock();
+        }
+        if (configure.getValue('remove_short_link', true)) {
+            window.addEventListener('DOMContentLoaded', this.removeShortLink);
+        }
+        if (configure.getValue('quick_by_pass_link', true)) {
+            this.quickByPassLink();
+            this.wikiall_org();
+            this.link1s_com();
+        }
     }
-})();
+};
+//Logger Class
+var Logger = {
+    style: 'color: #00DC58',
+    info: function (text) {
+        console.info('%cABPVN.COM Info: ', this.style, text);
+    },
+    warn: function (text) {
+        console.warn('%cABPVN Warn: ', this.style, text);
+    },
+    error: function (text) {
+        console.error('%cABPVN Error: ', this.style, text);
+    },
+    log: function (text) {
+        console.log('%cABPVN Log: ', this.style, text);
+    },
+};
+//get Link class
+var getLink = {
+    showBodyLinkDownloadAndRedirect: function (label, link) {
+        document.body.innerHTML = '<style>html,body{background: #fff !important;}h1{color: #00dc58;}a{color: #015199}a h1{color: #015199;}</style><center><h1>ABPVN ' + label + ' download đã hoạt động</h1><a href=\'https://abpvn.com/donate\'><h1>Ủng hộ ABPVN</h1></a><br/>Không tự tải xuống? <a href=\'' + link + '\' title=\'Download\'>Click vào đây</a></center>';
+        location.href = link;
+    },
+    mediafire_com: function () {
+        if (this.url.startWith('http://www.mediafire.com/file/') || this.url.startWith('https://www.mediafire.com/file/')) {
+            var a_tag = document.querySelector('.download_link a.input');
+            var link = a_tag.getAttribute('href');
+            if (link.startWith('http')) {
+                this.showBodyLinkDownloadAndRedirect('MediaFire', link);
+            }
+        }
+    },
+    init: function () {
+        this.url = location.href;
+        if (configure.getValue('quick_download', true)) {
+            this.mediafire_com();
+        }
+    }
+};
+//Fix site class
+var fixSite = {
+    elementExist: function (selector) {
+        var check = document.querySelector(selector);
+        return check != null;
+    },
+    getAllText: function (selector) {
+        var text = '';
+        var nodeList = document.querySelectorAll(selector);
+        if (nodeList) {
+            for (var i in nodeList) {
+                if (nodeList[i].innerText) text += nodeList[i].innerText;
+            }
+        }
+        return text;
+    },
+    getScript: function (url) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url);
+        xhr.addEventListener('load', function (data) {
+            var blob = new Blob([xhr.responseText], {
+                type: 'text/javascript'
+            });
+            var blobUrl = URL.createObjectURL(blob);
+            var script = document.createElement('script');
+            script.src = blobUrl;
+            script.type = 'text/javascript';
+            document.getElementsByTagName('head')[0].appendChild(script);
+        });
+        xhr.send();
+    },
+    loadCss: function (url, id) {
+        var css_tag = document.createElement('link');
+        css_tag.rel = 'stylesheet';
+        css_tag.id = id;
+        css_tag.href = url;
+        var head = document.getElementsByTagName('head')[0];
+        head.appendChild(css_tag);
+    },
+    antiAdblockRemover: function () {
+        try {
+            var msg = 'By pass adBlock detect rồi nhé! Hahahahaha 😁😁😁';
+            if (typeof adBlockDetected === 'function') {
+                adBlockDetected = function () {
+                    Logger.info(msg);
+                };
+            }
+            if (typeof showAdsBlock === 'function') {
+                showAdsBlock = function () {
+                    Logger.info(msg);
+                };
+            }
+            if (typeof nothingCanStopMeShowThisMessage === 'function') {
+                nothingCanStopMeShowThisMessage = function () {
+                    Logger.info(msg);
+                };
+            }
+        } catch (e) {
+            Logger.error(e);
+        }
+    },
+    topphimhd_info: function () {
+        if (this.url.startWith('http://lb.topphimhd.info')) {
+            var adSourceEl = document.querySelector('[data-ads=""]');
+            if (adSourceEl) {
+                adSourceEl.remove();
+                Logger.log("Removed ads source");
+                ABPVN.cTitle();
+            }
+        }
+    },
+    luotphim: function () {
+        if (this.url.startWith('https://luotphim.top/xem-phim') || this.url.startWith('https://luotphim.top/phim-') || this.url.startWith("https://luotphim.fun/xem-phim") || this.url.startWith("https://luotphim.fun/phim-")) {
+            var clickCount = 1;
+            var interval = setInterval(() => {
+                if (document.querySelector('.btn-close-preroll') && document.querySelector('#fakeplayer').style.display != 'none') {
+                    Logger.log("Click to by pass preroll: " + clickCount);
+                    clickCount++;
+                    document.querySelector('.btn-close-preroll').click();
+                } else {
+                    clearInterval(interval);
+                    Logger.log("By passed preroll");
+                }
+            }, 100);
+        }
+    },
+    ios_codevn_net: function () {
+        if (this.url.match(/ios.codevn.net/)) {
+            const styleTag = document.createElement('style');
+            styleTag.innerHTML = 'div[id*="ScriptRoot"]{height: 1px !important;}';
+            document.head.appendChild(styleTag);
+            ABPVN.cTitle();
+        }
+    },
+    saostar_vn: function () {
+        if (this.url.startWith('https://www.saostar.vn/')) {
+            const styleTag = document.createElement('style');
+            styleTag.innerHTML = 'header.bg-white {margin-top: 0 !important}.layout.pt-mobi-top {padding-top: 0 !important}';
+            document.head.appendChild(styleTag);
+            ABPVN.cTitle();
+        }
+    },
+    mephimtv_cc: function () {
+        if (this.url.startWith('https://mephimtv.cc')) {
+            ABPVN.cTitle();
+            setTimeout(() => document.body.classList.remove('compensate-for-scrollbar'), 100);
+        }
+    },
+    linkneverdie_net: function () {
+        if (this.url.startWith('https://linkneverdie.net')) {
+            const superHTML = $.prototype.html;
+            $.prototype.html = function (arguments) {
+                if (this.selector === 'body' && (arguments === '' || arguments.includes('huong-dan'))) {
+                    ABPVN.cTitle();
+                    Logger.info('😁😁Anti Adblock à? Còn lâu nhé!');
+                    return;
+                }
+                superHTML.call(this, arguments);
+            }
+        }
+    },
+    redirect_dafontvn_com() {
+        if (this.url.startWith('https://redirect.dafontvn.com')) {
+            ABPVN.cTitle();
+            window.addEventListener('load', () => {
+                var realurl = aesCrypto.decrypt(convertstr($.urlParam('o')), convertstr('root'));
+                location.href = realurl;
+            });
+        }
+    },
+    removeRedir: function (config) {
+        if (this.url.match(new RegExp(config.url, 'g')) || this.url.startWith(config.url)) {
+            ABPVN.cTitle();
+            var links = document.querySelectorAll(config.selector || 'a[href^="' + config.replace + '"]');
+            Logger.info('Remove Redirect for ' + links.length + ' links');
+            if (links.length) {
+                links.forEach(function (item) {
+                    var stockUrl = item.getAttribute('href').replace(config.replace, '');
+                    var count = 0;
+                    while (stockUrl.indexOf('%2') > -1 && count < 5) {
+                        stockUrl = decodeURIComponent(stockUrl);
+                        count++;
+                    }
+                    count = 0;
+                    while (stockUrl.indexOf('aHR0c') === 0 && count < 5) {
+                        stockUrl = atob(stockUrl);
+                        count++;
+                    }
+                    item.setAttribute('href', stockUrl);
+                    item.setAttribute('title', 'Link đã xóa chuyển hướng trung gian bởi abpvn.com');
+                }.bind(this));
+            }
+        }
+    },
+    removeRedirect() {
+        var configs = [
+            {
+                url: 'https://samsungvn.com',
+                replace: 'https://samsungvn.com/xfa-interstitial/redirect?url=',
+            },
+            {
+                url: 'https://forum.vietdesigner.net',
+                replace: 'redirect/?url='
+            },
+            {
+                url: 'www.webtretho.com/forum/',
+                replace: /http(s?):\/\/webtretho\.com\/forum\/links\.php\?url=/,
+                selector: 'a[href*="webtretho.com/forum/links.php?url="]'
+            },
+            {
+                url: 'https://tuong.me/',
+                replace: 'https://tuong.me/chuyen-huong/?url='
+            },
+            {
+                url: 'https://yhocdata.com/',
+                replace: 'https://yhocdata.com/redirect/?url='
+            },
+            {
+                url: 'https://vn-z.vn/',
+                replace: 'https://vn-z.vn/redirect?to='
+            },
+            {
+                url: 'https://romgoc.net',
+                replace: 'https://romgoc.net/redirect-to/?url='
+            },
+            {
+                url: 'https://tophanmem.com',
+                replace: 'https://tophanmem.com/redirect-to/?url='
+            },
+            {
+                url: 'https://anonyviet.com',
+                replace: 'https://anonyviet.com/tieptucdidentrangmoi/?url='
+            },
+            {
+                url: 'https://icongnghe.com',
+                replace: 'https://icongnghe.com/download/?url='
+            },
+            {
+                url: 'https://cakhia-tv.onl',
+                replace: '/chuyen-huong/?redirect='
+            }
+        ];
+        configs.forEach(function (config) {
+            this.removeRedir(config);
+        }.bind(this));
+    },
+    init: function () {
+        this.url = location.href;
+        if (configure.getValue('remove_redirect', true)) {
+            this.removeRedirect();
+        }
+        this.antiAdblockRemover();
+        this.topphimhd_info();
+        this.luotphim();
+        this.ios_codevn_net();
+        this.saostar_vn();
+        this.mephimtv_cc();
+        this.redirect_dafontvn_com();
+    }
+};
+//Ad blocker script
+var adBlocker = {
+    mgIdAdRemover: function () {
+        const skipDomain = /ios.codevn.net/;
+        if (skipDomain.test(location.hostname)) {
+            return;
+        }
+        var allMgIdEl = document.querySelectorAll('[id*="ScriptRoot"]');
+        if (allMgIdEl && allMgIdEl.length) {
+            ABPVN.cTitle();
+            Logger.log('Removed mgIdAd placeholder');
+            for (var i = 0; i < allMgIdEl.length; i++) {
+                if (location.hostname !== 'megaup.net') {
+                    allMgIdEl[i].id = 'ScriptRoot-removed-by-abpvn-' + Math.random();
+                }
+                allMgIdEl[i].innerHTML = '';
+            }
+        }
+    },
+    noAdsModal: function () {
+        const domainRegex = /vebo|90phut|khomuc|xoilac|banhkhuc/;
+        if (location.hostname.match(domainRegex)) {
+            const styleTag = document.createElement('style');
+            styleTag.innerHTML = 'html,body{overflow: auto!important} .modal-backdrop,.modal{display: none!important}';
+            document.head.appendChild(styleTag);
+            ABPVN.cTitle();
+        }
+    },
+    init: function () {
+        this.url = location.href;
+        this.mgIdAdRemover();
+        this.noAdsModal();
+    },
+};
+var configure = {
+    urls: {
+        setting: 'https://abpvn.com/script-setting.html',
+        issue: 'https://github.com/abpvn/abpvn/issues/new',
+        fanpage: 'https://www.facebook.com/abpvn.org',
+    },
+    openUrl: function (url) {
+        if (typeof GM_openInTab === 'function') {
+            GM_openInTab(url);
+        }
+    },
+    getValue: function (key, defaultValue) {
+        var value;
+        if (typeof GM_getValue === 'function') {
+            value = GM_getValue(key);
+        }
+        if (typeof value === 'undefined') {
+            return defaultValue;
+        }
+        return value;
+    },
+    setValue: function (key, value) {
+        if (typeof GM_setValue === 'function') {
+            return GM_setValue(key, value);
+        }
+    },
+    setUpSetting: function () {
+        if (this.url === this.urls.setting) {
+            var settingContainer = document.querySelector('#setting-container');
+            if (settingContainer) {
+                settingContainer.classList.add('installed');
+                var allSetting = settingContainer.querySelectorAll('input[type="checkbox"]');
+                if (allSetting) {
+                    allSetting.forEach(checkbox => {
+                        checkbox.checked = this.getValue(checkbox.name, true);
+                        checkbox.addEventListener('change', event => {
+                            var target = event.target;
+                            var key = target.name;
+                            this.setValue(key, event.target.checked);
+                        });
+                    });
+                }
+            }
+        }
+    },
+    init: function () {
+        this.url = location.href;
+        if (typeof GM_registerMenuCommand === 'function') {
+            GM_registerMenuCommand('ABPVN - Cài đặt', () => {
+                this.openUrl(this.urls.setting);
+            });
+            GM_registerMenuCommand('ABPVN - Báo lỗi', () => {
+                this.openUrl(this.urls.issue);
+            });
+            GM_registerMenuCommand('ABPVN - Fanpage', () => {
+                this.openUrl(this.urls.fanpage);
+            });
+        }
+        this.setUpSetting();
+    }
+};
+//Main class
+var ABPVN = {
+    cTitle: function () {
+        if (document.title.indexOf(' - Fixed by ABPVN.COM') === -1) {
+            document.title = document.title + ' - Fixed by ABPVN.COM';
+        }
+    },
+    init: function () {
+        //Init class adBlocker
+        adBlocker.init();
+        //Init class getLink
+        getLink.init();
+        //Init class Fixsite
+        fixSite.init();
+        //Init bypass class
+        byPass.init();
+        if (window === window.parent) {
+            //Init Congfiure
+            configure.init();
+        }
+    }
+};
+//RUN INNIT
+ABPVN.init();
