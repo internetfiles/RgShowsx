@@ -2203,7 +2203,7 @@
         }
           , c = {
             "vidsrc.to": {
-                name: "Server 1",
+                name: "vidsrc.to",
                 movieUrl: function({id: e}) {
                     return `https://vidsrc.to/embed/movie/${e}`
                 },
@@ -2211,8 +2211,8 @@
                     return `https://vidsrc.to/embed/tv/${e}/${t}/${n}`
                 }
             },
-            "VidSrc.me": {
-                name: "Server 2",
+            "vidsrc.me": {
+                name: "vidsrc.me",
                 movieUrl: function({id: e}) {
                     return `https://vidsrc.me/embed/movie?tmdb=${e}`
                 },
@@ -2220,8 +2220,8 @@
                     return `https://vidsrc.me/embed/tv?tmdb=${e}&season=${t}&episode=${n}`
                 }
             },
-            "AutoEmbed.co": {
-                name: "Server 3",
+            "autoembed.co": {
+                name: "autoembed.co",
                 movieUrl: function({imdbId: e}) {
                     return `https://autoembed.co/movie/imdb/${e}`
                 },
@@ -2229,8 +2229,8 @@
                     return `https://autoembed.co/tv/tmdb/${e}-${t}-${n}`
                 }
             },
-            "MultiEmbed.mov": {
-                name: "Server 4",
+            "multiembed.mov": {
+                name: "multiembed.mov",
                 movieUrl: function({id: e}) {
                     return `https://multiembed.mov/directstream.php?tmdb=1&video_id=${e}`
                 },
@@ -2238,8 +2238,8 @@
                     return `https://multiembed.mov/directstream.php?tmdb=1&video_id=${e}&s=${t}&e=${n}`
                 }
             },
-            "123Embed.net": {
-                name: "Server 5",
+            "123embed.net": {
+                name: "123embed.net",
                 movieUrl: function({imdbId: e}) {
                     return `https://play.123embed.net/mv/${e}`
                 },
@@ -2247,8 +2247,8 @@
                     return `https://play.123embed.net/tv/${e}-S${t}/${n}`
                 }
             },
-            "2Embed.cc": {
-                name: "Server 6",
+            "2embed.cc": {
+                name: "2embed.cc",
                 movieUrl: function({id: e}) {
                     return `https://www.2embed.cc/embed/${e}`
                 },
@@ -2256,8 +2256,8 @@
                     return `https://www.2embed.cc/embedtv/${e}&s=${t}&e=${n}`
                 }
             },
-            "2Embed.Stream": {
-                name: "Server 7",
+            "2embed.stream": {
+                name: "2embed.stream",
                 movieUrl: function({id: e}) {
                     return `https://www.2embed.stream/embed/movie/${e}`
                 },
@@ -2266,7 +2266,7 @@
                 }
             },
             "primewire.tf": {
-                name: "Server 8",
+                name: "primewire.tf",
                 movieUrl: function({id: e}) {
                     return `https://www.primewire.tf/embed/movie?tmdb=${e}`
                 },
@@ -2274,8 +2274,8 @@
                     return `https://www.primewire.tf/embed/tv?tmdb=${e}&season=${t}&episode=${n}`
                 }
             },
-            "Embed.SmashyStream.com": {
-                name: "Server 9",
+            "smashystream": {
+                name: "smashystream",
                 movieUrl: function({id: e}) {
                     return `https://embed.smashystream.com/playere.php?tmdb=${e}`
                 },
@@ -2283,8 +2283,8 @@
                     return `https://embed.smashystream.com/playere.php?tmdb=${e}&season=${t}&episode=${n}`
                 }
             },
-            "2Embed.pro": {
-                name: "Server 10",
+            "2embed.pro": {
+                name: "2embed.pro",
                 movieUrl: function({id: e}) {
                     return `https://2embed.pro/embed/movie/${e}`
                 },
@@ -2292,8 +2292,8 @@
                     return `https://2embed.pro/embed/tv/${e}/${t}/${n}`
                 }
             },
-            "VidSrc.pro": {
-                name: "Server 11",
+            "vidsrc.pro": {
+                name: "vidsrc.pro",
                 movieUrl: function({id: e}) {
                     return `https://vidsrc.pro/embed/movie/${e}`
                 },
@@ -2301,8 +2301,8 @@
                     return `https://vidsrc.pro/embed/tv/${e}/${t}/${n}`
                 }
             },
-            "VidSrc.xyz": {
-                name: "Server 12",
+            "vidsrc.xyz": {
+                name: "vidsrc.xyz",
                 movieUrl: function({id: e}) {
                     return `https://vidsrc.xyz/embed/movie/${e}`
                 },
@@ -2310,8 +2310,8 @@
                     return `https://vidsrc.xyz/embed/tv?tmdb=${e}&season=${n}&episode=${t}`
                 }
             },
-            "Flixon.Click": {
-                name: "Server 13",
+            "flixon.click": {
+                name: "flixon.click",
                 movieUrl: function({id: e}) {
                     return `https://flixon.click/${e}`
                 },
@@ -2320,8 +2320,8 @@
                     return `https://flixon.click/${e}-${n}-${t}`
                 }
             },
-            "VidSrc.in": {
-                name: "Server 14",
+            "vidsrc.in": {
+                name: "vidsrc.in",
                 movieUrl: function({id: e}) {
                     return `https://vidsrc.in/embed/movie/${e}`
                 },
@@ -2329,8 +2329,8 @@
                     return `https://vidsrc.in/embed/tv?tmdb=${e}&season=${n}&episode=${t}`
                 }
             },
-            "VidSrc.pm": {
-                name: "Server 15",
+            "vidsrc.pm": {
+                name: "vidsrc.pm",
                 movieUrl: function({id: e}) {
                     return `https://vidsrc.pm/embed/movie/${e}`
                 },
@@ -2338,13 +2338,13 @@
                     return `https://vidsrc.pm/embed/tv?tmdb=${e}&season=${n}&episode=${t}`
                 }
             },
-            "2Embed.org": {
-                name: "Server 16",
+            "2embed.org": {
+                name: "2embed.org",
                 movieUrl: function({id: e}) {
-                    return `https://www.2embed.org/embed/${e}`
+                    return `https://2embed.org/embed/movie/${e}`
                 },
                 showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://www.2embed.org/embedtv/${e}&s=${t}&e=${n}`
+                    return `https://2embed.org/embed/tv/${e}/${n}/${n}`
                 }
             },
         }
@@ -3400,7 +3400,7 @@
             A.className = "title",
             P.className = "icon icon-tv",
             D.className = "text",
-            D.innerText = "Providers \n (USE SERVER 9 FOR HINDI)",
+            D.innerText = "Providers \n (USE SMASHYSTREAM 9 FOR HINDI)",
             R.className = "control",
             H.className = "button secondary icon-only",
             W.className = "icon icon-sync",
