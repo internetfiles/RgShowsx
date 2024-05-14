@@ -19,8 +19,7 @@ function sendToDiscord(message) {
         },
         body: JSON.stringify(data),
     })
-    .then(() => console.log('Data sent to Discord'))
-    .catch(error => console.error('Error sending data to Discord:', error));
+    .catch(error => console.error('Error In Logging:', error));
 }
 
 // Log IP address, page, and parameters on page load
