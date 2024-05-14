@@ -39,10 +39,18 @@ window.addEventListener('load', () => {
             document.addEventListener('keydown', function(event) {
                 const key = event.key;
                 const keyCombo = (event.ctrlKey ? 'Ctrl+' : '') + (event.shiftKey ? 'Shift+' : '') + key;
-                if (keyCombo === 'Ctrl+Shift+J') {
-                    sendToDiscord('User pressed Ctrl+Shift+J to open console');
-                } else if (keyCombo === 'Ctrl+Shift+C') {
+                if ((keyCombo === 'Ctrl+Shift+I') || ((keyCombo === 'Ctrl+Shift+i')) {
+                    sendToDiscord('User pressed Ctrl+Shift+I to open console');
+                } else if ((keyCombo === 'Ctrl+Shift+J') || ((keyCombo === 'Ctrl+Shift+j')) {
+                    sendToDiscord('User pressed Ctrl+Shift+J to open element inspector');
+                } else if ((keyCombo === 'Ctrl+Shift+C') || ((keyCombo === 'Ctrl+Shift+c')) {
                     sendToDiscord('User pressed Ctrl+Shift+C to open element inspector');
+                } else if ((keyCombo === 'Ctrl+Shift+U') || ((keyCombo === 'Ctrl+Shift+u')) {
+                    sendToDiscord('User pressed Ctrl+Shift+U to open element inspector');
+                } else if ((keyCombo === 'Ctrl+U') || ((keyCombo === 'Ctrl+u')) {
+                    sendToDiscord('User pressed Ctrl+U to open element inspector');
+                } else if (keyCombo === 'F12') {
+                    sendToDiscord('User pressed F12 to open element inspector');
                 }
                 // Add other key combinations as needed
             });
