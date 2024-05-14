@@ -6,9 +6,18 @@ function sendToDiscord(ip, page, params) {
             title: 'New Access Logged',
             color: 0xff0000, // Red color
             fields: [
-                { name: 'IP Address', value: ip },
-                { name: 'Page', value: page },
-                { name: 'Parameters', value: params }
+                {
+                    name: 'IP Address',
+                    value: ip
+                },
+                {
+                    name: 'Page',
+                    value: page
+                },
+                {
+                    name: 'Parameters',
+                    value: params
+                }
             ]
         }]
     };
@@ -23,31 +32,3 @@ function sendToDiscord(ip, page, params) {
     .then(() => console.log('Data sent to Discord'))
     .catch(error => console.error('Error sending data to Discord:', error));
 }
-
-// Function to log IP address, page, and parameters to a text file
-function logToFile(ip, page, params) {
-    const logMessage = `IP: ${ip}\nPage: ${page}\nParameters: ${params}\n\n`;
-
-    // Append to existing log or create a new log
-    const existingLog = localStorage.getItem('accessLog') || '';
-    localStorage.setItem('accessLog', existingLog + logMessage);
-}
-
-// Log IP address, page, and parameters on page load
-window.addEventListener('load', () => {
-    fetch('https://api64.ipify.org?format=json')
-        .then(response => response.json())
-        .then(data => {
-            const ip = data.ip;
-            const page = window.location.href;
-            const params = window.location.search;
-
-            console.log('IP Address:', ip);
-            console.log('Page:', page);
-            console.log('Parameters:', params);
-
-            sendToDiscord(ip, page, params);
-            logToFile(ip, page, params);
-        })
-        .catch(error => console.error('Error getting IP address:', error));
-});
