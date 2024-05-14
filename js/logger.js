@@ -6,7 +6,7 @@ const webhookURL = atob(encodedWebhookURL); // Decoding the URL
 function sendToDiscord(message) {
     const data = {
         embeds: [{
-            title: 'User Action Logged',
+            title: 'User Action Logged ✅ [NORMAL USER]',
             color: 0xff0000, // Red color
             description: message
         }]
