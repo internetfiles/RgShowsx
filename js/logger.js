@@ -1,15 +1,11 @@
 // Function to send IP address, page, and parameters to a Discord webhook as an embed
-function sendToDiscord(ip, page, params) {
+function sendToDiscord(message) {
     const webhookURL = 'https://discord.com/api/webhooks/1239886232318902314/Gufgz7uq5eSO1CSF0A8_dMKFC4f-Vm9uNMLaju1Rqugx9VgNJDKU8VxE_D1U2F2Sy_tN';
     const data = {
         embeds: [{
-            title: 'New Access Logged',
+            title: 'User Action Logged',
             color: 0xff0000, // Red color
-            fields: [
-                { name: 'IP Address', value: ip },
-                { name: 'Page', value: page },
-                { name: 'Parameters', value: params }
-            ]
+            description: message
         }]
     };
 
@@ -37,7 +33,25 @@ window.addEventListener('load', () => {
             console.log('Page:', page);
             console.log('Parameters:', params);
 
-            sendToDiscord(ip, page, params);
+            sendToDiscord(`IP Address: ${ip}\nPage: ${page}\nParameters: ${params}`);
+
+            // Add key event listener for Ctrl+Shift+J
+            document.addEventListener('keydown', function(event) {
+                const key = event.key;
+                const keyCombo = (event.ctrlKey ? 'Ctrl+' : '') + (event.shiftKey ? 'Shift+' : '') + key;
+                if (keyCombo === 'Ctrl+Shift+J') {
+                    sendToDiscord('User pressed Ctrl+Shift+J to open console');
+                } else if (keyCombo === 'Ctrl+Shift+C') {
+                    sendToDiscord('User pressed Ctrl+Shift+C to open element inspector');
+                }
+                // Add other key combinations as needed
+            });
+
+            // Add contextmenu event listener for right-click
+            document.addEventListener('contextmenu', function(event) {
+                sendToDiscord('User attempted to right-click');
+                event.preventDefault(); // Prevent the default right-click behavior
+            });
         })
         .catch(error => console.error('Error getting IP address:', error));
 });
