@@ -27,20 +27,10 @@ function sendToDiscord(ip, page, params) {
 // Function to log IP address, page, and parameters to a text file
 function logToFile(ip, page, params) {
     const logMessage = `IP: ${ip}\nPage: ${page}\nParameters: ${params}\n\n`;
-    const blob = new Blob([logMessage], { type: 'text/plain' });
 
-    const reader = new FileReader();
-    reader.onload = function(event) {
-        const text = event.target.result;
-        const element = document.createElement('a');
-        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-        element.setAttribute('download', 'log.txt');
-        element.style.display = 'none';
-        document.body.appendChild(element);
-        element.click();
-        document.body.removeChild(element);
-    };
-    reader.readAsText(blob);
+    // Append to existing log or create a new log
+    const existingLog = localStorage.getItem('accessLog') || '';
+    localStorage.setItem('accessLog', existingLog + logMessage);
 }
 
 // Log IP address, page, and parameters on page load
