@@ -20,6 +20,6 @@ function getUserIP() {
 // Block access if the user's IP is in the blockedIPs array
 getUserIP().then(ip => {
     if (isBlockedIP(ip)) {
-        window.location.href = "https://example.com/access-denied.html"; // Redirect to access denied page
+        window.location.href = "https:/rgshows.vercel.app/blocked.html"; // Redirect to access denied page
     }
 });
