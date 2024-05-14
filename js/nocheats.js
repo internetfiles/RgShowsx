@@ -21,5 +21,11 @@ document.addEventListener('keydown', function (e) {
     e.preventDefault();
     return false
   }
+    {
+  if ((e.ctrlKey && e.shiftKey && e.key === 'J') || (e.ctrlKey && e.shiftKey && e.key === 'j')) {
+    alert("Pls dont try to steal the codes Restricted By Rishab")
+    e.preventDefault();
+    return false
+  }
 });
     
