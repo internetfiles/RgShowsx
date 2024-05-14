@@ -1,6 +1,6 @@
 // Array of blocked IP addresses
 const blockedIPs = [
-    "192.168.1.1", // Add your blocked IP addresses here
+    "103.216.140.253", // Add your blocked IP addresses here
     "10.0.0.1"
 ];
 
