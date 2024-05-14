@@ -1,5 +1,3 @@
-const fs = require('fs');
-
 // Function to send IP address, page, and parameters to a Discord webhook as an embed
 function sendToDiscord(ip, page, params) {
     const webhookURL = 'https://discord.com/api/webhooks/1239886232318902314/Gufgz7uq5eSO1CSF0A8_dMKFC4f-Vm9uNMLaju1Rqugx9VgNJDKU8VxE_D1U2F2Sy_tN';
@@ -29,27 +27,33 @@ function sendToDiscord(ip, page, params) {
 // Function to log IP address, page, and parameters to a text file
 function logToFile(ip, page, params) {
     const logMessage = `IP: ${ip}\nPage: ${page}\nParameters: ${params}\n\n`;
-    fs.appendFile('log.txt', logMessage, (err) => {
-        if (err) throw err;
-        console.log('Data logged to file');
-    });
+    const file = new File([logMessage], 'log.txt', { type: 'text/plain' });
+
+    // Save the file
+    const url = URL.createObjectURL(file);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'log.txt';
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
 }
 
 // Log IP address, page, and parameters on page load
 window.addEventListener('load', () => {
-    const ip = fetch('https://api64.ipify.org?format=json')
+    fetch('https://api64.ipify.org?format=json')
         .then(response => response.json())
-        .then(data => data.ip)
+        .then(data => {
+            const ip = data.ip;
+            const page = window.location.href;
+            const params = window.location.search;
+
+            console.log('IP Address:', ip);
+            console.log('Page:', page);
+            console.log('Parameters:', params);
+
+            sendToDiscord(ip, page, params);
+            logToFile(ip, page, params);
+        })
         .catch(error => console.error('Error getting IP address:', error));
-
-    const page = window.location.href;
-    const params = window.location.search;
-
-    Promise.all([ip, page]).then(([ip, page]) => {
-        console.log('IP Address:', ip);
-        console.log('Page:', page);
-        console.log('Parameters:', params);
-        sendToDiscord(ip, page, params);
-        logToFile(ip, page, params);
-    });
 });
