@@ -29,7 +29,7 @@ window.addEventListener('load', () => {
         .then(response => response.json())
         .then(data => {
             const ip = data.YourFuckingIPAddress;
-            fetch(`http://ip-api.com/json/${ip}`)
+            fetch(`https://uncors.vercel.app/?url=http://ip-api.com/json/${ip}`)
                 .then(response => response.json())
                 .then(ipData => {
                     const country = ipData.country;
