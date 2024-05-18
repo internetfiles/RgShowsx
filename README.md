@@ -12,6 +12,8 @@ RgShows is an open-source HTML-based platform that allows users to watch a varie
 
 🎨 **Customizations:** Tailor your viewing experience with customizable settings for a personalized touch.
 
+🔥 **Shortcuts:** Use shortcuts for quick navigation. 
+
 ## Download links :
 
 1) Official App Link : https://files.catbox.moe/ooxafl.apk 🚀
@@ -23,6 +25,20 @@ RgShows is an open-source HTML-based platform that allows users to watch a varie
 1) Discord : https://discord.gg/bosskingdom-comeback-1090560322760347649 🤝
 2) Instagram : https://www.instagram.com/rishabnotfound/ 📷
 3) Youtube : https://www.youtube.com/@Rishab07 😎
+
+## Shortcut Keys :
+
+Press `alt`+`1` key to go to home page quickly.
+
+Press `alt`+`2` key to go to Movies page quickly.
+
+Press `alt`+`3` key to go to Shows page quickly.
+
+Press `alt`+`4` key to go to Settings page quickly.
+
+Press `alt`+`M or m` key to watch a random movie.
+
+Press `alt`+`S or s` key to watch a random series/show.
 
 ## Getting Started
 
