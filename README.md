@@ -28,17 +28,17 @@ RgShows is an open-source HTML-based platform that allows users to watch a varie
 
 ## Shortcut Keys :
 
-Press `alt`+`1` key to go to home page quickly.
+Press `alt`+`1` keys to go to home page quickly.
 
-Press `alt`+`2` key to go to Movies page quickly.
+Press `alt`+`2` keys to go to Movies page quickly.
 
-Press `alt`+`3` key to go to Shows page quickly.
+Press `alt`+`3` keys to go to Shows page quickly.
 
-Press `alt`+`4` key to go to Settings page quickly.
+Press `alt`+`4` keys to go to Settings page quickly.
 
-Press `alt`+`M or m` key to watch a random movie.
+Press `alt`+`M or m` keys to watch a random movie.
 
-Press `alt`+`S or s` key to watch a random series/show.
+Press `alt`+`S or s` keys to watch a random series/show.
 
 ## Getting Started
 
