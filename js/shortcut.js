@@ -7,9 +7,9 @@ document.addEventListener('keydown', function(event) {
         updatePageParameter('3');
     } else if (event.altKey && event.key === '4') {
         updatePageParameter('4');
-    } else if (event.altKey && event.key === 'm') {
+    } else if (event.altKey && event.key === 'm'|| event.key === 'M') {
         redirectToRandomMovie();
-    } else if (event.altKey && event.key === 's') {
+    } else if (event.altKey && event.key === 's'|| event.key === 'S') {
         redirectToRandomSeries();
     }
 });
