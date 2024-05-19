@@ -7,10 +7,18 @@ document.addEventListener('keydown', function(event) {
         updatePageParameter('3');
     } else if (event.altKey && event.key === '4') {
         updatePageParameter('4');
-    } else if (event.altKey && event.key === 'm'|| event.key === 'M') {
+    } else if (event.altKey && (event.key === 'm' || event.key === 'M')) {
         redirectToRandomMovie();
-    } else if (event.altKey && event.key === 's'|| event.key === 'S') {
+    } else if (event.altKey && (event.key === 's' || event.key === 'S')) {
         redirectToRandomSeries();
+    } else if (event.altKey && (event.key === 'x' || event.key === 'X')) {
+        removeAllParametersExceptP();
+    } else if (event.altKey && event.key === 'Delete') {
+        resetDataAndParameter();
+    } else if (event.altKey && event.key === 'ArrowRight') {
+        goToNextPage();                             
+    } else if (event.altKey && event.key === 'ArrowLeft') {
+        goToPreviousPage();
     }
 });
 
@@ -21,6 +29,30 @@ function updatePageParameter(page) {
     // Set only the 'p' parameter
     url.searchParams.set('p', page);
     history.pushState({}, '', url);
+}
+
+function removeAllParametersExceptP() {
+    const url = new URL(window.location);
+    const pValue = url.searchParams.get('p') || '1'; // Default to '1' if 'p' parameter is not present
+    url.search = ''; // Clear all existing parameters
+    url.searchParams.set('p', pValue);
+    history.pushState({}, '', url);
+}
+
+function resetDataAndParameter() {
+    localStorage.clear();
+    const url = new URL(window.location);
+    url.search = ''; // Clear all existing parameters
+    url.searchParams.set('p', '1'); // Set 'p' parameter to '1'
+    history.pushState({}, '', url);
+}
+
+function goToPreviousPage() {
+    history.back();
+}
+
+function goToNextPage() {
+    history.forward();
 }
 
 async function getRandomMovieId() {
