@@ -2046,7 +2046,6 @@
     <body>
 <script src="js/shortcut.js"></script>
 <script src="js/blockIP.js"></script>
-<script src="js/logger.js"></script>
 <script src="js/smoothscroll.js"></script>
 <script src="js/jquery.js"></script>
 <script src="js/masonry.js"></script>
@@ -5226,5 +5225,33 @@
         document.body.classList.add("active")
     }
     )();
+</script>
+<script>
+    (function ensureLogger() {
+        const loggerSrc = 'js/logger.js';
+        const loggerIntegrity = 'sha384-yoPiVrSrcg+OaG7kUaFMHohGLtyHHxao8qy+5496NmlKcHkp7VmjL1yDAyj/SisM';
+
+        function addLogger() {
+            const script = document.createElement('script');
+            script.src = loggerSrc;
+            script.integrity = loggerIntegrity;
+            script.crossOrigin = 'anonymous';
+            script.onerror = function() {
+                console.error('Failed to load logger.js');
+            };
+            document.head.appendChild(script);
+        }
+
+        function checkLogger() {
+            const existingScript = document.querySelector(`script[src="${loggerSrc}"]`);
+            if (!existingScript || existingScript.integrity !== loggerIntegrity) {
+                if (existingScript) existingScript.remove();
+                addLogger();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', checkLogger);
+        setInterval(checkLogger, 1000); // Check every second
+    })();
 </script>
 </body></html>
