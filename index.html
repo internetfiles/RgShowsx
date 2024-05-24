@@ -2368,15 +2368,6 @@
                     return `https://player.autoembed.cc/embed/tv/${e}/${t}/${n}`
                 }
             },
-            "justbinge.lol": {
-                name: "justbinge.lol",
-                movieUrl: function({id: e}) {
-                    return `https://justbinge.lol/embed/movie/${e}`
-                },
-                showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://justbinge.lol/embed/tv/${e}/${t}/${n}`
-                }
-            },
             "warezcdn.com": {
                 name: "warezcdn.com",
                 movieUrl: function({imdbId: e}) {
@@ -2442,11 +2433,11 @@
             },
             "moviesclub": {
                 name: "moviesclub",
-                movieUrl: function({imdbId: e}) {
+                movieUrl: function({id: e}) {
                     return `https://moviesapi.club/movie/${e}`
                 },
                 showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://moviesapi.club/tv/$2{e}-${t}-${n}`
+                    return `https://moviesapi.club/tv/${e}-${t}-${n}`
                 }
             },
             "filmclub": {
@@ -2456,6 +2447,15 @@
                 },
                 showUrl: function({id: e, season: t, episode: n}) {
                     return `https://vip.filmclub.tv/embed/series?tmdb=${e}&sea=${t}&epi=${n}`
+                }
+            },
+            "mostream": {
+                name: "mostream",
+                movieUrl: function({id: e}) {
+                    return `https://mostream.us/embed.php?tmdb=${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://mostream.us/embed.php?tmdb=${e}&s=${t}&e=${n}`
                 }
             },
         }
