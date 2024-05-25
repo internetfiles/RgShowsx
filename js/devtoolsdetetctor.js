@@ -11,6 +11,8 @@
                 redirectToBlockedPage();
                 lastBlockedTime = Date.now();
             }
+        } else {
+            devToolsOpened = false; // Reset devToolsOpened if dev tools are not open
         }
     }
 
@@ -30,6 +32,8 @@
                 redirectToBlockedPage();
                 lastBlockedTime = Date.now();
             }
+        } else {
+            devToolsOpened = false; // Reset devToolsOpened if window resize is normal
         }
     }
 
