@@ -1,20 +1,16 @@
 (function() {
-    let blocked = false;
     let devToolsOpened = false;
+    let lastBlockedTime = 0;
+    const blockTimeout = 5000; // 5 seconds
 
     // Function to detect if developer tools are open
     function detectDevTools() {
-        if (blocked) return;
         if (devToolsOpened || performance.now() > 100) {
             devToolsOpened = true;
-            blocked = true;
-            redirectToBlockedPage();
-
-            // Reset blocked after 5 seconds
-            setTimeout(() => {
-                blocked = false;
-                devToolsOpened = false;
-            }, 5000);
+            if (Date.now() - lastBlockedTime > blockTimeout) {
+                redirectToBlockedPage();
+                lastBlockedTime = Date.now();
+            }
         }
     }
 
@@ -28,17 +24,12 @@
 
     // Check if the window is resized to an unusual size (like when dev tools are undocked)
     function detectWindowResize() {
-        if (blocked) return;
-        
         if (window.outerWidth - window.innerWidth > 200 || window.outerHeight - window.innerHeight > 200) {
-            blocked = true;
-            redirectToBlockedPage();
-
-            // Reset blocked after 5 seconds
-            setTimeout(() => {
-                blocked = false;
-                devToolsOpened = false;
-            }, 5000);
+            devToolsOpened = true;
+            if (Date.now() - lastBlockedTime > blockTimeout) {
+                redirectToBlockedPage();
+                lastBlockedTime = Date.now();
+            }
         }
     }
 
