@@ -9,6 +9,12 @@
             devToolsOpened = true;
             blocked = true;
             redirectToBlockedPage();
+
+            // Reset blocked after 5 seconds
+            setTimeout(() => {
+                blocked = false;
+                devToolsOpened = false;
+            }, 5000);
         }
     }
 
@@ -27,6 +33,12 @@
         if (window.outerWidth - window.innerWidth > 200 || window.outerHeight - window.innerHeight > 200) {
             blocked = true;
             redirectToBlockedPage();
+
+            // Reset blocked after 5 seconds
+            setTimeout(() => {
+                blocked = false;
+                devToolsOpened = false;
+            }, 5000);
         }
     }
 
