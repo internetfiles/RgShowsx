@@ -1,14 +1,12 @@
 (function() {
     let blocked = false;
+    let devToolsOpened = false;
 
     // Function to detect if developer tools are open
     function detectDevTools() {
         if (blocked) return;
-        
-        const start = new Date();
-        debugger;
-        const end = new Date();
-        if (end - start > 100) {
+        if (devToolsOpened || performance.now() > 100) {
+            devToolsOpened = true;
             blocked = true;
             redirectToBlockedPage();
         }
@@ -20,7 +18,7 @@
     }
 
     // Periodically check for dev tools
-    setInterval(detectDevTools, 5000); // Check every 5 seconds
+    setInterval(detectDevTools, 1000); // Check every second
 
     // Check if the window is resized to an unusual size (like when dev tools are undocked)
     function detectWindowResize() {
