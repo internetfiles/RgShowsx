@@ -2284,6 +2284,15 @@
                     return `https://embed.smashystream.com/playere.php?tmdb=${e}&season=${t}&episode=${n}`
                 }
             },
+            "8stream": {
+                name: "8stream",
+                movieUrl: function({id: e, imdbId: f}) {
+                    return `https://8-stream.vercel.app/watch/movie/${e}/${f}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://embed.smashystream.com/playere.php?tmdb=${e}&season=${t}&episode=${n}`
+                }
+            },
             "2embed.pro": {
                 name: "2embed.pro",
                 movieUrl: function({id: e}) {
