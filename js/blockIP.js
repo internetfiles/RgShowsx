@@ -20,6 +20,6 @@ function getUserIP() {
 // Block access if the user's IP is in the blockedIPs array
 getUserIP().then(ip => {
     if (isBlockedIP(ip)) {
-        window.location.href = "../blocked.html"; // Redirect to access denied page
+        window.location.href = "../banned.html"; // Redirect to access denied page
     }
 });
