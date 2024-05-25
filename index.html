@@ -2289,8 +2289,8 @@
                 movieUrl: function({id: e, imdbId: f}) {
                     return `https://8-stream.vercel.app/watch/movie/${e}/${f}`
                 },
-                showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://embed.smashystream.com/playere.php?tmdb=${e}&season=${t}&episode=${n}`
+                showUrl: function({id: e,imdbId: f, season: t, episode: n}) {
+                    return `https://8-stream.vercel.app/watch/tv/${e}/${f}?episode=${n}&season=${t}`
                 }
             },
             "2embed.pro": {
@@ -3518,7 +3518,7 @@
             A.className = "title",
             P.className = "icon icon-tv",
             D.className = "text",
-            D.innerText = "Providers \n (USE SMASHYSTREAM FOR HINDI)",
+            D.innerText = "Providers \n (USE SMASHYSTREAM OR 8STREAM FOR DUAL AUDIO)",
             R.className = "control",
             H.className = "button secondary icon-only",
             W.className = "icon icon-sync",
