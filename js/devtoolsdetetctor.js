@@ -1,4 +1,7 @@
 (function() {
+    // Whitelisted IP addresses
+    const whitelistedIPs = ['192.168.1.1', '127.0.0.1'];
+
     // Function to detect if developer tools are open
     function detectDevTools() {
         const element = new Image();
@@ -22,6 +25,11 @@
         window.location.href = '/blocked.html';
     }
 
+    // Check if the IP is whitelisted
+    function isIPWhitelisted(ip) {
+        return whitelistedIPs.includes(ip);
+    }
+
     // Periodically check for dev tools
     setInterval(detectDevTools, 1000);
 
@@ -43,5 +51,16 @@
     }
 
     window.addEventListener('resize', detectWindowResize);
+
+    // Check if IP is whitelisted before blocking
+    fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+            const ip = data.ip;
+            if (!isIPWhitelisted(ip)) {
+                detectDevTools();
+            }
+        })
+        .catch(error => console.error('Error getting IP address:', error));
 
 })();
