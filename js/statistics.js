@@ -32,33 +32,30 @@ function getTodayDate() {
 }
 
 // Initialize view counters
-let totalViews = localStorage.getItem('totalViews');
-totalViews = !isNaN(totalViews) ? parseInt(totalViews, 10) : 0;
-
-let dailyViews = localStorage.getItem('dailyViews');
-dailyViews = dailyViews ? JSON.parse(dailyViews) : {};
-
+let totalViews = 0;
+let dailyViews = {};
 const todayDate = getTodayDate();
 
-// Increment view counters
-totalViews++;
-dailyViews[todayDate] = (dailyViews[todayDate] || 0) + 1;
+// Function to update view counters and send data to Discord
+function updateViews() {
+    // Increment total views
+    totalViews++;
 
-// Save updated counters to localStorage
-localStorage.setItem('totalViews', totalViews);
-localStorage.setItem('dailyViews', JSON.stringify(dailyViews));
+    // Increment daily views
+    dailyViews[todayDate] = (dailyViews[todayDate] || 0) + 1;
 
-// Send real-time view data to Discord
-getLatency().then(latency => {
-    const totalViewsMessage = `Total Views: ${totalViews}`;
-    const dailyViewsMessage = `Daily Views for ${todayDate}: ${dailyViews[todayDate]}`;
-    const latencyMessage = `Latency: ${latency} ms`;
+    // Send data to Discord
+    getLatency().then(latency => {
+        const totalViewsMessage = `Total Views: ${totalViews}`;
+        const dailyViewsMessage = `Daily Views for ${todayDate}: ${dailyViews[todayDate]}`;
+        const latencyMessage = `Latency: ${latency} ms`;
 
-    const message = `${latencyMessage}\n${totalViewsMessage}\n${dailyViewsMessage}`;
-    sendToDiscord(message);
-});
+        const message = `${latencyMessage}\n${totalViewsMessage}\n${dailyViewsMessage}`;
+        sendToDiscord(message);
+    });
+}
 
-// Function to send daily views count to Discord at midnight
+// Schedule daily view count reset and report to Discord
 function scheduleDailyViewReport() {
     const now = new Date();
     const midnight = new Date();
@@ -66,15 +63,14 @@ function scheduleDailyViewReport() {
     const timeToMidnight = midnight - now;
 
     setTimeout(() => {
-        const yesterdayDate = getTodayDate();
-        const dailyViewsCount = dailyViews[yesterdayDate] || 0;
-        const dailyViewsMessage = `Daily Views for ${yesterdayDate}: ${dailyViewsCount}`;
-
+        // Send daily views count to Discord
+        const dailyViewsCount = dailyViews[todayDate] || 0;
+        const dailyViewsMessage = `Daily Views for ${todayDate}: ${dailyViewsCount}`;
         sendToDiscord(dailyViewsMessage);
 
-        // Reset daily view counter for new day
+        // Reset daily views counter
         dailyViews = {};
-        localStorage.setItem('dailyViews', JSON.stringify(dailyViews));
+        todayDate = getTodayDate();
 
         // Schedule the next report
         scheduleDailyViewReport();
@@ -83,3 +79,6 @@ function scheduleDailyViewReport() {
 
 // Start the schedule for daily view report
 scheduleDailyViewReport();
+
+// Simulate a view every 10 seconds
+setInterval(updateViews, 10000);
