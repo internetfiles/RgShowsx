@@ -18,7 +18,6 @@ function updateViews() {
             total: {},
             daily: {},
             lastUpdated: new Date().toLocaleDateString(),
-            messageIDs: {},
         };
     } else {
         views = JSON.parse(views);
@@ -65,10 +64,13 @@ function updateDiscordMessages(views, ip) {
         }],
     };
 
+    // Get the message ID for this IP
+    const messageID = views[ip];
+
     // Send the data to Discord webhook
-    if (views.messageIDs[ip]) {
+    if (messageID) {
         // Edit the existing message
-        sendDataToWebhook(webhookURL, embed, views.messageIDs[ip]);
+        sendDataToWebhook(webhookURL, embed, messageID);
     } else {
         // Send a new message
         fetch(webhookURL, {
@@ -81,7 +83,7 @@ function updateDiscordMessages(views, ip) {
         .then(response => response.json())
         .then(data => {
             // Save the message ID for this IP
-            views.messageIDs[ip] = data.id;
+            views[ip] = data.id;
             localStorage.setItem('views', JSON.stringify(views));
         });
     }
