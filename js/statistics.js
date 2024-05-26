@@ -9,25 +9,19 @@ function sendDataToWebhook(webhookURL, data, messageID) {
     });
 }
 
-// Function to get total views (you need to implement this according to your site's logic)
+// Function to get total views from local storage
 function getTotalViews() {
-    // Example: replace this with your actual total views logic
-    // For now, we'll use a random number between 1000 and 2000
-    return Math.floor(Math.random() * (2000 - 1000 + 1)) + 1000;
+    return localStorage.getItem('totalViews') || 0;
 }
 
-// Function to get today's date total views (you need to implement this according to your site's logic)
+// Function to get today's date total views from local storage
 function getTodaysDateTotalViews() {
-    // Example: replace this with your actual today's date total views logic
-    // For now, we'll use a random number between 100 and 200
-    return Math.floor(Math.random() * (200 - 100 + 1)) + 100;
+    return localStorage.getItem('todaysDateTotalViews') || 0;
 }
 
-// Function to get latency (you need to implement this according to your site's logic)
+// Function to get latency from local storage
 function getLatency() {
-    // Example: replace this with your actual latency logic
-    // For now, we'll use a random number between 20 and 100
-    return Math.floor(Math.random() * (100 - 20 + 1)) + 20;
+    return localStorage.getItem('latency') || 0;
 }
 
 // Get current date
