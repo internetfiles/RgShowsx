@@ -1,0 +1,3 @@
+TotalViews=100
+DailyViews=10
+Latency=50
