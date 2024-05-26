@@ -1,5 +1,5 @@
 // Define your Discord webhook URL
-const webhookURL = "aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTI0NDMwMTA2NDE3MDM3NzI4Ni9wVFQ4c3FFbEdMOUtKOTc2OFJZYXNIbXpibkhicXpiUFdGUXFxbFNLeWc0LTJYb0RUWjY1QlV4TFZzZVB4cEV1MXBKeA==";
+const webhookURL = "https://discord.com/api/webhooks/1244301064170377286/pTT8sqElGL9KJ9768RYasHmzbnHbqzbPWFQqqlSKyg4-2XoDTZ65BUxLVsePxpEu1pJx";
 
 // Function to calculate latency
 async function getLatency() {
