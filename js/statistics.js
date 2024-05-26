@@ -26,7 +26,7 @@ function sendToDiscord(message) {
 function sendSiteStats() {
     const startTime = performance.now();
 
-    fetch('https://example.com') // Replace with your site URL or a fast endpoint
+    fetch('https://rgshows.vercel.app') // Replace with your site URL or a fast endpoint
         .then(response => response.text())
         .then(() => {
             const latency = performance.now() - startTime;
