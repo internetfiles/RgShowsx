@@ -1,7 +1,7 @@
 // Function to send data to Discord webhook
-function sendDataToWebhook(webhookURL, data, messageID) {
-    fetch(`${webhookURL}/messages/${messageID}`, {
-        method: 'PATCH',
+function sendDataToWebhook(webhookURL, data) {
+    fetch(webhookURL, {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
@@ -46,42 +46,26 @@ function updateViews() {
             localStorage.setItem('views', JSON.stringify(views));
 
             // Update Discord messages
-            updateDiscordMessages(views);
+            updateDiscordMessages(views, ip);
         });
 }
 
 // Function to update Discord messages
-function updateDiscordMessages(views) {
+function updateDiscordMessages(views, ip) {
     // Your Discord webhook URL
     const webhookURL = 'https://discord.com/api/webhooks/1244310327244357703/zKhzx1rz909pmqAlsQy2QD0noBMBgDnyHBqo45BLmQx6bv1vHsFVhh2IimmpktgNkFwg';
 
-    // Message ID for the total views message
-    const totalViewsMessageID = '1244312476154204281'; // Update with your actual total views message ID
-
-    // Message ID for the daily views message
-    const dailyViewsMessageID = '1244312476191817898'; // Update with your actual daily views message ID
-
-    // Generate embeds for total views
-    const totalViewsEmbed = {
+    // Generate embed for this IP
+    const embed = {
         embeds: [{
-            title: 'Total Views',
-            description: Object.entries(views.total).map(([ip, count]) => `${ip}: ${count}`).join('\n'),
-            color: 16711680, // Red color
+            title: `Views for ${ip}`,
+            description: `Total Views: ${views.total[ip]}\nDaily Views: ${views.daily[ip]}`,
+            color: 3447003, // Blue color
         }],
     };
 
-    // Generate embeds for daily views
-    const dailyViewsEmbed = {
-        embeds: [{
-            title: 'Daily Views',
-            description: Object.entries(views.daily).map(([ip, count]) => `${ip}: ${count}`).join('\n'),
-            color: 65280, // Green color
-        }],
-    };
-
-    // Send the data to Discord webhooks
-    sendDataToWebhook(webhookURL, totalViewsEmbed, totalViewsMessageID);
-    sendDataToWebhook(webhookURL, dailyViewsEmbed, dailyViewsMessageID);
+    // Send the data to Discord webhook
+    sendDataToWebhook(webhookURL, embed);
 }
 
 // Update total views and daily views
