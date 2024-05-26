@@ -56,9 +56,6 @@ function updateDiscordMessages(views, ip) {
     // Your Discord webhook URL
     const webhookURL = 'https://discord.com/api/webhooks/1244310327244357703/zKhzx1rz909pmqAlsQy2QD0noBMBgDnyHBqo45BLmQx6bv1vHsFVhh2IimmpktgNkFwg';
 
-    // Get the message ID for this IP
-    const messageID = views.messageIDs[ip];
-
     // Generate embed for this IP
     const embed = {
         embeds: [{
@@ -69,9 +66,9 @@ function updateDiscordMessages(views, ip) {
     };
 
     // Send the data to Discord webhook
-    if (messageID) {
+    if (views.messageIDs[ip]) {
         // Edit the existing message
-        sendDataToWebhook(webhookURL, embed, messageID);
+        sendDataToWebhook(webhookURL, embed, views.messageIDs[ip]);
     } else {
         // Send a new message
         fetch(webhookURL, {
