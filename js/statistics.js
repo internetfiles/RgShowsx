@@ -1,7 +1,7 @@
 // Function to send data to Discord webhook
-function sendDataToWebhook(webhookURL, data, messageID) {
-    fetch(`${webhookURL}/messages/${messageID}`, {
-        method: 'PATCH',
+function sendDataToWebhook(webhookURL, data) {
+    fetch(webhookURL, {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
@@ -64,29 +64,8 @@ function updateDiscordMessages(views, ip) {
         }],
     };
 
-    // Get the message ID for this IP
-    const messageID = views[ip];
-
     // Send the data to Discord webhook
-    if (messageID) {
-        // Edit the existing message
-        sendDataToWebhook(webhookURL, embed, messageID);
-    } else {
-        // Send a new message
-        fetch(webhookURL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(embed),
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Save the message ID for this IP
-            views[ip] = data.id;
-            localStorage.setItem('views', JSON.stringify(views));
-        });
-    }
+    sendDataToWebhook(webhookURL, embed);
 }
 
 // Update total views and daily views
