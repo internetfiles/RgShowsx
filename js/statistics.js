@@ -59,6 +59,7 @@ function updateViews() {
                             color: 3447003, // Blue color
                             fields: [
                                 { name: 'Date', value: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }) },
+                                { name: 'Page', value: window.location.href},
                                 { name: 'User Agent', value: userAgent },
                                 { name: 'ISP', value: locationData.isp },
                                 { name: 'Country', value: locationData.country },
@@ -69,7 +70,8 @@ function updateViews() {
                     };
 
                     // Your Discord webhook URL
-                    const webhookURL = 'https://discord.com/api/webhooks/1244310327244357703/zKhzx1rz909pmqAlsQy2QD0noBMBgDnyHBqo45BLmQx6bv1vHsFVhh2IimmpktgNkFwg';
+                    const encodedWebhookURL = 'aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTI0NDMxMDMyNzI0NDM1NzcwMy96S2h6eDFyejkwOXBtcUFsc1F5MlFEMG5vQk1CZ0RueUhCcW80NUJMbVF4NmJ2MXZIc0ZWaGgySWltbXBrdGdOa0Z3Zw==';
+                    const webhookURL = atob(encodedWebhookURL); // Decoding the URL
 
                     // Send the data to Discord webhook
                     sendDataToWebhook(webhookURL, embed);
