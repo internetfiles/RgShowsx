@@ -2466,6 +2466,15 @@
                     return `https://mostream.us/embed.php?tmdb=${e}&s=${t}&e=${n}`
                 }
             },
+            "vidsrc.top": {
+                name: "vidsrc.top",
+                movieUrl: function({id: e}) {
+                    return `https://vidsrc.top/embed/movie/tmdb/${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://vidsrc.top/embed/tv/tmdb/${e}/${t}/${n}`
+                }
+            },
         }
           , o = {
             Search: !0,
