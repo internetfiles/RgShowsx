@@ -61,19 +61,16 @@ function updateDiscordMessages(views) {
     // Message ID for the daily views message
     const dailyViewsMessageID = '1244312476191817898'; // Update with your actual daily views message ID
 
-    // Calculate total views for all IPs
-    const totalViewsSum = Object.values(views.total).reduce((acc, curr) => acc + curr, 0);
-
     // Generate embeds for total views
     const totalViewsEmbed = {
         embeds: [{
             title: 'Total Views',
-            description: Object.entries(views.total).map(([ip, count]) => `${ip}: ${count}`).join('\n') + `\n\nTotal: ${totalViewsSum}`,
+            description: Object.entries(views.total).map(([ip, count]) => `${ip}: ${count}`).join('\n'),
             color: 16711680, // Red color
         }],
     };
 
-    // Calculate daily views for all IPs
+    // Generate embeds for daily views
     const dailyViewsEmbed = {
         embeds: [{
             title: 'Daily Views',
