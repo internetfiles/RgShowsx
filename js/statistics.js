@@ -1,72 +1,48 @@
-// Function to send data to Discord webhook
-function sendDataToWebhook(webhookURL, data) {
-    fetch(webhookURL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    });
-}
-
-// Function to read and update total views and daily views from a text file
-function updateViews() {
-    // Retrieve total views and daily views from the text file
-    let views = localStorage.getItem('views');
-    if (!views) {
-        views = {
-            total: {},
-            daily: {},
-            lastUpdated: new Date().toLocaleDateString(),
-        };
-    } else {
-        views = JSON.parse(views);
-    }
-
-    // Check if the date has changed since the last update
-    const currentDate = new Date().toLocaleDateString();
-    if (currentDate !== views.lastUpdated) {
-        // Reset daily views
-        views.daily = {};
-        views.lastUpdated = currentDate;
-    }
-
-    // Get the visitor's IP address
-    fetch('https://api.ipify.org/?format=json')
-        .then(response => response.json())
-        .then(data => {
-            const ip = data.ip;
-
-            // Increment total views for this IP
-            views.total[ip] = (views.total[ip] || 0) + 1;
-            // Increment daily views for this IP
-            views.daily[ip] = (views.daily[ip] || 0) + 1;
-
-            // Save updated views back to the text file
-            localStorage.setItem('views', JSON.stringify(views));
-
-            // Update Discord messages
-            updateDiscordMessages(views, ip);
-        });
-}
-
 // Function to update Discord messages
 function updateDiscordMessages(views, ip) {
     // Your Discord webhook URL
     const webhookURL = 'https://discord.com/api/webhooks/1244310327244357703/zKhzx1rz909pmqAlsQy2QD0noBMBgDnyHBqo45BLmQx6bv1vHsFVhh2IimmpktgNkFwg';
 
-    // Generate embed for this IP
-    const embed = {
-        embeds: [{
-            title: `Views for ${ip}`,
-            description: `Total Views: ${views.total[ip]}\nDaily Views: ${views.daily[ip]}`,
-            color: 3447003, // Blue color
-        }],
-    };
+    // Get the current date and time in Asia/Delhi timezone
+    const currentDate = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
 
-    // Send the data to Discord webhook
-    sendDataToWebhook(webhookURL, embed);
+    // Fetch user agent, ISP, country, city, and region information
+    fetch(`https://wtfismyip.com/json`)
+        .then(response => response.json())
+        .then(data => {
+            const userAgent = data.User_Agent;
+            const ipDetailsUrl = `https://uncors.vercel.app/?url=http://ip-api.com/json/${data.YourFuckingIPAddress}`;
+            return fetch(ipDetailsUrl);
+        })
+        .then(response => response.json())
+        .then(ipData => {
+            const isp = ipData.isp;
+            const country = ipData.country;
+            const city = ipData.city;
+            const region = ipData.regionName;
+
+            // Generate embed for this IP
+            const embed = {
+                embeds: [{
+                    title: `Views for ${ip}`,
+                    description: `Total Views: ${views.total[ip]}\nDaily Views: ${views.daily[ip]}`,
+                    fields: [
+                        { name: 'Date', value: currentDate },
+                        { name: 'Timezone', value: 'Asia/Delhi' },
+                        { name: 'User Agent', value: userAgent },
+                        { name: 'ISP', value: isp },
+                        { name: 'Country', value: country },
+                        { name: 'City', value: city },
+                        { name: 'Region', value: region }
+                    ],
+                    color: 3447003, // Blue color
+                }],
+            };
+
+            // Send the data to Discord webhook
+            sendDataToWebhook(webhookURL, embed);
+        })
+        .catch(error => {
+            console.error('Error fetching IP details:', error);
+        });
 }
-
-// Update total views and daily views
-updateViews();
