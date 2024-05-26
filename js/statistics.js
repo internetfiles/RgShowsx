@@ -33,7 +33,7 @@ function getTodayDate() {
 
 // Initialize view counters
 let totalViews = localStorage.getItem('totalViews');
-totalViews = totalViews ? parseInt(totalViews, 10) : 0;
+totalViews = !isNaN(totalViews) ? parseInt(totalViews, 10) : 0;
 
 let dailyViews = localStorage.getItem('dailyViews');
 dailyViews = dailyViews ? JSON.parse(dailyViews) : {};
