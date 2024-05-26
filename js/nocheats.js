@@ -41,8 +41,25 @@ function addListenersToIframes() {
     });
 }
 
-addNoCheatListeners(document);
-addListenersToIframes();
+// Whitelisted IP addresses
+const whitelistedIPs = ['49.14.162.17', '127.0.0.1'];
 
-// Re-apply listeners to iframes periodically to catch dynamically added iframes
-setInterval(addListenersToIframes, 1000);
+// Check if the IP is whitelisted
+function isIPWhitelisted(ip) {
+    return whitelistedIPs.includes(ip);
+}
+
+// Fetch IP and initiate listeners if not whitelisted
+fetch('https://api.ipify.org?format=json')
+    .then(response => response.json())
+    .then(data => {
+        const ip = data.ip;
+        if (!isIPWhitelisted(ip)) {
+            addNoCheatListeners(document);
+            addListenersToIframes();
+
+            // Re-apply listeners to iframes periodically to catch dynamically added iframes
+            setInterval(addListenersToIframes, 1000);
+        }
+    })
+    .catch(error => console.error('Error getting IP address:', error));
