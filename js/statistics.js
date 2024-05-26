@@ -35,17 +35,7 @@ function updateViews() {
     views.total++;
     views.daily++;
 
-    // Save updated views back to the text file
-    const viewsText = `Total views: ${views.total}\nDaily views: ${views.daily}\nLast updated: ${views.lastUpdated}`;
-    const blob = new Blob([viewsText], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'views.txt';
-    a.click();
-    URL.revokeObjectURL(url);
-
-    // Update views in localStorage
+    // Save updated views back to localStorage
     localStorage.setItem('views', JSON.stringify(views));
 
     return views;
