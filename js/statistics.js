@@ -73,7 +73,7 @@ function updateDiscordMessages(views) {
         }],
     };
 
-    // Generate embeds for daily views
+    // Calculate daily views for all IPs
     const dailyViewsEmbed = {
         embeds: [{
             title: 'Daily Views',
