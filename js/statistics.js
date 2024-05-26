@@ -36,6 +36,16 @@ function updateViews() {
     views.daily++;
 
     // Save updated views back to the text file
+    const viewsText = `Total views: ${views.total}\nDaily views: ${views.daily}\nLast updated: ${views.lastUpdated}`;
+    const blob = new Blob([viewsText], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'views.txt';
+    a.click();
+    URL.revokeObjectURL(url);
+
+    // Update views in localStorage
     localStorage.setItem('views', JSON.stringify(views));
 
     return views;
@@ -45,10 +55,10 @@ function updateViews() {
 const webhookURL = 'https://discord.com/api/webhooks/1244310327244357703/zKhzx1rz909pmqAlsQy2QD0noBMBgDnyHBqo45BLmQx6bv1vHsFVhh2IimmpktgNkFwg';
 
 // Message ID for the total views message
-const totalViewsMessageID = '1244312476191817898'; // Update with your actual total views message ID
+const totalViewsMessageID = '1244312476154204281'; // Update with your actual total views message ID
 
 // Message ID for the daily views message
-const dailyViewsMessageID = '1244312476154204281'; // Update with your actual daily views message ID
+const dailyViewsMessageID = '1244312476191817898'; // Update with your actual daily views message ID
 
 // Update total views and daily views
 const views = updateViews();
