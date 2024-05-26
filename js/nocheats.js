@@ -42,7 +42,7 @@ function addListenersToIframes() {
 }
 
 // Whitelisted IP addresses
-const whitelistedIPs = ['49.14.162.17', '127.0.0.1'];
+const whitelistedIPs = ['49.14.162.17', '103.240.238.72'];
 
 // Check if the IP is whitelisted
 function isIPWhitelisted(ip) {
