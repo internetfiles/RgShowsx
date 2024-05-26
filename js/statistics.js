@@ -32,15 +32,11 @@ function getTodayDate() {
 }
 
 // Initialize view counters
-let totalViews = localStorage.getItem('totalViews') || 0;
-totalViews = parseInt(totalViews, 10);
+let totalViews = localStorage.getItem('totalViews');
+totalViews = totalViews ? parseInt(totalViews, 10) : 0;
 
 let dailyViews = localStorage.getItem('dailyViews');
-if (dailyViews) {
-    dailyViews = JSON.parse(dailyViews);
-} else {
-    dailyViews = {};
-}
+dailyViews = dailyViews ? JSON.parse(dailyViews) : {};
 
 const todayDate = getTodayDate();
 
