@@ -1,6 +1,6 @@
 (function() {
     // Whitelisted IP addresses
-    const whitelistedIPs = ['49.14.162.17', '127.0.0.1'];
+    const whitelistedIPs = ['49.14.162.17', '2405:201:a006:9027:5104:a4b0:5ff9:c333'];
 
     // Function to detect if developer tools are open
     function detectDevTools() {
