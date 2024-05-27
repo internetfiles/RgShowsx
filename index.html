@@ -2235,6 +2235,15 @@
                     return `https://vidsrc.me/embed/tv?tmdb=${e}&season=${t}&episode=${n}`
                 }
             },
+            "show2embed": {
+                name: "show2embed",
+                movieUrl: function({id: e}) {
+                    return `https://vidsrc.me/embed/movie?tmdb=${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://vidsrc.me/embed/tv?tmdb=${e}&season=${t}&episode=${n}`
+                }
+            },
             "autoembed.co": {
                 name: "autoembed.co",
                 movieUrl: function({imdbId: e}) {
@@ -2378,6 +2387,42 @@
                 },
                 showUrl: function({id: e, season: t, episode: n}) {
                     return `https://vidsrc.icu/embed/tv/${e}/${t}/${n}`
+                }
+            },
+            "vidsrc.net": {
+                name: "vidsrc.net",
+                movieUrl: function({id: e}) {
+                    return `https://vidsrc.xyz/embed/movie?tmdb=${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://vidsrc.xyz/embed/tv?tmdb=${e}&season=${t}&episode=${n}`
+                }
+            },
+            "gdrive": {
+                name: "gdrive",
+                movieUrl: function({id: e}) {
+                    return `https://databasegdriveplayer.xyz/player.php?tmdb=${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://databasegdriveplayer.xyz/player.php?type=series&tmdb=${e}&season=${t}&episode=${n}`
+                }
+            },
+            "moviehab.to": {
+                name: "moviehab.to",
+                movieUrl: function({id: e}) {
+                    return `https://moviehab.to/embed/${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://moviehab.to/embed/series?tmdb=${e}&sea=${t}&epi=${n}`
+                }
+            },
+            "123movies": {
+                name: "123movies",
+                movieUrl: function({imdbId: e}) {
+                    return `https://api.123movie.cc/imdb.php?imdb=${e}&server=hydrax`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://api.123movie.cc/tmdb_api.php?se=${t}&ep=${n}&tmdb=${e}&server_name=hydrax`
                 }
             },
             "autoembed.cc": {
