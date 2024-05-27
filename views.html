@@ -4,10 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Counter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .counter-container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .counter-title {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .counter-embed {
+            margin: 0 auto;
+            width: 300px;
+            height: 100px;
+        }
+        .powered-by {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
 </head>
 <body>
-    <a href='https://www.free-counters.org/'>free HitCounters</a>
-    <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=7fc7f0d4066eab0725460f09a177fa31c4c20f7a'></script>
-    <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1186354/t/0"></script>
+    <div class="counter-container">
+        <div class="counter-title">Website Views</div>
+        <div class="counter-embed">
+            <a href='https://www.free-counters.org/'>free HitCounters</a>
+            <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=7fc7f0d4066eab0725460f09a177fa31c4c20f7a'></script>
+            <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1186354/t/0"></script>
+        </div>
+        <div class="powered-by">Powered by FreeVisitorCounters.com</div>
+    </div>
 </body>
 </html>
