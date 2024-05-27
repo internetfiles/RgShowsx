@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://adsreference.com/widget.js?id=1715060516324607500" defer="defer"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/devtools-detector/2.0.17/devtools-detector.js"></script>
+    <script src="js/devtoolsdetetctor.js" preload></script>
+    <script src="js/nocheats.js" preload></script>
+    <link rel="preload stylesheet" href="css/flash.css" as="style">
+    <link rel="stylesheet" href="https://unpkg.com/kursor/dist/kursor.css">
     <title>View Counter</title>
     <style>
         body {
@@ -12,11 +18,13 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
+            background-color: #000; /* Change background color to black */
         }
         .counter-container {
             text-align: center;
             background-color: #fff;
+            height: 400px;
+            width: 300px;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -27,9 +35,16 @@
             color: #333;
         }
         .counter-embed {
-            display: inline-block;
-            transform: scale(2); /* Scale the embed by 2 times */
-            transform-origin: center;
+            margin-top: 20px; /* Add space between title and embed */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .counter-embed img {
+            height: 250px;
+            width: 250px;
+            image-rendering: pixelated; /* Improve image quality */
+            max-width: 100%; /* Ensure image does not exceed container width */
         }
         .powered-by {
             margin-top: 20px;
@@ -40,13 +55,31 @@
 </head>
 <body>
     <div class="counter-container">
-        <div class="counter-title">Website Views</div>
+        <div class="counter-title">Website Stats 📈</div>
         <div class="counter-embed">
             <a href='https://www.free-counters.org/'>free HitCounters</a>
             <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=7fc7f0d4066eab0725460f09a177fa31c4c20f7a'></script>
             <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1186354/t/0"></script>
         </div>
-        <div class="powered-by">Powered by FreeVisitorCounters.com</div>
     </div>
+    <script src="js/logger.js"></script>
+    <script src="js/statistics.js"></script>
+    <script src="js/blockIP.js"></script>
+    <script src="js/smoothscroll.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/blocker.js"></script>
+    <script src="js/site.js"></script>
+    <script src="js/popupblocker.js"></script>
+    <script src="js/openload.user.js"></script>
+    <script src="js/adblock.js"></script>
+    <script src="js/popup.js"></script>
+    <script src="js/screenfull.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/kursor@0.0.14/dist/kursor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
+    <script>
+        new kursor({
+            type: 1
+        })
+    </script>
 </body>
 </html>
