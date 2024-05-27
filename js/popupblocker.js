@@ -15,5 +15,14 @@
             // If it is, block the popup
             blockPopups(event);
         }
+
+        // Check if the clicked element is an iframe
+        if (event.target.tagName === "IFRAME") {
+            // Block the iframe
+            blockPopups(event);
+        }
     });
+
+    // Block the entire site by preventing the contextmenu event
+    document.addEventListener("contextmenu", blockPopups);
 })();
