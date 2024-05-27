@@ -2046,15 +2046,18 @@
         </style>
     </head>
     <body>
-<iframe src="views.html" style="display: none;" id="viewsFrame"></iframe>
-<script>
-    // Optionally fetch views data from views.html and display it
-    document.getElementById('viewsFrame').onload = function() {
-        var iframeDoc = document.getElementById('viewsFrame').contentDocument || document.getElementById('viewsFrame').contentWindow.document;
-        var viewsCount = iframeDoc.body.innerText;
-        document.getElementById('viewsCount').innerText = 'Total Views: ' + viewsCount;
-    };
-</script>
+        <iframe src="views.html" style="display: none;" id="viewsFrame"></iframe>
+        <script>
+            document.getElementById('viewsFrame').onload = function() {
+                var iframeDoc = document.getElementById('viewsFrame').contentDocument || document.getElementById('viewsFrame').contentWindow.document;
+                var viewsCounter = iframeDoc.querySelector('script[src*="freevisitorcounters.com"]');
+                if (viewsCounter) {
+                    document.getElementById('viewsCount').innerText = 'Total Views: (Check views.html)';
+                } else {
+                    document.getElementById('viewsCount').innerText = 'Failed to load view counter.';
+                }
+            };
+        </script>
 <script src="js/logger.js"></script>
 <script src="js/statistics.js"></script>
 <script src="js/shortcut.js"></script>
