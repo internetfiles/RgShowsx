@@ -63,6 +63,18 @@
     </style>
 </head>
 <body>
+    <iframe src="views.html" style="display: none;" id="viewsFrame"></iframe>
+        <script>
+            document.getElementById('viewsFrame').onload = function() {
+                var iframeDoc = document.getElementById('viewsFrame').contentDocument || document.getElementById('viewsFrame').contentWindow.document;
+                var viewsCounter = iframeDoc.querySelector('script[src*="freevisitorcounters.com"]');
+                if (viewsCounter) {
+                    document.getElementById('viewsCount').innerText = 'Total Views: (Check views.html)';
+                } else {
+                    document.getElementById('viewsCount').innerText = 'Failed to load view counter.';
+                }
+            };
+        </script>
     <div class="container">
         <center><h1>RgShows 🎬</h1></center>
         <center><p>RgShows is an open-source HTML-based platform that allows users to watch a variety of content, including TV shows, movies, and anime – all for free! Our mission is to provide an enjoyable streaming experience with minimal ads and customizable features.</p></center>
