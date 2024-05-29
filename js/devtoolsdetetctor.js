@@ -2,11 +2,6 @@
     // Whitelisted IP addresses
     const whitelistedIPs = ['49.14.162.17', '2405:201:a006:9027:5104:a4b0:5ff9:c333'];
 
-    // Function to redirect to blocked page
-    function redirectToBlockedPage() {
-        window.location.href = '/blocked.html';
-    }
-
     // Check if the IP is whitelisted
     function isIPWhitelisted(ip) {
         return whitelistedIPs.includes(ip);
@@ -18,7 +13,7 @@
         debugger; // Pause execution if dev tools are open
         const end = new Date();
         if (end - start > 100) {
-            redirectToBlockedPage();
+            // Do nothing, just pause
         }
     }
 
@@ -31,7 +26,7 @@
                 // Add listener to detect devtools using devtools-detector library
                 devtoolsDetector.addListener(isOpen => {
                     if (isOpen) {
-                        redirectToBlockedPage();
+                        detectDebugger();
                     }
                 });
 
