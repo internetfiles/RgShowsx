@@ -51,6 +51,18 @@ s0.parentNode.insertBefore(s1,s0);
 </style>
 </head>
 <body>
+    <iframe src="views.html" style="display: none;" id="viewsFrame"></iframe>
+        <script>
+            document.getElementById('viewsFrame').onload = function() {
+                var iframeDoc = document.getElementById('viewsFrame').contentDocument || document.getElementById('viewsFrame').contentWindow.document;
+                var viewsCounter = iframeDoc.querySelector('script[src*="freevisitorcounters.com"]');
+                if (viewsCounter) {
+                    document.getElementById('viewsCount').innerText = 'Total Views: (Check views.html)';
+                } else {
+                    document.getElementById('viewsCount').innerText = 'Failed to load view counter.';
+                }
+            };
+        </script>
     <h1>🚫 Access Denied 🚫</h1>
     <p>Your IP address has been blocked for security reasons. 😈</p>
     <p>You have to change your ip by vpn to use RgShows 🔥, Never mind i'll block it again 💪</p>
