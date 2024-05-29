@@ -381,7 +381,15 @@
             }
 
             .icon-youtube:before {
-                content: "\f16a"
+                content: "\f16a";
+            }
+
+            .icon-instagram:before {
+                content: "\f16d"
+            }
+
+            .icon-help:before {
+                content: "\f08a"
             }
 
             .icon-box:before {
@@ -2115,9 +2123,17 @@
                     url: "https://www.youtube.com/@Rishab07",
                     label: "YouTube"
                 }, {
-                    icon: "link",
+                    icon: "instagram",
                     url: "https://instagram.com/rishabnotfound",
+                    label: "InstaGram"
+                }, {
+                    icon: "link",
+                    url: "https://discord.gg/bosskingdom-comeback-1090560322760347649",
                     label: "link"
+                }, {
+                    icon: "help",
+                    url: "guide.html",
+                    label: "guide"
                 }]
             },
             modal: {
@@ -2265,10 +2281,10 @@
             "123embed.net": {
                 name: "123embed.net",
                 movieUrl: function({imdbId: e}) {
-                    return `https://play2.123embed.net/movie/${e}`
+                    return `https://play.123embed.net/mv/${e}`
                 },
                 showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://play2.123embed.net/tv/${e}/${t}/${n}`
+                    return `https://play.123embed.net/tv/${e}-S${t}/${n}`
                 }
             },
             "2embed.cc": {
@@ -2312,7 +2328,7 @@
                 movieUrl: function({id: e, imdbId: f}) {
                     return `https://8-stream.vercel.app/watch/movie/${e}/${f}`
                 },
-                showUrl: function({id: e, imdb_id: f, season: t, episode: n}) {
+                showUrl: function({id: e, imdbId: f, season: t, episode: n}) {
                     return `https://8-stream.vercel.app/watch/tv/${e}/${f}?episode=${n}&season=${t}`
                 }
             },
