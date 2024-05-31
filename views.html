@@ -22,7 +22,7 @@
         }
         .counter-container {
             text-align: center;
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.8); /* Make background transparent */
             height: 400px;
             width: 300px;
             padding: 20px;
@@ -55,9 +55,19 @@
             font-size: 0.9em;
             color: #666;
         }
+        video#backgroundVideo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
     </style>
 </head>
 <body>
+    <video id="backgroundVideo" autoplay muted loop></video>
     <div class="counter-container">
         <div class="counter-title">RgShows Stats 📈</div>
         <div class="counter-embed">
@@ -82,7 +92,19 @@
     <script>
         new kursor({
             type: 1
-        })
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var videos = [
+                'https://files.catbox.moe/4jghie.mp4',
+                'https://files.catbox.moe/fmz6cb.mp4',
+                'https://files.catbox.moe/3muls6.mp4',
+                'https://files.catbox.moe/8l96u2.mp4'
+            ]; // Array of video URLs
+            var randomIndex = Math.floor(Math.random() * videos.length); // Generate a random index
+            var video = document.getElementById('backgroundVideo');
+            video.src = videos[randomIndex]; // Set the source of the video
+        });
     </script>
 </body>
 </html>
