@@ -5424,16 +5424,22 @@
     }
     )();
     document.addEventListener("DOMContentLoaded", function() {
-    const footerViewsLink = document.querySelector('.footer-container .footer .links a[href="views.html"]');
-    const footerGuideLink = document.querySelector('.footer-container .footer .links a[href="guide.html"]');
-    
-    if (footerViewsLink) {
-        footerViewsLink.removeAttribute('target');
+    // Function to safely remove the target attribute
+    function removeTargetAttribute(link) {
+        if (link && link.hasAttribute('target')) {
+            // Use setTimeout to delay the attribute removal slightly
+            setTimeout(() => {
+                link.removeAttribute('target');
+            }, 0);
+        }
     }
 
-    if (footerGuideLink) {
-        footerGuideLink.removeAttribute('target');
-    }
+    const footerViewsLink = document.querySelector('.footer-container .footer .links a[href="views.html"]');
+    const footerGuideLink = document.querySelector('.footer-container .footer .links a[href="guide.html"]');
+
+    // Remove the target attribute safely
+    removeTargetAttribute(footerViewsLink);
+    removeTargetAttribute(footerGuideLink);
 });
 </script>
 </body></html>
