@@ -39,19 +39,30 @@ const blockedUrls = [
 // Function to block popups
 function blockPopups() {
     // Block popups for main URL
-    window.addEventListener("beforeunload", function(event) {
-        event.preventDefault();
-        event.returnValue = '';
-    });
+    window.open = function() {
+        console.log("Popup blocked in main window");
+        return null;
+    };
 
     // Block popups for iframe URLs
     document.querySelectorAll('iframe').forEach(iframe => {
         const iframeUrl = iframe.src;
-        if (blockedUrls.includes(iframeUrl)) {
-            iframe.contentWindow.addEventListener('beforeunload', event => {
-                // Prevent the iframe from opening a new window
-                event.preventDefault();
-            });
+        if (blockedUrls.some(url => iframeUrl.includes(url))) {
+            iframe.onload = function() {
+                try {
+                    const iframeWindow = iframe.contentWindow;
+                    if (iframeWindow) {
+                        iframeWindow.eval(`
+                            window.open = function() {
+                                console.log("Popup blocked in iframe");
+                                return null;
+                            };
+                        `);
+                    }
+                } catch (e) {
+                    console.error("Error blocking popup in iframe:", e);
+                }
+            };
         }
     });
 }

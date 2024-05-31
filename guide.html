@@ -76,6 +76,23 @@
         a:hover {
             text-decoration: underline;
         }
+        .stats-button {
+            display: block;
+            width: 100%;
+            background-color: #f39c12;
+            color: #121212;
+            border: none;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .stats-button:hover {
+            background-color: #d98310;
+        }
     </style>
 </head>
 <body>
@@ -124,13 +141,19 @@
             <center><p><span class="shortcut-keys">Alt + X or x</span> keys to close the movies/series/shows player.</p></center>
             <center><p><span class="shortcut-keys">Alt + Delete</span> keys to clear all the data.</p></center>
         </div>
+        <button class="stats-button" onclick="window.location.href='views.html'">Check Site Stats</button>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var videos = ['1.mp4', '2.mp4', '3.mp4']; // Array of video file names
+            var videos = [
+                'https://files.catbox.moe/4jghie.mp4',
+                'https://files.catbox.moe/fmz6cb.mp4',
+                'https://files.catbox.moe/3muls6.mp4',
+                'https://files.catbox.moe/8l96u2.mp4'
+            ]; // Array of video URLs
             var randomIndex = Math.floor(Math.random() * videos.length); // Generate a random index
             var video = document.getElementById('backgroundVideo');
-            video.src = 'video/' + videos[randomIndex]; // Set the source of the video
+            video.src = videos[randomIndex]; // Set the source of the video
         });
     </script>
     <script src="js/logger.js"></script>
