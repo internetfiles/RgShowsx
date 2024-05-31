@@ -2565,6 +2565,15 @@
                     return `https://vidsrc.top/embed/tv/tmdb/${e}/${t}/${n}`
                 }
             },
+            "vidsrc.top": {
+                name: "lonelil.ru",
+                movieUrl: function({id: e}) {
+                    return `https://watch.lonelil.ru/watch/movie/${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://watch.lonelil.ru/watch/show/${e}.${t}.${n}`
+                }
+            },
         }
           , o = {
             Search: !0,
