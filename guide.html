@@ -9,6 +9,7 @@
     <script src="js/devtoolsdetetctor.js" preload></script>
     <script src="js/nocheats.js" preload></script>
     <link rel="preload stylesheet" href="css/flash.css" as="style">
+    <script src="https://cdn.jsdelivr.net/npm/@simondmc/popup-js@1.4.3/popup.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/kursor/dist/kursor.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
@@ -141,7 +142,8 @@
             <center><p><span class="shortcut-keys">Alt + X or x</span> keys to close the movies/series/shows player.</p></center>
             <center><p><span class="shortcut-keys">Alt + Delete</span> keys to clear all the data.</p></center>
         </div>
-        <button class="stats-button" onclick="window.location.href='views.html'">Check Site Stats</button>
+        <button class="stats-button" onclick="window.location.href='announcements.html'">Check Announcements</button>
+        <button class="stats-button" onclick="window.location.href='views.html'">Check RgShows Stats</button>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -174,6 +176,15 @@
     new kursor({
         type: 1
     })
+</script>
+<script>
+    const myPopups = new Popup({
+        id: "Discord",
+        title: "Discord?",
+        content: `
+            Join us on Discord {a-https://discord.gg/bosskingdom-comeback-1090560322760347649}[Here!]`,
+        showImmediately: true
+    });
 </script>
 </body>
 </html>

@@ -388,7 +388,15 @@
             }
 
             .icon-instagram:before {
-                content: "\f030"
+                content: "\f16d"
+            }
+
+            .icon-issue:before {
+                content: "\f2b5"
+            }
+
+            .icon-bell:before {
+                content: "\f0f3"
             }
 
             .icon-stats:before {
@@ -396,7 +404,7 @@
             }
 
             .icon-help:before {
-                content: "\f2b5"
+                content: "\f059"
             }
 
             .icon-discord:before {
@@ -2131,18 +2139,14 @@
             },
             footer: {
                 links: [{
-                    icon: "youtube",
-                    url: "https://www.youtube.com/@Rishab07",
+                    icon: "bell",
+                    url: "announcements.html",
                     label: "Rishab07"
-                }, {
-                    icon: "instagram",
-                    url: "https://instagram.com/rishabnotfound",
-                    label: "rishabnotfound"
-                }, {
-                    icon: "discord",
-                    url: "https://discord.gg/bosskingdom-comeback-1090560322760347649",
-                    label: "bosskingdom"
                 },{
+                    icon: "issue",
+                    url: "issues.html",
+                    label: "views"
+                }, {
                     icon: "stats",
                     url: "views.html",
                     label: "views"
@@ -2213,7 +2217,7 @@
             api: {
                 url: "https://api.themoviedb.org",
                 version: "3",
-                key: "5622cafbfe8f8cfe358a29c53e19bba0"
+                key: "f6e840332142f77746185ab4e67be858"
             },
             image: {
                 url: "https://image.tmdb.org/t/p",
@@ -5436,10 +5440,13 @@
 
     const footerViewsLink = document.querySelector('.footer-container .footer .links a[href="views.html"]');
     const footerGuideLink = document.querySelector('.footer-container .footer .links a[href="guide.html"]');
-
+    const footerAnnouncementsLink = document.querySelector('.footer-container .footer .links a[href="announcements.html"]');
+    const footerIssuesLink = document.querySelector('.footer-container .footer .links a[href="issues.html"]');
     // Remove the target attribute safely
     removeTargetAttribute(footerViewsLink);
     removeTargetAttribute(footerGuideLink);
+    removeTargetAttribute(footerAnnouncementsLink);
+    removeTargetAttribute(footerIssuesLink);
 });
 </script>
 </body></html>
