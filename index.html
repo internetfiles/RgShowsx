@@ -2560,6 +2560,15 @@
                     return `https://mostream.us/embed.php?tmdb=${e}&s=${t}&e=${n}`
                 }
             },
+            "nontongo": {
+                name: "nontongo",
+                movieUrl: function({id: e}) {
+                    return `https://www.NontonGo.win/embed/movie/${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://www.NontonGo.win/embed/tv/${e}/${t}/${n}`
+                }
+            },
             "vidsrc.top": {
                 name: "vidsrc.top",
                 movieUrl: function({id: e}) {
