@@ -2578,6 +2578,15 @@
                     return `https://vidsrc.top/embed/tv/tmdb/${e}/${t}/${n}`
                 }
             },
+            "vidsrc.vip": {
+                name: "vidsrc.vip",
+                movieUrl: function({id: e}) {
+                    return `https://vidsrc.vip/embed/movie/${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://vidsrc.vip/embed/tv/${e}/${t}/${n}`
+                }
+            },
         }
           , o = {
             Search: !0,
