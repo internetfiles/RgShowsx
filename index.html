@@ -2103,11 +2103,6 @@
 <script src="https://cdn.jsdelivr.net/npm/kursor@0.0.14/dist/kursor.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
 <script>
-    new kursor({
-        type: 1
-    })
-</script>
-<script>
     (()=>{
         "use strict";
         const e = {
@@ -5424,10 +5419,51 @@
                 setTimeout((function() {
                     G.className = "icon icon-eye-slash",
                     Y.classList.remove("inactive")
-                }
+                                }
                 ), 2500)
             }
             )),
+            Y.className = "button secondary",
+            G.className = "icon icon-eye-slash",
+            z.className = "text",
+            z.innerText = "Clear Last Watched",
+            Y.append(G),
+            Y.append(z),
+            U.append(Y),
+            Y.addEventListener("click", (function() {
+                localStorage.removeItem(n.names.lastPlayed),
+                Y.classList.add("inactive"),
+                G.className = "icon icon-check",
+                setTimeout((function() {
+                    G.className = "icon icon-eye-slash",
+                    Y.classList.remove("inactive")
+                }), 2500)
+            }));
+            const customCursorLabel = document.createElement("div");
+            customCursorLabel.className = "label custom-cursor-label";
+            const customCursorIcon = document.createElement("i");
+            customCursorIcon.className = "icon icon-cursor";
+            const customCursorText = document.createElement("span");
+            customCursorText.className = "text";
+            customCursorText.innerText = "Custom Cursor";
+            const customCursorSelection = document.createElement("div");
+            customCursorSelection.className = "selection";
+
+            customCursorLabel.append(customCursorIcon);
+            customCursorLabel.append(customCursorText);
+
+            const cursorOptions = ["Off", "Type 1", "Type 2", "Type 3", "Type 4", "Type 5"];
+            cursorOptions.forEach((option, index) => {
+                const optionDiv = document.createElement("div");
+                optionDiv.innerText = option;
+                optionDiv.addEventListener("click", () => {
+                    localStorage.setItem("selectedCursor", index);
+                    location.reload();
+                });
+                customCursorSelection.append(optionDiv);
+            });
+
+            customCursorLabel.append(customCursorSelection);
             t.append(c),
             t.append(l),
             t.append(d),
@@ -5440,8 +5476,23 @@
             t.append(S),
             t.append(k),
             t.append(_),
+            t.append(customCursorLabel),
             t.append(I),
-            t.append(U)
+            t.append(U);
+            
+            const storedCursor = localStorage.getItem("selectedCursor");
+            if (storedCursor !== null) {
+                new kursor({ type: parseInt(storedCursor) });
+                Array.from(customCursorSelection.children).forEach((child, index) => {
+                    if (index === parseInt(storedCursor)) {
+                        child.classList.add("active");
+                    }
+                });
+            } else {
+                new kursor({ type: 1 });
+                customCursorSelection.children[1].classList.add("active");
+                localStorage.setItem("selectedCursor", 1);
+            }
         }(),
         document.body.classList.add("active")
     }
