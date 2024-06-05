@@ -24,7 +24,7 @@ header {
 }
 
 footer {
-    background: #f25f1f;
+    background: #000000;
     display: flex;
     flex-wrap: nowrap;
     align-content: center;
@@ -57,7 +57,7 @@ footer a {
 }
 
 #head-div {
-    background: linear-gradient(to right, #f25f1f 40%, #f45c43);
+    background: linear-gradient(to right, #000000 40%, #000000);
     width: 100%;
     text-align: center;
     height: 86px;
