@@ -17,7 +17,7 @@
 <body>
     <header id="head-div">
         <div id="title1">
-            <a href="../"><img src="./static/header.png" alt="ApjAnime"></a>
+            <a href="../" onclick="window.location.href='../'; return false;"><img src="./static/header.png" alt="ApjAnime"></a>
         </div>
         <div id="search-div">
             <form action="./search.html" method="GET">
@@ -50,11 +50,11 @@
     <hr />
     <footer>
         <div>
-            <a href="/">Thank You <i class="fa fa-heart pulse"></i>For Using RgShows :)</a>
+            <a href="../" onclick="window.parent.location.href = '../'; return false;">Thank You <i class="fa fa-heart pulse"></i>For Using RgShows :)</a>
         </div>
     </footer>
     <hr />
-    <iframe src="views.html" style="display: none;" id="viewsFrame"></iframe>
+    <iframe src="../views.html" style="display: none;" id="viewsFrame"></iframe>
         <script>
             document.getElementById('viewsFrame').onload = function() {
                 var iframeDoc = document.getElementById('viewsFrame').contentDocument || document.getElementById('viewsFrame').contentWindow.document;
