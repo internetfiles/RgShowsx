@@ -10,6 +10,7 @@
         <link rel="preload stylesheet" href="css/flash.css" as="style">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
         <link rel="stylesheet" href="https://unpkg.com/kursor/dist/kursor.css">
+        <script src="https://cdn.jsdelivr.net/npm/@simondmc/popup-js@1.4.3/popup.min.js"></script>
         <style>
             @import url(https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;500&display=swap);html {
                 line-height: 1.15;
@@ -311,6 +312,10 @@
                 content: "\f00c"
             }
 
+            .icon-cursor:before {
+                content: "\f245"
+            }
+
             .icon-times:before {
                 content: "\f00d"
             }
@@ -425,6 +430,10 @@
 
             .icon-tv:before {
                 content: "\f26c"
+            }
+
+            .icon-anime:before {
+                content: "\f0d0"
             }
 
             .icon-warning:before {
@@ -2102,11 +2111,6 @@
 <script src="https://cdn.jsdelivr.net/npm/kursor@0.0.14/dist/kursor.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
 <script>
-    new kursor({
-        type: 1
-    })
-</script>
-<script>
     (()=>{
         "use strict";
         const e = {
@@ -2132,6 +2136,10 @@
                 }, {
                     icon: "tv",
                     text: "Shows"
+                }, {
+                    icon: "anime",
+                    text: "Anime",
+                    url: "./anime.html"
                 }, {
                     icon: "cog",
                     text: "Settings"
@@ -2576,6 +2584,15 @@
                 },
                 showUrl: function({id: e, season: t, episode: n}) {
                     return `https://vidsrc.top/embed/tv/tmdb/${e}/${t}/${n}`
+                }
+            },
+            "vidsrc.vip": {
+                name: "vidsrc.vip",
+                movieUrl: function({id: e}) {
+                    return `https://vidsrc.vip/embed/movie/${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://vidsrc.vip/embed/tv/${e}/${t}/${n}`
                 }
             },
         }
@@ -5414,10 +5431,41 @@
                 setTimeout((function() {
                     G.className = "icon icon-eye-slash",
                     Y.classList.remove("inactive")
-                }
-                ), 2500)
-            }
-            )),
+                }), 2500)
+            }));
+            const customCursorLabel = document.createElement("div");
+            customCursorLabel.className = "label custom-cursor-label";
+            customCursorLabel.style.display = "block";
+            const customCursorIcon = document.createElement("i");
+            customCursorIcon.className = "icon icon-cursor";
+            customCursorIcon.style.display = "inline-block";
+            const customCursorText = document.createElement("span");
+            customCursorText.className = "text";
+            customCursorText.innerText = "ㅤCustom Cursor";
+            customCursorText.style.display = "inline-block";
+            const customCursorSelection = document.createElement("div");
+            customCursorSelection.className = "selection";
+            customCursorSelection.style.display = "block";
+            customCursorSelection.style.marginTop = "15px"; 
+
+            customCursorLabel.append(customCursorIcon);
+            customCursorLabel.append(customCursorText);
+            customCursorLabel.append(document.createElement("br"));
+
+            const cursorOptions = ["Off", "Type 1", "Type 2", "Type 3", "Type 4", "Type 5"];
+            cursorOptions.forEach((option, index) => {
+                const optionDiv = document.createElement("div");
+                optionDiv.innerText = option;
+                optionDiv.style.display = "inline-block";
+                optionDiv.style.marginRight = "10px";
+                optionDiv.addEventListener("click", () => {
+                    localStorage.setItem("selectedCursor", index);
+                    location.reload();
+                });
+                customCursorSelection.append(optionDiv);
+            });
+
+            customCursorLabel.append(customCursorSelection);
             t.append(c),
             t.append(l),
             t.append(d),
@@ -5430,12 +5478,76 @@
             t.append(S),
             t.append(k),
             t.append(_),
+            t.append(customCursorLabel),
             t.append(I),
-            t.append(U)
+            t.append(U);
+            
+            const storedCursor = localStorage.getItem("selectedCursor");
+            if (storedCursor !== null) {
+                new kursor({ type: parseInt(storedCursor) });
+                Array.from(customCursorSelection.children).forEach((child, index) => {
+                    if (index === parseInt(storedCursor)) {
+                        child.classList.add("active");
+                    }
+                });
+            } else {
+                new kursor({ type: 1 });
+                customCursorSelection.children[1].classList.add("active");
+                localStorage.setItem("selectedCursor", 1);
+            }
         }(),
         document.body.classList.add("active")
     }
     )();
+    document.addEventListener("DOMContentLoaded", function() {
+    function updateContent() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const pageParam = urlParams.get('p');
+
+        if (pageParam === '4') {
+            if (!document.getElementById('anime-iframe')) {
+                const iframe = document.createElement('iframe');
+                iframe.id = 'anime-iframe';
+                iframe.src = './anime/index.html';
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
+                iframe.style.border = 'none';
+
+                document.body.innerHTML = '';  // Clear current content
+                document.body.appendChild(iframe);
+            }
+        } else {
+            const iframe = document.getElementById('anime-iframe');
+            if (iframe) {
+                iframe.remove();  // Remove iframe if it exists
+            }
+        }
+    }
+
+    // Initial content update
+    updateContent();
+
+    // Listen for popstate event (back/forward navigation)
+    window.addEventListener('popstate', updateContent);
+
+    // Override history.pushState and history.replaceState
+    const originalPushState = history.pushState;
+    const originalReplaceState = history.replaceState;
+
+    history.pushState = function(...args) {
+        originalPushState.apply(this, args);
+        updateContent();
+    };
+
+    history.replaceState = function(...args) {
+        originalReplaceState.apply(this, args);
+        updateContent();
+    };
+
+    // Optionally, listen for changes to the URL hash
+    window.addEventListener('hashchange', updateContent);
+});
+
     document.addEventListener("DOMContentLoaded", function() {
     // Function to safely remove the target attribute
     function removeTargetAttribute(link) {
@@ -5458,4 +5570,14 @@
     removeTargetAttribute(footerIssuesLink);
 });
 </script>
+<script>
+    const myPopups = new Popup({
+        id: "Event",
+        title: "Event ✨",
+        content: `
+            Whoever invites any 3 new user on RgShows and in Discord Server {a-https://discord.gg/bosskingdom-comeback-1090560322760347649}[Here!] will get 50$ worth Amazon Card, kindly dm @rishabnotfound on Discord with proofs after task completion!`,
+        showImmediately: true
+    });
+</script>
+<script src="js/anime.js" preload></script>
 </body></html>
