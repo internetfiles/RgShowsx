@@ -5505,27 +5505,12 @@
         const pageParam = urlParams.get('p');
 
         if (pageParam === '4') {
-            if (!document.getElementById('anime-iframe')) {
-                const iframe = document.createElement('iframe');
-                iframe.id = 'anime-iframe';
-                iframe.src = './anime/index.html';
-                iframe.style.width = '100%';
-                iframe.style.height = '100%';
-                iframe.style.border = 'none';
-
-                document.body.innerHTML = '';  // Clear current content
-                document.body.appendChild(iframe);
-            }
-        } else {
-            const iframe = document.getElementById('anime-iframe');
-            if (iframe) {
-                iframe.remove();  // Remove iframe if it exists
-            }
+            window.location.href = './anime/';
         }
     }
 
-    // Initial content update
-    updateContent();
+    updateContent();  // Call the function once when the page loads
+
 
     // Listen for popstate event (back/forward navigation)
     window.addEventListener('popstate', updateContent);

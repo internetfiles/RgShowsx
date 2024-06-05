@@ -7,6 +7,8 @@ document.addEventListener('keydown', function(event) {
         updatePageParameter('3');
     } else if (event.altKey && event.key === '4') {
         updatePageParameter('4');
+    } else if (event.altKey && event.key === '5') {
+        updatePageParameter('5');
     } else if (event.altKey && (event.key === 'm' || event.key === 'M')) {
         redirectToRandomMovie();
     } else if (event.altKey && (event.key === 's' || event.key === 'S')) {
@@ -24,11 +26,15 @@ document.addEventListener('keydown', function(event) {
 
 function updatePageParameter(page) {
     const url = new URL(window.location);
-    // Clear all existing parameters
-    url.search = ''; 
-    // Set only the 'p' parameter
-    url.searchParams.set('p', page);
-    history.pushState({}, '', url);
+    if (url.pathname.includes('/anime/')) {
+        window.location.href = `../?p=${page}`;
+    } else {
+        // Clear all existing parameters
+        url.search = ''; 
+        // Set only the 'p' parameter
+        url.searchParams.set('p', page);
+        history.pushState({}, '', url);
+    }
 }
 
 function removeAllParametersExceptP() {

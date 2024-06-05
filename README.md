@@ -34,7 +34,9 @@ Press `alt`+`2` keys to go to Movies page quickly.
 
 Press `alt`+`3` keys to go to Shows page quickly.
 
-Press `alt`+`4` keys to go to Settings page quickly.
+Press `alt`+`4` keys to go to Anime page quickly.
+
+Press `alt`+`5` keys to go to Settings page quickly.
 
 Press `alt`+`← (Leftward arrow key)` keys to navigate to the backward page if exist.
 

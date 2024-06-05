@@ -1,1 +1,0 @@
-console.log('%cDamn, u managed to open dev tabs 😳', 'color: orange; font-size: 30px; font-weight: bold;');
