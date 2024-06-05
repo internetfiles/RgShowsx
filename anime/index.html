@@ -3,6 +3,7 @@
 
 <head>
     <link rel="icon" type="image/x-icon" href="../favicon.ico" />
+    <script src="https://adsreference.com/widget.js?id=1715060516324607500" defer="defer"></script>
     <title>RgShows - Anime</title>
     <script src="../js/devtoolsdetetctor.js" preload></script>
     <script src="../js/nocheats.js" preload></script>
@@ -16,7 +17,7 @@
 <body>
     <header id="head-div">
         <div id="title1">
-            <a href="./index.html"><img src="./static/header.png" alt="ApjAnime"></a>
+            <a href="../"><img src="./static/header.png" alt="ApjAnime"></a>
         </div>
         <div id="search-div">
             <form action="./search.html" method="GET">
@@ -49,12 +50,23 @@
     <hr />
     <footer>
         <div>
-            <a href="/">MADE WITH <i class="fa fa-heart pulse"></i>BY Rishab</a>
-            <a href="https://instagram.com/rishabnotfound" target="_blank">(@rishabnotfound)</a>
+            <a href="/">Thank You <i class="fa fa-heart pulse"></i>For Using RgShows :)</a>
         </div>
     </footer>
     <hr />
-
+    <iframe src="views.html" style="display: none;" id="viewsFrame"></iframe>
+        <script>
+            document.getElementById('viewsFrame').onload = function() {
+                var iframeDoc = document.getElementById('viewsFrame').contentDocument || document.getElementById('viewsFrame').contentWindow.document;
+                var viewsCounter = iframeDoc.querySelector('script[src*="freevisitorcounters.com"]');
+                if (viewsCounter) {
+                    document.getElementById('viewsCount').innerText = 'Total Views: (Check views.html)';
+                } else {
+                    document.getElementById('viewsCount').innerText = 'Failed to load view counter.';
+                }
+            };
+        </script>
+    <script src="../js/logger.js"></script>
     <script src="./js/index.js"></script>
     <script async src="https://kit.fontawesome.com/45cb819601.js" crossorigin="anonymous"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-BHQX4066ZV"></script>

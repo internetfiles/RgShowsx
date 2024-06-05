@@ -2,11 +2,12 @@
 <html lang="en">
 
 <head>
-    <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="../favicon.ico" />
+    <script src="https://adsreference.com/widget.js?id=1715060516324607500" defer="defer"></script>
     <title>RgShows - Anime</title>
     <script src="../js/devtoolsdetetctor.js" preload></script>
     <script src="../js/nocheats.js" preload></script>
-    <link href="./css/index.css" rel="stylesheet" />
+    <link href="./css/anime.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link rel="preload stylesheet" href="../css/flash.css" as="style">
     <link rel="stylesheet" href="https://unpkg.com/kursor/dist/kursor.css">
@@ -143,28 +144,34 @@
     <hr />
     <footer>
         <div>
-            <a href="/">MADE WITH <i class="fa fa-heart pulse"></i>BY RISHAB</a>
-            <a href="https://instagram.com/rishabnotfound" target="_blank">(@rishabnotfound)</a>
+            <a href="/">Thank You <i class="fa fa-heart pulse"></i>For Using RgShows :)</a>
         </div>
     </footer>
     <hr />
-
-
+    <iframe src="views.html" style="display: none;" id="viewsFrame"></iframe>
+        <script>
+            document.getElementById('viewsFrame').onload = function() {
+                var iframeDoc = document.getElementById('viewsFrame').contentDocument || document.getElementById('viewsFrame').contentWindow.document;
+                var viewsCounter = iframeDoc.querySelector('script[src*="freevisitorcounters.com"]');
+                if (viewsCounter) {
+                    document.getElementById('viewsCount').innerText = 'Total Views: (Check views.html)';
+                } else {
+                    document.getElementById('viewsCount').innerText = 'Failed to load view counter.';
+                }
+            };
+        </script>
+    <script src="../js/logger.js"></script>
     <script src="./js/anime.js"></script>
     <script src="https://kit.fontawesome.com/45cb819601.js" crossorigin="anonymous"></script>
     <script src="../js/smoothscroll.js"></script>
-    <script src="../js/jquery.js"></script>
     <script src="../js/nocheats.js"></script>
-    <script src="../js/adblock.js"></script>
     <script src="../js/blocker.js"></script>
     <script src="../js/blockIP.js"></script>
-    <script src="../js/openload.user.js"></script>
-    <script src="../js/popup.js"></script>
     <script src="../js/popupblocker.js"></script>
-    <script src="../js/screenfull.js"></script>
     <script src="../js/shortcut.js"></script>
-    <script src="../js/site.js"></script>
     <script src="../js/statistics.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/kursor@0.0.14/dist/kursor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/kursor@0.0.14/dist/kursor.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
     <script>
