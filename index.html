@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
         <link rel="stylesheet" href="https://unpkg.com/kursor/dist/kursor.css">
         <script src="https://cdn.jsdelivr.net/npm/@simondmc/popup-js@1.4.3/popup.min.js"></script>
+        <script src="js/systempopup.js"></script>
         <style>
             @import url(https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;500&display=swap);html {
                 line-height: 1.15;
@@ -5564,40 +5565,6 @@
     removeTargetAttribute(footerAnnouncementsLink);
     removeTargetAttribute(footerIssuesLink);
 });
-</script>
-<script>
-    const popup = new Popup({
-        id: "board",
-        titleColor: "#FFFFFF",
-        textColor: "#FFFFFF",
-        closeColor: "#FFFFFF",
-        title: "Uh Oh!",
-        backgroundColor: "#8A2BE2",
-        fontSizeMultiplier: 1.3,
-        content: `
-        This board name is already taken!
-        Try picking a different one.
-        {btn-ok}[Okay]`,
-        borderWidth: ".15em",
-        borderColor: "#FFFFFF",
-        textShadow: "0 0 .3em #000000bb",
-        css: `
-        .popup.board button {
-            border: 2px solid white;
-            background-color: transparent;
-            color: white;
-            filter: drop-shadow(0 0 .2em #000000bb);
-            margin-top: 1em;
-        }`,
-        loadCallback: () => {
-            /* button functionality */
-            document
-                .querySelector(".popup.board button")
-                .addEventListener("click", () => {
-                    popup.hide();
-                });
-        },
-    });
 </script>
 <script>
     const myPopups = new Popup({
