@@ -58,10 +58,6 @@ function resetDataAndParameter() {
 }
 
 document.addEventListener('keydown', function(event) {
-    if (!event.altKey || (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight' && !['1', '2', '3', '4', '5', '6'].includes(event.key))) {
-        event.preventDefault();
-    }
-
     if (event.altKey && event.key === '1') {
         updatePageParameter('1');
     } else if (event.altKey && event.key === '2') {
@@ -88,7 +84,6 @@ document.addEventListener('keydown', function(event) {
         goToPreviousPage();
     }
 });
-
 
 function isRestrictedPath() {
     const path = window.location.pathname;
