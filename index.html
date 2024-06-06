@@ -5574,34 +5574,34 @@
         showImmediately: true
     });
     const systempopup = new Popup({
-        id: "howtouse",
-        title: "How to use RgShows ?",
-        content: `Make sure to read guide, before using RgShows :), and it is mandatory to read you got no choice ;)
-            custom-space-out big-margin§{btn-refuse-override}[YES! TAKE ME THERE]{btn-accept-override}[NO, TAKE ME THERE ]`,
-        sideMargin: "1.5em",
-        fontSizeMultiplier: "1.2",
-        backgroundColor: "#FFFEE3",
-        allowClose: false,
+        id: "board",
+        titleColor: "#FFFFFF",
+        textColor: "#FFFFFF",
+        closeColor: "#FFFFFF",
+        title: "YOU GOT NO CHOICE BRO ! READ!",
+        backgroundColor: "#8A2BE2",
+        fontSizeMultiplier: 1.3,
+        content: `
+            Make sure to read guide, before using RgShows :), and it is mandatory to read you got no choice ;)
+            {btn-ok}[Okay]`,
+        borderWidth: ".15em",
+        borderColor: "#FFFFFF",
+        textShadow: "0 0 .3em #000000bb",
         css: `
-        .popup.override .custom-space-out {
-            display: flex;
-            justify-content: center;
-            gap: 1.5em;
-        }`,  
-        showOnce: true,
+        .popup.board button {
+            border: 2px solid white;
+            background-color: transparent;
+            color: white;
+            filter: drop-shadow(0 0 .2em #000000bb);
+            margin-top: 1em;
+        }`,
         loadCallback: () => {
             /* button functionality */
-            document.querySelector(".popup.board button.refuse-override").onclick =
-                () => {
+            document
+                .querySelector(".popup.board button")
+                .addEventListener("click", () => {
                     popup.hide();
-                    window.location.href='./issues.html'
-                };
-
-            document.querySelector(".popup.board button.accept-override").onclick =
-                () => {
-                    popup.hide();
-                    window.location.href='./issues.html'
-                };
+                });
         },
     });
 </script>
