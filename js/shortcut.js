@@ -9,6 +9,8 @@ document.addEventListener('keydown', function(event) {
         updatePageParameter('4');
     } else if (event.altKey && event.key === '5') {
         updatePageParameter('5');
+    } else if (event.altKey && event.key === '6') {
+        updatePageParameter('6');
     } else if (event.altKey && (event.key === 'm' || event.key === 'M')) {
         redirectToRandomMovie();
     } else if (event.altKey && (event.key === 's' || event.key === 'S')) {
@@ -27,6 +29,8 @@ document.addEventListener('keydown', function(event) {
 function updatePageParameter(page) {
     const url = new URL(window.location);
     if (url.pathname.includes('/anime/')) {
+        window.location.href = `../?p=${page}`;
+    } else if (url.pathname.includes('/livetv/')) {
         window.location.href = `../?p=${page}`;
     } else {
         // Clear all existing parameters
