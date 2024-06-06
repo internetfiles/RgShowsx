@@ -1,12 +1,17 @@
 const popup = new Popup({
-    id: "override",
-    title: "Data Conflict",
-    content: `Your cloud data and local data are different. Which one do you want to use?
-      custom-space-out big-margin§{btn-refuse-override}[Local Data]{btn-accept-override}[Cloud Data]`,
-    sideMargin: "1.5em",
-    fontSizeMultiplier: "1.2",
-    backgroundColor: "#FFFEE3",
+    id: "howtouse",
+    title: "How to use RgShows?",
+    content: `Make sure to read guide of RgShows, before using it at your own :), btw u got no choice u have to read it ;)
+        custom-space-out big-margin§{btn-refuse-override}[YES, TAKE ME THERE]{btn-accept-override}[NO, TAKE ME THERE]`,
+    sideMargin: "2.9vw",
+    titleColor: "#fff",
+    textColor: "#fff",
+    backgroundColor: "#222",
+    closeColor: "#fff",
+    fontSizeMultiplier: 1.2,
+    linkColor: "#888",
     allowClose: false,
+    showOnce: true,
     css: `
     .popup.override .custom-space-out {
         display: flex;
@@ -18,13 +23,13 @@ const popup = new Popup({
         document.querySelector(".popup.board button.refuse-override").onclick =
             () => {
                 popup.hide();
-                // user wants to use local data
+                window.location.href = './issues.html';
             };
 
         document.querySelector(".popup.board button.accept-override").onclick =
             () => {
                 popup.hide();
-                // user wants to use cloud data
+                window.location.href = './issues.html';
             };
     },
 });
