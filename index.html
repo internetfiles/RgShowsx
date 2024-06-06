@@ -5575,11 +5575,35 @@
         showImmediately: true
     });
     const systempopup = new Popup({
-        id: "Event",
-        title: "Eveent ✨",
-        content: `
-            Whoever invites any 3 new useeeer on RgShows and in Discord Server {a-https://discord.gg/bosskingdom-comeback-1090560322760347649}[Here!] will get 50$ worth Amazon Card, kindly dm @rishabnotfound on Discord with proofs after task completion!`,
-        showImmediately: true
+        id: "howtouse",
+        title: "How to use RgShows ?",
+        content: `Make sure to read guide, before using RgShows :), and it is mandatory to read you got no choice ;)
+      custom-space-out big-margin§{btn-refuse-override}[YES! TAKE ME THERE]{btn-accept-override}[NO, TAKE ME THERE ]`,
+        sideMargin: "1.5em",
+        fontSizeMultiplier: "1.2",
+        backgroundColor: "#FFFEE3",
+        allowClose: false,
+        css: `
+        .popup.override .custom-space-out {
+            display: flex;
+            justify-content: center;
+            gap: 1.5em;
+        }`,  
+        showOnce: true,
+        loadCallback: () => {
+            /* button functionality */
+            document.querySelector(".popup.board button.refuse-override").onclick =
+                () => {
+                    popup.hide();
+                    window.location.href='./issues.html'
+                };
+
+            document.querySelector(".popup.board button.accept-override").onclick =
+                () => {
+                    popup.hide();
+                    window.location.href='./issues.html'
+                };
+        },
     });
 </script>
 </body></html>
