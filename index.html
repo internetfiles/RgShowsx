@@ -396,6 +396,10 @@
                 content: "\f16d"
             }
 
+            .icon-livetv:before {
+                content: "\f03d"
+            }
+
             .icon-issue:before {
                 content: "\f2b5"
             }
@@ -540,8 +544,8 @@
                 border-radius: var(--border-radius);
                 box-sizing: border-box;
                 display: flex;
-                gap: var(--small-gap);
-                padding: var(--small-padding)
+                gap: 1rem;
+                padding: 1rem;
             }
 
             body.modal-active .header-container .header .links {
@@ -553,9 +557,9 @@
                 align-items: center;
                 border-radius: calc(var(--border-radius)/2);
                 display: flex;
-                font-size: var(--small-font);
-                gap: var(--small-gap);
-                padding: var(--small-padding) calc(var(--small-padding)*2);
+                font-size: 0.8rem;
+                gap: 1rem;
+                padding: 0.5rem 0.5rem;
                 transition: var(--transition-speed) background-color;
                 user-select: none
             }
@@ -2140,6 +2144,10 @@
                     icon: "anime",
                     text: "Anime",
                     url: "./anime.html"
+                }, {
+                    icon: "livetv",
+                    text: "Live Tv",
+                    url: "./livetv/"
                 }, {
                     icon: "cog",
                     text: "Settings"
@@ -5506,6 +5514,8 @@
 
         if (pageParam === '4') {
             window.location.href = './anime/';
+        } else if (pageParam == '5') {
+            window.location.href = './livetv/';
         }
     }
 
@@ -5556,6 +5566,43 @@
 });
 </script>
 <script>
+    const popup = new Popup({
+    id: "override",
+    title: "How to use RgShows?",
+    content: `Make sure to read guide of RgShows, before using it at your own :), btw u got no choice u have to read it ;)
+      custom-space-out big-margin§{btn-refuse-override}[YES, TAKE ME THERE]{btn-accept-override}[NO, TAKE ME THERE]`,
+      sideMargin: "2.9vw",
+    titleColor: "#fff",
+    textColor: "#fff",
+    backgroundColor: "#222",
+    closeColor: "#fff",
+    fontSizeMultiplier: 1.2,
+    linkColor: "#888",
+    allowClose: false,
+    showOnce: true,
+    css: `
+    .popup.override .custom-space-out {
+        display: flex;
+        justify-content: center;
+        gap: 1.5em;
+    }`,
+    loadCallback: () => {
+        /* button functionality */
+        document.querySelector(".popup.board button.refuse-override").onclick =
+            () => {
+                popup.hide();
+                window.location.href='./issues.html'
+            };
+
+        document.querySelector(".popup.board button.accept-override").onclick =
+            () => {
+                popup.hide();
+                window.location.href='./issues.html'
+            };
+    },
+});
+</script>
+<script>
     const myPopups = new Popup({
         id: "Event",
         title: "Event ✨",
@@ -5564,5 +5611,4 @@
         showImmediately: true
     });
 </script>
-<script src="js/anime.js" preload></script>
 </body></html>
