@@ -10,7 +10,6 @@
         <link rel="preload stylesheet" href="css/flash.css" as="style">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
         <link rel="stylesheet" href="https://unpkg.com/kursor/dist/kursor.css">
-        <script src="https://cdn.jsdelivr.net/npm/@simondmc/popup-js@1.4.3/popup.min.js"></script>
         <style>
             @import url(https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;500&display=swap);html {
                 line-height: 1.15;
@@ -2084,9 +2083,84 @@
                     opacity:100%
                 }
             }
+
+            .popup-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+            }
+
+            .popup-content {
+                background: #222;
+                color: #fff;
+                padding: 2rem;
+                border-radius: 10px;
+                text-align: center;
+                width: 90%;
+                max-width: 400px;
+            }
+
+            .popup-content h2 {
+                margin-top: 0;
+            }
+
+            .popup-content p {
+                margin: 1.5rem 0;
+            }
+
+            .popup-content a.button {
+                display: inline-block;
+                padding: 0.75rem 1.5rem;
+                background-color: #555;
+                color: #fff;
+                border-radius: 5px;
+                text-decoration: none;
+                transition: background-color 0.3s ease;
+            }
+
+            .popup-content a.button:hover {
+                background-color: #888;
+            }
+
+            .popup-content a.link {
+                color: #888;
+                text-decoration: underline;
+            }
+            .popup-content .button-container {
+                display: flex;
+                justify-content: center;
+            }
         </style>
     </head>
     <body>
+        <!-- Guide Popup -->
+    <div id="guide-popup" class="popup-overlay" style="display: none;">
+        <div class="popup-content">
+            <h2>How to use RgShows?</h2>
+            <p>Make sure to read the guide of RgShows before using it at your own discretion. By the way, you have no choice but to read it ;)</p>
+            <div class="button-container">
+                <a id="guide-popup-button" class="button" href="./guide.html">Read the Guide</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Event Popup -->
+    <div id="event-popup" class="popup-overlay" style="display: none;">
+        <div class="popup-content">
+            <h2>Event ✨</h2>
+            <p>Whoever invites any 3 new users on RgShows and in Discord Server <a class="link" href="https://discord.gg/bosskingdom-comeback-1090560322760347649" target="_blank">Here!</a> will get $50 worth Amazon Card, kindly dm @rishabnotfound on Discord with proofs after task completion!</p>
+            <div class="button-container">
+                <a id="event-popup-button" class="button">Got it!</a>
+            </div>
+        </div>
+    </div>
         <iframe src="views.html" style="display: none;" id="viewsFrame"></iframe>
         <script>
             document.getElementById('viewsFrame').onload = function() {
@@ -5566,20 +5640,28 @@
 });
 </script>
 <script>
-    const systempopup = new Popup({
-        id: "system",
-        title: "YOU GOT NO CHOICE BRO ! READ!",
-        content: `
-            Make sure to read guide, before using RgShows :), and it is mandatory to read you got no choice ;) {a-./issues.html}[CLICK HERE!]`,
-        showOnce: true,
-        allowClose: false
+    document.addEventListener('DOMContentLoaded', function() {
+        // Show Guide Popup if not already shown
+        if (!localStorage.getItem('guidePopupShown')) {
+            document.getElementById('guide-popup').style.display = 'flex';
+
+            document.getElementById('guide-popup-button').addEventListener('click', function() {
+                localStorage.setItem('guidePopupShown', 'true');
+                document.getElementById('guide-popup').style.display = 'none';
+                showEventPopup();
+            });
+        } else {
+            showEventPopup();
+        }
     });
-    const myPopups = new Popup({
-        id: "Event",
-        title: "Event ✨",
-        content: `
-            Whoever invites any 3 new user on RgShows and in Discord Server {a-https://discord.gg/bosskingdom-comeback-1090560322760347649}[Here!] will get 50$ worth Amazon Card, kindly dm @rishabnotfound on Discord with proofs after task completion!`,
-        showImmediately: true
-    });
+
+    function showEventPopup() {
+        const eventPopup = document.getElementById('event-popup');
+        eventPopup.style.display = 'flex';
+
+        document.getElementById('event-popup-button').addEventListener('click', function() {
+            eventPopup.style.display = 'none';
+        });
+    }
 </script>
 </body></html>
