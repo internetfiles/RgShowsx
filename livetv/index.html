@@ -10,6 +10,7 @@
     <link rel="preload stylesheet" href="../css/flash.css" as="style">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/kursor/dist/kursor.css">
+    <script src="https://cdn.jsdelivr.net/npm/@simondmc/popup-js@1.4.3/popup.min.js"></script>
     <title>RgShows - LiveTV</title>
     <style>
         body {
@@ -141,6 +142,15 @@
                 type: cursorType
             });
         });
-    </script>  
+    </script> 
+    <script>
+        const myPopup = new Popup({
+            id: "my-popup",
+            title: "BETA PROGRESS!",
+            content: `
+                This is not an final version of this LiveTV, its only 30% Completed!`,
+            showImmediately: true,
+        });
+    </script>
 </body>
 </html>
