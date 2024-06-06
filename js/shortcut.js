@@ -1,3 +1,62 @@
+function resetDataAndParameter() {
+    const popup = document.createElement('div');
+    popup.style.position = 'fixed';
+    popup.style.top = '50%';
+    popup.style.left = '50%';
+    popup.style.transform = 'translate(-50%, -50%)';
+    popup.style.backgroundColor = '#222';
+    popup.style.color = '#fff';
+    popup.style.padding = '20px';
+    popup.style.borderRadius = '10px';
+    popup.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.5)';
+    popup.style.zIndex = '1000';
+
+    const message = document.createElement('p');
+    message.textContent = 'Are you sure you want to clear all your data?';
+    message.style.marginBottom = '20px';
+    popup.appendChild(message);
+
+    const buttonContainer = document.createElement('div');
+    buttonContainer.style.display = 'flex';
+    buttonContainer.style.justifyContent = 'space-between';
+    buttonContainer.style.gap = '10px';
+
+    const confirmButton = document.createElement('button');
+    confirmButton.textContent = 'Yes';
+    confirmButton.style.backgroundColor = '#555';
+    confirmButton.style.color = '#fff';
+    confirmButton.style.border = 'none';
+    confirmButton.style.padding = '10px 20px';
+    confirmButton.style.borderRadius = '5px';
+    confirmButton.style.cursor = 'pointer';
+    confirmButton.onclick = () => {
+        localStorage.clear();
+        const url = new URL(window.location);
+        url.search = ''; // Clear all existing parameters
+        url.searchParams.set('p', '1'); // Set 'p' parameter to '1'
+        history.pushState({}, '', url);
+        document.body.removeChild(popup);
+    };
+
+    const cancelButton = document.createElement('button');
+    cancelButton.textContent = 'No';
+    cancelButton.style.backgroundColor = '#555';
+    cancelButton.style.color = '#fff';
+    cancelButton.style.border = 'none';
+    cancelButton.style.padding = '10px 20px';
+    cancelButton.style.borderRadius = '5px';
+    cancelButton.style.cursor = 'pointer';
+    cancelButton.onclick = () => {
+        document.body.removeChild(popup);
+    };
+
+    buttonContainer.appendChild(confirmButton);
+    buttonContainer.appendChild(cancelButton);
+    popup.appendChild(buttonContainer);
+
+    document.body.appendChild(popup);
+}
+
 document.addEventListener('keydown', function(event) {
     if (event.altKey && event.key === '1') {
         updatePageParameter('1');
@@ -26,16 +85,17 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
+function isRestrictedPath() {
+    const path = window.location.pathname;
+    return path.includes('/anime/') || path.includes('/livetv/');
+}
+
 function updatePageParameter(page) {
     const url = new URL(window.location);
-    if (url.pathname.includes('/anime/')) {
-        window.location.href = `../?p=${page}`;
-    } else if (url.pathname.includes('/livetv/')) {
+    if (isRestrictedPath()) {
         window.location.href = `../?p=${page}`;
     } else {
-        // Clear all existing parameters
         url.search = ''; 
-        // Set only the 'p' parameter
         url.searchParams.set('p', page);
         history.pushState({}, '', url);
     }
@@ -43,17 +103,9 @@ function updatePageParameter(page) {
 
 function removeAllParametersExceptP() {
     const url = new URL(window.location);
-    const pValue = url.searchParams.get('p') || '1'; // Default to '1' if 'p' parameter is not present
-    url.search = ''; // Clear all existing parameters
+    const pValue = url.searchParams.get('p') || '1'; 
+    url.search = ''; 
     url.searchParams.set('p', pValue);
-    history.pushState({}, '', url);
-}
-
-function resetDataAndParameter() {
-    localStorage.clear();
-    const url = new URL(window.location);
-    url.search = ''; // Clear all existing parameters
-    url.searchParams.set('p', '1'); // Set 'p' parameter to '1'
     history.pushState({}, '', url);
 }
 
@@ -71,17 +123,13 @@ async function getRandomMovieId() {
     try {
         const totalPagesResponse = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`);
         const totalPagesData = await totalPagesResponse.json();
-        const totalPages = Math.min(totalPagesData.total_pages, 500); // Limit to maximum of 500 pages
+        const totalPages = Math.min(totalPagesData.total_pages, 500);
 
-        // Generate a random page number between 1 and totalPages
         const randomPage = Math.floor(Math.random() * totalPages) + 1;
-
-        // Fetch movies from the random page
         const randomPageResponse = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${randomPage}`);
         const randomPageData = await randomPageResponse.json();
         const movies = randomPageData.results;
 
-        // Select a random movie from the page
         const randomMovie = movies[Math.floor(Math.random() * movies.length)];
         return randomMovie.id;
     } catch (error) {
@@ -95,7 +143,7 @@ async function redirectToRandomMovie() {
     if (randomMovieId !== null) {
         const url = new URL(window.location);
         const currentPage = url.searchParams.get('p') || '1';
-        url.search = ''; // Clear all existing parameters
+        url.search = '';
         url.searchParams.set('p', currentPage);
         url.searchParams.set('m', `m-${randomMovieId}`);
         history.pushState({}, '', url);
@@ -110,17 +158,13 @@ async function getRandomSeriesId() {
     try {
         const totalPagesResponse = await fetch(`https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}&language=en-US&page=1`);
         const totalPagesData = await totalPagesResponse.json();
-        const totalPages = Math.min(totalPagesData.total_pages, 500); // Limit to maximum of 500 pages
+        const totalPages = Math.min(totalPagesData.total_pages, 500);
 
-        // Generate a random page number between 1 and totalPages
         const randomPage = Math.floor(Math.random() * totalPages) + 1;
-
-        // Fetch series from the random page
         const randomPageResponse = await fetch(`https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}&language=en-US&page=${randomPage}`);
         const randomPageData = await randomPageResponse.json();
         const series = randomPageData.results;
 
-        // Select a random series from the page
         const randomSeries = series[Math.floor(Math.random() * series.length)];
         return randomSeries.id;
     } catch (error) {
@@ -134,7 +178,7 @@ async function redirectToRandomSeries() {
     if (randomSeriesId !== null) {
         const url = new URL(window.location);
         const currentPage = url.searchParams.get('p') || '1';
-        url.search = ''; // Clear all existing parameters
+        url.search = '';
         url.searchParams.set('p', currentPage);
         url.searchParams.set('m', `s-${randomSeriesId}`);
         history.pushState({}, '', url);
