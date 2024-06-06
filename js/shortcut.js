@@ -58,30 +58,15 @@ function resetDataAndParameter() {
 }
 
 document.addEventListener('keydown', function(event) {
-    if (event.altKey && event.key === '1') {
-        updatePageParameter('1');
-    } else if (event.altKey && event.key === '2') {
-        updatePageParameter('2');
-    } else if (event.altKey && event.key === '3') {
-        updatePageParameter('3');
-    } else if (event.altKey && event.key === '4') {
-        updatePageParameter('4');
-    } else if (event.altKey && event.key === '5') {
-        updatePageParameter('5');
-    } else if (event.altKey && event.key === '6') {
-        updatePageParameter('6');
-    } else if (event.altKey && (event.key === 'm' || event.key === 'M')) {
-        redirectToRandomMovie();
-    } else if (event.altKey && (event.key === 's' || event.key === 'S')) {
-        redirectToRandomSeries();
-    } else if (event.altKey && (event.key === 'x' || event.key === 'X')) {
-        removeAllParametersExceptP();
-    } else if (event.altKey && event.key === 'Delete') {
-        resetDataAndParameter();
-    } else if (event.altKey && event.key === 'ArrowRight') {
-        goToNextPage();                             
-    } else if (event.altKey && event.key === 'ArrowLeft') {
-        goToPreviousPage();
+    if (event.altKey && ['1', '2', '3', '4', '5', '6'].includes(event.key)) {
+        updatePageParameter(event.key);
+    } else if (event.altKey && ['ArrowRight', 'ArrowLeft'].includes(event.key)) {
+        event.preventDefault(); // Prevent default behavior of arrow keys
+        if (event.key === 'ArrowRight') {
+            goToNextPage();                             
+        } else if (event.key === 'ArrowLeft') {
+            goToPreviousPage();
+        }
     }
 });
 
