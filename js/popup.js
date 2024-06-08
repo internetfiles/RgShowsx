@@ -36,7 +36,8 @@ const blockedUrls = [
     "https://www.NontonGo.win/", 
     "https://vidsrc.top/",
     "https://vidsrc.vip/",    
-    "https://frembed.pro/" 
+    "https://frembed.pro/" ,
+    "https://playsrc.streamscripts.xyz/"
 ];
 
 // Function to block popups
