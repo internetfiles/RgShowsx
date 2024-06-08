@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,6 +25,7 @@
             height: 100vh;
             overflow: hidden;
         }
+
         .header {
             background-color: #1f1f1f;
             display: flex;
@@ -31,20 +33,23 @@
             align-items: center;
             padding: 10px;
         }
+
         .header img {
+            margin-left: 50px;
             width: 180px;
             height: 70px;
         }
+
         .footer {
-            background-color: #1f1f1f;
+            background-color: #121212;
             padding: 10px;
             text-align: center;
             color: #ffffff;
         }
 
         .footer a.link {
-                color: #ffffff;
-                text-decoration: underline;
+            color: #ffffff;
+            text-decoration: underline;
         }
 
         .container {
@@ -52,34 +57,40 @@
             flex: 1;
             overflow: hidden;
         }
+
         .menu {
             width: 300px;
             background-color: #1f1f1f;
             padding: 20px;
             box-sizing: border-box;
             overflow-y: auto;
-            height: calc(100vh - 160px); /* Adjust for header and footer */
+            height: calc(100vh - 160px);
             display: none;
             flex-direction: column;
         }
+
         .menu h2 {
             margin-top: 0;
         }
+
         .menu ul {
             list-style: none;
             padding: 0;
         }
+
         .menu ul li {
             margin: 10px 0;
             display: flex;
             align-items: center;
         }
+
         .menu ul li img {
             width: 50px;
             height: auto;
             margin-right: 10px;
             border-radius: 5px;
         }
+
         .menu ul li a {
             color: #ffffff;
             text-decoration: none;
@@ -89,12 +100,15 @@
             transition: background-color 0.3s;
             flex: 1;
         }
+
         .menu ul li a:hover {
             background-color: #333333;
         }
+
         .search-bar {
             margin-bottom: 20px;
         }
+
         .search-bar input {
             width: 100%;
             padding: 10px;
@@ -104,6 +118,7 @@
             background-color: #333333;
             color: #ffffff;
         }
+
         .toggle-menu {
             background-color: #333333;
             color: #ffffff;
@@ -116,6 +131,7 @@
             z-index: 1001;
             transition: opacity 0.3s;
         }
+
         .player {
             flex: 1;
             display: flex;
@@ -123,13 +139,19 @@
             align-items: center;
             transition: width 0.3s;
             overflow: hidden;
+            position: relative;
+            background: url('noneed.png') center center no-repeat;
+            background-size: contain;
         }
-        .player video {
+
+        .custom-video {
             width: 100%;
             height: 100%;
             border: none;
             max-height: 100vh;
+            position: absolute;
         }
+
         .custom-controls {
             position: absolute;
             bottom: 10px;
@@ -145,6 +167,7 @@
             opacity: 0;
             transition: visibility 0.3s, opacity 0.3s;
         }
+
         .custom-controls button {
             background: none;
             border: none;
@@ -152,41 +175,83 @@
             cursor: pointer;
             font-size: 16px;
         }
-        .player:hover .custom-controls {
-            visibility: visible;
-            opacity: 1;
+
+        .custom-loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 6px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 6px solid #ffffff;
+            width: 40px;
+            height: 40px;
+            -webkit-animation: spin 1s linear infinite;
+            animation: spin 1s linear infinite;
         }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .custom-video::after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border: 6px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 6px solid #ffffff;
+            animation: spin 1s linear infinite;
+            z-index: 1000;
+        }
+
         ::-webkit-scrollbar {
             width: 8px;
         }
+
         ::-webkit-scrollbar-track {
             background: #1f1f1f;
         }
+
         ::-webkit-scrollbar-thumb {
             background: #333333;
             border-radius: 10px;
         }
+
         ::-webkit-scrollbar-thumb:hover {
             background: #555555;
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </head>
+
 <body>
     <div class="header">
         <img src="header.png" href="../" alt="Banner">
     </div>
-    <button class="toggle-menu" onclick="toggleMenu()">Menu</button>
+    <button class="toggle-menu" onclick="toggleMenu()">Menu 🌟</button>
     <div class="container">
         <div class="menu" id="menu" onscroll="handleMenuScroll()">
-            <h2>Channels</h2>
+            <h2>Channels 📺</h2>
             <div class="search-bar">
                 <input type="text" id="search-input" placeholder="Search channels..." onkeyup="filterChannels()">
             </div>
             <ul id="channel-list"></ul>
         </div>
         <div class="player" id="player">
-            <video id="video-player" controls></video>
+            <video id="video-player" class="custom-video" controls></video>
+            <div class="custom-loader" id="custom-loader"></div>
         </div>
     </div>
     <div class="footer">
@@ -237,113 +302,113 @@
                 a.href = '#';
                 a.textContent = channel.name;
                 a.onclick = () => {
-                    if (Hls.isSupported()) {
-                        hls.loadSource(channel.url);
-                        hls.attachMedia(videoPlayer);
-                        hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                            videoPlayer.play();
-                        });
-                    } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
-                        videoPlayer.src = channel.url;
-                        videoPlayer.addEventListener('loadedmetadata', function() {
-                            videoPlayer.play();
-                        });
-                    } else {
-                        videoPlayer.src = channel.url;
+                if (Hls.isSupported()) {
+                    hls.loadSource(channel.url);
+                    hls.attachMedia(videoPlayer);
+                    hls.on(Hls.Events.MANIFEST_PARSED, function() {
                         videoPlayer.play();
-                    }
-                };
-                li.appendChild(img);
-                li.appendChild(a);
-                channelList.appendChild(li);
-            });
-        }
-
-        function filterChannels() {
-            const searchInput = document.getElementById('search-input').value.toLowerCase();
-            const filteredChannels = channels.filter(channel => channel.name.toLowerCase().includes(searchInput));
-            displayChannels(filteredChannels);
-        }
-
-        function toggleMenu() {
-            const menu = document.getElementById('menu');
-            isMenuOpen = !isMenuOpen;
-            menu.style.display = isMenuOpen ? 'flex' : 'none';
-        }
-
-        function handleMenuScroll() {
-            const menu = document.getElementById('menu');
-            const toggleButton = document.querySelector('.toggle-menu');
-            if (menu.scrollTop > 50) {
-                toggleButton.style.opacity = '0';
-            } else {
-                toggleButton.style.opacity = '1';
-            }
-        }
-
-        function togglePlayPause() {
-            const videoPlayer = document.getElementById('video-player');
-            const playPauseIcon = document.getElementById('play-pause-icon');
-            if (videoPlayer.paused) {
-                videoPlayer.play();
-                playPauseIcon.classList.remove('fa-play');
-                playPauseIcon.classList.add('fa-pause');
-            } else {
-                videoPlayer.pause();
-                playPauseIcon.classList.remove('fa-pause');
-                playPauseIcon.classList.add('fa-play');
-            }
-        }
-
-        function stopVideo() {
-            const videoPlayer = document.getElementById('video-player');
-            videoPlayer.pause();
-            videoPlayer.currentTime = 0;
-        }
-
-        function toggleFullScreen() {
-            const videoPlayer = document.getElementById('video-player');
-            if (!document.fullscreenElement) {
-                videoPlayer.requestFullscreen();
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
+                    });
+                } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+                    videoPlayer.src = channel.url;
+                    videoPlayer.addEventListener('loadedmetadata', function() {
+                        videoPlayer.play();
+                    });
+                } else {
+                    videoPlayer.src = channel.url;
+                        videoPlayer.play();
                 }
+            };
+            li.appendChild(img);
+            li.appendChild(a);
+            channelList.appendChild(li);
+        });
+    }
+
+    function filterChannels() {
+        const searchInput = document.getElementById('search-input').value.toLowerCase();
+        const filteredChannels = channels.filter(channel => channel.name.toLowerCase().includes(searchInput));
+        displayChannels(filteredChannels);
+    }
+
+    function toggleMenu() {
+        const menu = document.getElementById('menu');
+        isMenuOpen = !isMenuOpen;
+        menu.style.display = isMenuOpen ? 'flex' : 'none';
+    }
+
+    function handleMenuScroll() {
+        const menu = document.getElementById('menu');
+        const toggleButton = document.querySelector('.toggle-menu');
+        if (menu.scrollTop > 50) {
+            toggleButton.style.opacity = '0';
+        } else {
+            toggleButton.style.opacity = '1';
+        }
+    }
+
+    function togglePlayPause() {
+        const videoPlayer = document.getElementById('video-player');
+        const playPauseIcon = document.getElementById('play-pause-icon');
+        if (videoPlayer.paused) {
+            videoPlayer.play();
+            playPauseIcon.classList.remove('fa-play');
+            playPauseIcon.classList.add('fa-pause');
+        } else {
+            videoPlayer.pause();
+            playPauseIcon.classList.remove('fa-pause');
+            playPauseIcon.classList.add('fa-play');
+        }
+    }
+
+    function stopVideo() {
+        const videoPlayer = document.getElementById('video-player');
+        videoPlayer.pause();
+        videoPlayer.currentTime = 0;
+    }
+
+    function toggleFullScreen() {
+        const videoPlayer = document.getElementById('video-player');
+        if (!document.fullscreenElement) {
+            videoPlayer.requestFullscreen();
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
             }
         }
+    }
 
-        window.onload = function() {
-            loadChannels();
-        };
-    </script>
-    <script src="../js/logger.js"></script>
-    <script src="../js/statistics.js"></script>
-    <script src="../js/restrictedshortcut.js"></script>
-    <script src="../js/blockIP.js"></script>
-    <script src="../js/smoothscroll.js"></script>
-    <script src="../js/blocker.js"></script>
-    <script src="../js/popupblocker.js"></script>
-    <script src="../js/popup.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/kursor@0.0.14/dist/kursor.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const storedCursor = localStorage.getItem("selectedCursor");
-            const cursorType = storedCursor ? parseInt(storedCursor) : 1;
+    window.onload = function() {
+        loadChannels();
+    };
+</script>
+<script src="../js/logger.js"></script>
+<script src="../js/statistics.js"></script>
+<script src="../js/restrictedshortcut.js"></script>
+<script src="../js/blockIP.js"></script>
+<script src="../js/smoothscroll.js"></script>
+<script src="../js/blocker.js"></script>
+<script src="../js/popupblocker.js"></script>
+<script src="../js/popup.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/kursor@0.0.14/dist/kursor.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const storedCursor = localStorage.getItem("selectedCursor");
+        const cursorType = storedCursor ? parseInt(storedCursor) : 1;
 
-            new kursor({
-                type: cursorType
-            });
+        new kursor({
+            type: cursorType
         });
-    </script>
-    <script>
-        const myPopup = new Popup({
-            id: "my-popup",
-            title: "BETA PROGRESS!",
-            content: `
-                This is not an final version of this LiveTV, its only 60% Completed!`,
-            showImmediately: true,
-        });
-    </script>
+    });
+</script>
+<script>
+    const myPopup = new Popup({
+        id: "my-popup",
+        title: "BETA PROGRESS!",
+        content: `
+            This is not an final version of this LiveTV, its only 70% Completed!`,
+        showImmediately: true,
+    });
+</script>
 </body>
 </html>

@@ -1,8 +1,16 @@
 #EXTM3U
-#EXTINF:-1 group-title="IPL2024" tvg-logo="https://raw.githubusercontent.com/subirkumarpaul/Logo/main/IPL%202023.jpeg",IPL 2024 Toffee Live
-https://its-nayeemparvez.xyz/toffee/stream.php?id=match-1&hls=master_1300.m3u8
-#EXTINF:-1 group-title="IPL2024" tvg-logo="https://raw.githubusercontent.com/subirkumarpaul/Logo/main/IPL%202023.jpeg",IPL 2024 Star Sports 1
-http://41.205.93.154/STARSPORTS1/index.m3u8
+#EXTINF:-1 group-title="ICCT20_1" tvg-logo="https://www.hindustantimes.com/ht-img/img/2024/01/12/550x309/11_1705048335905_1705048351313.jpg",ICC 2024 Live
+https://live2.notebulk.xyz/us_willow/index.m3u8
+#EXTINF:-1 group-title="ICCT20_2" tvg-logo="https://www.hindustantimes.com/ht-img/img/2024/01/12/550x309/11_1705048335905_1705048351313.jpg",ICC 2024 Star Sports 1
+http://wcdn.bdixsports.live:1935/live/event360.stream/playlist.m3u8
+#EXTINF:-1 group-title="banglapeace" tvg-logo="https://static.wikia.nocookie.net/etv-gspn-bangla/images/f/f3/Peace_TV_Bangla_HD_logo_2020.png/revision/latest?cb=20220106022532",Bangla PeaceTV
+https://dzkyvlfyge.erbvr.com/PeaceTvBangla/tracks-v3a1/mono.m3u8
+#EXTINF:-1 group-title="SUPERSPORTSGRANDSTAND" tvg-logo="https://www.placemyad.co.za/wp-content/uploads/logo-21-200x200.png",SUPER SPORTS GRANDSTAND
+http://145.239.5.177:8080/567/index.m3u8
+#EXTINF:-1 group-title="skysportcricket" tvg-logo="https://yt3.googleusercontent.com/ytc/AIdro_lEuwv7O-WkFLzgW0qjwUncBI59UXYOIB8vV9EjGEvYoA=s900-c-k-c0x00ffffff-no-rj",Sky Sports Cricket
+http://eypv0ag4.siauliairsavlt.pw/iptv/WTRMLWF6MHW5NG/7343/index.m3u8
+#EXTINF:-1 group-title="sports1" tvg-logo="https://yt3.googleusercontent.com/77EhgKd6zNQYxCht-FS7KDwb_BMp55TcOOnIkwEzOqkINmMEdJ2wIUEBnEKyIsdi2CHuKz3W_w=s900-c-k-c0x00ffffff-no-rj",Sports 1
+http://tv.cloudcdn.me:80/live.ts?channelId=49569&uid=8764&deviceMac=00:1A:79:A4:24:C4
 #EXTINF:-1 group-title="Bangla" tvg-logo="https://raw.githubusercontent.com/subirkumarpaul/Logo/main/BTV%20National.png",BTV National
 http://cdn01.palki.tv:80/live/BTV-M/tracks-v1a1/mono.m3u8
 #EXTINF:-1 group-title="Bangla" tvg-logo="https://raw.githubusercontent.com/subirkumarpaul/Logo/main/BTV%20National.png",BTV World
