@@ -19,7 +19,7 @@ const blockedUrls = [
     "https://vidsrc.pm/",
     "https://2embed.org/",
     "https://vidsrc.icu/",
-    "https://vidsrc.xyz/",
+    "https://vidsrc.net/",        
     "https://databasegdriveplayer.xyz/",
     "https://moviehab.to/",
     "https://api.123movie.cc/",
@@ -33,7 +33,10 @@ const blockedUrls = [
     "https://moviesapi.club/",
     "https://vip.filmclub.tv/",
     "https://mostream.us/",
+    "https://www.NontonGo.win/", 
     "https://vidsrc.top/",
+    "https://vidsrc.vip/",    
+    "https://frembed.pro/" 
 ];
 
 // Function to block popups
