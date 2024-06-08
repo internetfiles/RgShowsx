@@ -2677,6 +2677,15 @@
                     return `https://vidsrc.vip/embed/tv/${e}/${t}/${n}`
                 }
             },
+            "frembed": {
+                name: "frembed",
+                movieUrl: function({id: e}) {
+                    return `https://frembed.pro/api/film.php?id=${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://frembed.pro/api/serie.php?id=${e}&sa=${t}&epi=${n}`
+                }
+            },
         }
           , o = {
             Search: !0,
