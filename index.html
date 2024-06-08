@@ -2686,6 +2686,15 @@
                     return `https://frembed.pro/api/serie.php?id=${e}&sa=${t}&epi=${n}`
                 }
             },
+            "playsrc": {
+                name: "playsrc",
+                movieUrl: function({id: e}) {
+                    return `https://playsrc.streamscripts.xyz/embed/movie/${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://playsrc.streamscripts.xyz/embed/tv/${e}/?related=1&episode=${n}&season=${t}`
+                }
+            },
         }
           , o = {
             Search: !0,
