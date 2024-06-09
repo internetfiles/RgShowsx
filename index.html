@@ -2695,13 +2695,13 @@
                     return `https://playsrc.streamscripts.xyz/embed/tv/${e}/?related=1&episode=${n}&season=${t}`
                 }
             },
-            "braflix": {
-                name: "braflix",
+            "streamug": {
+                name: "streamug",
                 movieUrl: function({id: e}) {
-                    return `https://www.braflix.so/movie/${e}?play=true`
+                    return `https://streamug.com/video/${e}/`
                 },
                 showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://playsrc.streamscripts.xyz/embed/tv/${e}/?related=1&episode=${n}&season=${t}`
+                    return `https://streamug.com/video/${e}s${t}e${n}/`
                 }
             },
         }
