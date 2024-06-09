@@ -1,8 +1,4 @@
 #EXTM3U
-#EXTINF:-1 group-title="ICCT20_1" tvg-logo="https://www.hindustantimes.com/ht-img/img/2024/01/12/550x309/11_1705048335905_1705048351313.jpg",ICC 2024 Live
-https://live2.notebulk.xyz/us_willow/index.m3u8
-#EXTINF:-1 group-title="ICCT20_2" tvg-logo="https://www.hindustantimes.com/ht-img/img/2024/01/12/550x309/11_1705048335905_1705048351313.jpg",ICC 2024 Star Sports 1
-http://wcdn.bdixsports.live:1935/live/event360.stream/playlist.m3u8
 #EXTINF:-1 group-title="banglapeace" tvg-logo="https://static.wikia.nocookie.net/etv-gspn-bangla/images/f/f3/Peace_TV_Bangla_HD_logo_2020.png/revision/latest?cb=20220106022532",Bangla PeaceTV
 https://dzkyvlfyge.erbvr.com/PeaceTvBangla/tracks-v3a1/mono.m3u8
 #EXTINF:-1 group-title="SUPERSPORTSGRANDSTAND" tvg-logo="https://www.placemyad.co.za/wp-content/uploads/logo-21-200x200.png",SUPER SPORTS GRANDSTAND
