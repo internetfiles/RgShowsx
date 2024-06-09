@@ -239,49 +239,49 @@
             <img src="header.png" alt="Banner">
         </a>
     </div>
+    <button class="toggle-menu" onclick="toggleMenu()">Menu 🌟</button>
     <div class="container">
-        <button class="toggle-menu" onclick="toggleMenu()">Channels</button>
         <div class="menu" id="menu" onscroll="handleMenuScroll()">
+            <h2>Channels 📺</h2>
             <div class="search-bar">
-                <input type="text" id="search-input" placeholder="Search Channels..." onkeyup="filterChannels()">
+                <input type="text" id="search-input" placeholder="Search channels... 🔎" onkeyup="filterChannels()">
             </div>
-            <h2>Favorites</h2>
+            <h3>Favorites</h3>
             <ul id="favorite-channels"></ul>
-            <h2>Creator's Choice</h2>
+            <h3>Creator Choice</h3>
             <ul id="creator-choice-channels"></ul>
-            <h2>All Channels</h2>
+            <h3>All Channels</h3>
             <ul id="all-channels"></ul>
         </div>
-        <div class="player">
+        <div class="player" id="player">
             <video id="video-player" class="custom-video" controls></video>
-            <iframe id="custom-iframe" class="custom-video"></iframe>
-            <div id="custom-loader" class="custom-loader"></div>
+            <iframe id="custom-iframe" class="custom-video" style="display: none;" allowfullscreen></iframe>
+            <div class="custom-loader" id="custom-loader"></div>
         </div>
     </div>
     <div class="footer">
-        <p id="viewsCount"></p>
-        <p>IPTV Player Web App. All rights reserved.</p>
-        <p>For more, visit <a href="../" class="link">RgShows</a></p>
+        <a class="link" href="../">© 2024 RgShows</a>
     </div>
 
     <script>
-        const channels = [];
-        const favoriteChannels = JSON.parse(localStorage.getItem('favoriteChannels')) || [];
-        const creatorChoiceChannels = [
-            { name: "Example Channel 1", url: "https://cricketreleted.github.io/AstroCric/", logo: "http://example.com/logo1.png" },
-            { name: "Example Channel 2", url: "http://example.com/stream2.m3u8", logo: "http://example.com/logo2.png" }
+        let channels = [];
+        let favoriteChannels = JSON.parse(localStorage.getItem('favoriteChannels')) || [];
+        let creatorChoiceChannels = [
+            { name: 'ICC T20 2024 1', url: 'https://cricketreleted.github.io/AstroCric/', logo: 'creator_choice/T20.png' },
+            { name: 'ICC T20 2024 2', url: 'https://example.com/stream2', logo: 'creator_choice/T20.png' }
         ];
 
-        function loadChannels() {
-            fetch('playlist.m3u')
-                .then(response => response.text())
-                .then(data => parseM3U(data));
+        async function loadChannels() {
+            const response = await fetch('playlist.m3u');
+            const m3uText = await response.text();
+            parseM3U(m3uText);
         }
 
-        function parseM3U(data) {
-            const lines = data.split('\n');
+        function parseM3U(m3uText) {
+            const lines = m3uText.split('\n');
             let channelName = '';
             let logoUrl = '';
+
             lines.forEach(line => {
                 if (line.startsWith('#EXTINF')) {
                     const nameMatch = line.match(/,(.+)/);
@@ -341,9 +341,8 @@
                 playChannel(channel.url, channel.name);
             };
 
-            img.src = channel.logo;
+            img.src = channel.logo || 'default_logo.png';  // Use a default logo if none is provided
             img.alt = channel.name;
-            img.onerror = () => { img.src = 'path/to/default-image.png'; }; // Replace with a default image path
 
             favIcon.className = isFavorite ? 'fas fa-star favorite' : 'far fa-star favorite';
             favIcon.onclick = (e) => {
@@ -371,8 +370,12 @@
                     const hls = new Hls();
                     hls.loadSource(url);
                     hls.attachMedia(videoPlayer);
+                    hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                        videoPlayer.play();
+                    });
                 } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
                     videoPlayer.src = url;
+                    videoPlayer.play();
                 }
                 videoPlayer.style.display = 'block';
                 customIframe.style.display = 'none';
