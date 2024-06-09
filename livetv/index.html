@@ -239,45 +239,49 @@
             <img src="header.png" alt="Banner">
         </a>
     </div>
-    <button class="toggle-menu" onclick="toggleMenu()">Menu 🌟</button>
     <div class="container">
+        <button class="toggle-menu" onclick="toggleMenu()">Channels</button>
         <div class="menu" id="menu" onscroll="handleMenuScroll()">
-            <h2>Channels 📺</h2>
             <div class="search-bar">
-                <input type="text" id="search-input" placeholder="Search channels... 🔎" onkeyup="filterChannels()">
+                <input type="text" id="search-input" placeholder="Search Channels..." onkeyup="filterChannels()">
             </div>
-            <h3>Favorites</h3>
+            <h2>Favorites</h2>
             <ul id="favorite-channels"></ul>
-            <h3>Creator Choice</h3>
+            <h2>Creator's Choice</h2>
             <ul id="creator-choice-channels"></ul>
-            <h3>All Channels</h3>
+            <h2>All Channels</h2>
             <ul id="all-channels"></ul>
         </div>
-        <div class="player" id="player">
+        <div class="player">
             <video id="video-player" class="custom-video" controls></video>
-            <iframe id="custom-iframe" class="custom-video" style="display: none;"></iframe>
-            <div class="custom-loader" id="custom-loader"></div>
+            <iframe id="custom-iframe" class="custom-video"></iframe>
+            <div id="custom-loader" class="custom-loader"></div>
         </div>
     </div>
     <div class="footer">
-        <a class="link" href="../">© 2024 RgShows</a>
+        <p id="viewsCount"></p>
+        <p>IPTV Player Web App. All rights reserved.</p>
+        <p>For more, visit <a href="../" class="link">RgShows</a></p>
     </div>
 
     <script>
-        let channels = [];
-        let favoriteChannels = JSON.parse(localStorage.getItem('favoriteChannels')) || [];
-        let creatorChoiceChannels = [
-            { name: 'ICC T20 2024 1', url: 'https://cricketreleted.github.io/AstroCric/', logo: 'creator_choice/T20.png' },
-            { name: 'ICC T20 2024 2', url: 'https://example.com/stream2', logo: 'creator_choice/T20.png' }
+        const channels = [];
+        const favoriteChannels = JSON.parse(localStorage.getItem('favoriteChannels')) || [];
+        const creatorChoiceChannels = [
+            { name: "Example Channel 1", url: "https://cricketreleted.github.io/AstroCric/", logo: "http://example.com/logo1.png" },
+            { name: "Example Channel 2", url: "http://example.com/stream2.m3u8", logo: "http://example.com/logo2.png" }
         ];
 
-        async function loadChannels() {
-            const response = await fetch('playlist.m3u');
-            const data = await response.text();
+        function loadChannels() {
+            fetch('playlist.m3u')
+                .then(response => response.text())
+                .then(data => parseM3U(data));
+        }
+
+        function parseM3U(data) {
             const lines = data.split('\n');
             let channelName = '';
             let logoUrl = '';
-
             lines.forEach(line => {
                 if (line.startsWith('#EXTINF')) {
                     const nameMatch = line.match(/,(.+)/);
@@ -339,6 +343,7 @@
 
             img.src = channel.logo;
             img.alt = channel.name;
+            img.onerror = () => { img.src = 'path/to/default-image.png'; }; // Replace with a default image path
 
             favIcon.className = isFavorite ? 'fas fa-star favorite' : 'far fa-star favorite';
             favIcon.onclick = (e) => {
