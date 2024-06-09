@@ -2695,6 +2695,15 @@
                     return `https://playsrc.streamscripts.xyz/embed/tv/${e}/?related=1&episode=${n}&season=${t}`
                 }
             },
+            "braflix": {
+                name: "playsrc",
+                movieUrl: function({id: e}) {
+                    return `https://www.braflix.so/movie/${e}?play=true`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://playsrc.streamscripts.xyz/embed/tv/${e}/?related=1&episode=${n}&season=${t}`
+                }
+            },
         }
           , o = {
             Search: !0,
