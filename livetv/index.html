@@ -35,7 +35,6 @@
         }
 
         .header img {
-            margin-left: 50px;
             width: 180px;
             height: 70px;
         }
@@ -105,6 +104,11 @@
             background-color: #333333;
         }
 
+        .menu ul li .favorite {
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
         .search-bar {
             margin-bottom: 20px;
         }
@@ -137,11 +141,58 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: width 0.3s;
             overflow: hidden;
             position: relative;
             background: url('noneed.png') center center no-repeat;
             background-size: contain;
+        }
+
+        .custom-video {
+            width: 100%;
+            height: 100%;
+            border: none;
+            position: absolute;
+            object-fit: fill;
+        }
+
+        .custom-loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 6px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 6px solid #ffffff;
+            width: 40px;
+            height: 40px;
+            -webkit-animation: spin 1s linear infinite;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .custom-video::after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border: 6px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 6px solid #ffffff;
+            animation: spin 1s linear infinite;
+            z-index: 1000;
         }
 
         ::-webkit-scrollbar {
@@ -160,12 +211,18 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #555555;
         }
+
+        @media screen and (max-width: 768px) {
+            .header img {
+                margin-left: 90px;
+            }
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </head>
 
 <body>
-    <iframe src="views.html" style="display: none;" id="viewsFrame"></iframe>
+    <iframe src="../views.html" style="display: none;" id="viewsFrame"></iframe>
     <script>
         document.getElementById('viewsFrame').onload = function() {
             var iframeDoc = document.getElementById('viewsFrame').contentDocument || document.getElementById('viewsFrame').contentWindow.document;
@@ -178,19 +235,27 @@
         };
     </script>
     <div class="header">
-        <img src="header.png" href="../" alt="Banner">
+        <a href="../">
+            <img src="header.png" alt="Banner">
+        </a>
     </div>
     <button class="toggle-menu" onclick="toggleMenu()">Menu 🌟</button>
     <div class="container">
         <div class="menu" id="menu" onscroll="handleMenuScroll()">
             <h2>Channels 📺</h2>
             <div class="search-bar">
-                <input type="text" id="search-input" placeholder="Search channels..." onkeyup="filterChannels()">
+                <input type="text" id="search-input" placeholder="Search channels... 🔎" onkeyup="filterChannels()">
             </div>
-            <ul id="channel-list"></ul>
+            <h3>Favorites</h3>
+            <ul id="favorite-channels"></ul>
+            <h3>Creator Choice</h3>
+            <ul id="creator-choice-channels"></ul>
+            <h3>All Channels</h3>
+            <ul id="all-channels"></ul>
         </div>
         <div class="player" id="player">
-            <video id="video-player" controls></video>
+            <video id="video-player" class="custom-video" controls></video>
+            <div class="custom-loader" id="custom-loader"></div>
         </div>
     </div>
     <div class="footer">
@@ -199,8 +264,11 @@
 
     <script>
         let channels = [];
-        let isMenuOpen = false;
-        const pinnedChannels = ["Channel 1", "Channel 2"]; // Replace with the names of channels you want to pin to the top
+        let favoriteChannels = JSON.parse(localStorage.getItem('favoriteChannels')) || [];
+        let creatorChoiceChannels = [
+            { name: 'ICC T20 2024 1', url: 'http://145.239.5.177:8080/567/index.m3u8', logo: 'creator_choice/T20.png' },
+            { name: 'ICC T20 2024 2', url: 'https://example.com/stream2', logo: 'creator_choice/T20.png' }
+        ];
 
         async function loadChannels() {
             const response = await fetch('playlist.m3u');
@@ -219,91 +287,168 @@
                             logoUrl = attribute.split('=')[1].replace(/"/g, '');
                         }
                     });
-                } else if (line.startsWith('http') || line.endsWith('.ts')) {
-                    channels.push({ name: channelName, url: line.trim(), logo: logoUrl });
+                } else if (line.startsWith('http')) {
+                    const channelUrl = line.trim();
+                    if (!channels.some(channel => channel.url === channelUrl)) {
+                        channels.push({ name: channelName, url: channelUrl, logo: logoUrl });
+                    }
                 }
             });
 
-            sortChannels();
-            displayChannels(channels);
+            displayChannels();
         }
 
-        function sortChannels() {
-            channels.sort((a, b) => a.name.localeCompare(b.name));
-            const pinned = channels.filter(channel => pinnedChannels.includes(channel.name));
-            const unpinned = channels.filter(channel => !pinnedChannels.includes(channel.name));
-            channels = [...pinned, ...unpinned];
-        }
+        function displayChannels() {
+            const allChannelsList = document.getElementById('all-channels');
+            const favoriteChannelsList = document.getElementById('favorite-channels');
+            const creatorChoiceChannelsList = document.getElementById('creator-choice-channels');
 
-        function displayChannels(channels) {
-            const channelList = document.getElementById('channel-list');
-            channelList.innerHTML = '';
+            allChannelsList.innerHTML = '';
+            favoriteChannelsList.innerHTML = '';
+            creatorChoiceChannelsList.innerHTML = '';
 
-            channels.forEach(channel => {
-                const li = document.createElement('li');
-                const img = document.createElement('img');
-                img.src = channel.logo || 'default_logo.png'; // Provide a default logo if none is specified
-                const a = document.createElement('a');
-                a.href = '#';
-                a.textContent = channel.name;
-                const star = document.createElement('i');
-                star.className = 'fas fa-star';
-                star.style.marginLeft = '10px';
-                star.style.cursor = 'pointer';
-                star.onclick = () => toggleFavorite(channel.name);
-                a.onclick = (e) => {
-                    e.preventDefault();
-                    playChannel(channel.url);
-                };
-                li.appendChild(img);
-                li.appendChild(a);
-                li.appendChild(star);
-                channelList.appendChild(li);
+            if (favoriteChannels.length === 0) {
+                favoriteChannelsList.innerHTML = '<li>No channels marked as favorite 😔</li>';
+            } else {
+                favoriteChannels.forEach(channel => {
+                    const li = createChannelListItem(channel);
+                    favoriteChannelsList.appendChild(li);
+                });
+            }
+
+            const sortedChannels = channels.sort((a, b) => a.name.localeCompare(b.name));
+
+            sortedChannels.forEach(channel => {
+                const li = createChannelListItem(channel);
+                if (!favoriteChannels.some(favChannel => favChannel.url === channel.url) &&
+                    !creatorChoiceChannels.some(creatorChannel => creatorChannel.url === channel.url)) {
+                    allChannelsList.appendChild(li);
+                }
+            });
+
+            creatorChoiceChannels.forEach(channel => {
+                const li = createChannelListItem(channel);
+                creatorChoiceChannelsList.appendChild(li);
             });
         }
 
-        function toggleFavorite(channelName) {
-            if (pinnedChannels.includes(channelName)) {
-                pinnedChannels.splice(pinnedChannels.indexOf(channelName), 1);
+
+        function createChannelListItem(channel) {
+            const li = document.createElement('li');
+            const img = document.createElement('img');
+            img.src = channel.logo;
+            img.alt = channel.name;
+
+            const a = document.createElement('a');
+            a.href = '#';
+            a.textContent = channel.name;
+            a.onclick = (e) => {
+                e.preventDefault();
+                playChannel(channel.url);
+            };
+
+            const favoriteIcon = document.createElement('i');
+            favoriteIcon.className = 'fas fa-star favorite';
+            favoriteIcon.style.color = favoriteChannels.some(favChannel => favChannel.url === channel.url) ? 'yellow' : 'white';
+            favoriteIcon.onclick = (e) => {
+                e.stopPropagation();
+                toggleFavorite(channel);
+            };
+
+            li.appendChild(img);
+            li.appendChild(a);
+            li.appendChild(favoriteIcon);
+            return li;
+        }
+
+        function toggleFavorite(channel) {
+            const index = favoriteChannels.findIndex(favChannel => favChannel.url === channel.url);
+            if (index !== -1) {
+                favoriteChannels.splice(index, 1);
             } else {
-                pinnedChannels.push(channelName);
+                favoriteChannels.push(channel);
             }
-            sortChannels();
-            displayChannels(channels);
+            localStorage.setItem('favoriteChannels', JSON.stringify(favoriteChannels));
+            displayChannels();
+        }
+
+        function filterChannels() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const filteredChannels = channels.filter(channel => channel.name.toLowerCase().includes(searchTerm));
+            displayFilteredChannels(filteredChannels);
+        }
+
+        function displayFilteredChannels(filteredChannels) {
+            const allChannelsList = document.getElementById('all-channels');
+            allChannelsList.innerHTML = '';
+            filteredChannels.forEach(channel => {
+                const li = createChannelListItem(channel);
+                allChannelsList.appendChild(li);
+            });
         }
 
         function playChannel(url) {
             const videoPlayer = document.getElementById('video-player');
-            if (Hls.isSupported()) {
-                const hls = new Hls();
-                hls.loadSource(url);
-                hls.attachMedia(videoPlayer);
-            } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
-                videoPlayer.src = url;
-            }
+            const customLoader = document.getElementById('custom-loader');
+            customLoader.style.display = 'block';
+            videoPlayer.src = url;
+            videoPlayer.load();
             videoPlayer.play();
-        }
-
-        function filterChannels() {
-            const query = document.getElementById('search-input').value.toLowerCase();
-            const filteredChannels = channels.filter(channel => channel.name.toLowerCase().includes(query));
-            displayChannels(filteredChannels);
+            videoPlayer.oncanplay = () => {
+                customLoader.style.display = 'none';
+            };
         }
 
         function toggleMenu() {
             const menu = document.getElementById('menu');
-            isMenuOpen = !isMenuOpen;
-            menu.style.display = isMenuOpen ? 'block' : 'none';
+            menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
         }
 
         function handleMenuScroll() {
             const menu = document.getElementById('menu');
             const toggleMenuButton = document.querySelector('.toggle-menu');
-            toggleMenuButton.style.opacity = menu.scrollTop > 50 ? '0' : '1';
+            if (menu.scrollTop > 20) {
+                toggleMenuButton.style.opacity = 0;
+            } else {
+                toggleMenuButton.style.opacity = 1;
+            }
         }
 
-        window.onload = loadChannels;
+        loadChannels();
     </script>
+    <script src="js/logger.js"></script>
+    <script src="js/statistics.js"></script>
+    <script src="js/blockIP.js"></script>
+    <script src="js/smoothscroll.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/blocker.js"></script>
+    <script src="js/site.js"></script>
+    <script src="js/popupblocker.js"></script>
+    <script src="js/openload.user.js"></script>
+    <script src="js/adblock.js"></script>
+    <script src="js/popup.js"></script>
+    <script src="js/screenfull.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/kursor@0.0.14/dist/kursor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const storedCursor = localStorage.getItem("selectedCursor");
+        const cursorType = storedCursor ? parseInt(storedCursor) : 1;
+
+        new kursor({
+            type: cursorType
+        });
+    });
+</script>
+<script>
+    const myPopups = new Popup({
+        id: "Maintenance",
+        title: "Work in progress!",
+        content: `
+            It is only 80% Completed now!`,
+        showImmediately: true
+    });
+</script>
 </body>
 
 </html>
