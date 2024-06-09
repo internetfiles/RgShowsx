@@ -144,78 +144,6 @@
             background-size: contain;
         }
 
-        .custom-video {
-            width: 100%;
-            height: 100%;
-            border: none;
-            max-height: 100vh;
-            position: absolute;
-        }
-
-        .custom-controls {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            right: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 10px;
-            border-radius: 5px;
-            visibility: hidden;
-            opacity: 0;
-            transition: visibility 0.3s, opacity 0.3s;
-        }
-
-        .custom-controls button {
-            background: none;
-            border: none;
-            color: #ffffff;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .custom-loader {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border: 6px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top: 6px solid #ffffff;
-            width: 40px;
-            height: 40px;
-            -webkit-animation: spin 1s linear infinite;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        .custom-video::after {
-            content: "";
-            display: block;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 40px;
-            height: 40px;
-            border: 6px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top: 6px solid #ffffff;
-            animation: spin 1s linear infinite;
-            z-index: 1000;
-        }
-
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -238,17 +166,17 @@
 
 <body>
     <iframe src="views.html" style="display: none;" id="viewsFrame"></iframe>
-        <script>
-            document.getElementById('viewsFrame').onload = function() {
-                var iframeDoc = document.getElementById('viewsFrame').contentDocument || document.getElementById('viewsFrame').contentWindow.document;
-                var viewsCounter = iframeDoc.querySelector('script[src*="freevisitorcounters.com"]');
-                if (viewsCounter) {
-                    document.getElementById('viewsCount').innerText = 'Total Views: (Check views.html)';
-                } else {
-                    document.getElementById('viewsCount').innerText = 'Failed to load view counter.';
-                }
-            };
-        </script>
+    <script>
+        document.getElementById('viewsFrame').onload = function() {
+            var iframeDoc = document.getElementById('viewsFrame').contentDocument || document.getElementById('viewsFrame').contentWindow.document;
+            var viewsCounter = iframeDoc.querySelector('script[src*="freevisitorcounters.com"]');
+            if (viewsCounter) {
+                document.getElementById('viewsCount').innerText = 'Total Views: (Check views.html)';
+            } else {
+                document.getElementById('viewsCount').innerText = 'Failed to load view counter.';
+            }
+        };
+    </script>
     <div class="header">
         <img src="header.png" href="../" alt="Banner">
     </div>
@@ -262,8 +190,7 @@
             <ul id="channel-list"></ul>
         </div>
         <div class="player" id="player">
-            <video id="video-player" class="custom-video" controls></video>
-            <div class="custom-loader" id="custom-loader"></div>
+            <video id="video-player" controls></video>
         </div>
     </div>
     <div class="footer">
@@ -273,6 +200,7 @@
     <script>
         let channels = [];
         let isMenuOpen = false;
+        const pinnedChannels = ["Channel 1", "Channel 2"]; // Replace with the names of channels you want to pin to the top
 
         async function loadChannels() {
             const response = await fetch('playlist.m3u');
@@ -296,15 +224,20 @@
                 }
             });
 
-            channels.sort((a, b) => a.name.localeCompare(b.name));
+            sortChannels();
             displayChannels(channels);
+        }
+
+        function sortChannels() {
+            channels.sort((a, b) => a.name.localeCompare(b.name));
+            const pinned = channels.filter(channel => pinnedChannels.includes(channel.name));
+            const unpinned = channels.filter(channel => !pinnedChannels.includes(channel.name));
+            channels = [...pinned, ...unpinned];
         }
 
         function displayChannels(channels) {
             const channelList = document.getElementById('channel-list');
             channelList.innerHTML = '';
-            const videoPlayer = document.getElementById('video-player');
-            const hls = new Hls();
 
             channels.forEach(channel => {
                 const li = document.createElement('li');
@@ -313,114 +246,64 @@
                 const a = document.createElement('a');
                 a.href = '#';
                 a.textContent = channel.name;
-                a.onclick = () => {
-                if (Hls.isSupported()) {
-                    hls.loadSource(channel.url);
-                    hls.attachMedia(videoPlayer);
-                    hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                        videoPlayer.play();
-                    });
-                } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
-                    videoPlayer.src = channel.url;
-                    videoPlayer.addEventListener('loadedmetadata', function() {
-                        videoPlayer.play();
-                    });
-                } else {
-                    videoPlayer.src = channel.url;
-                        videoPlayer.play();
-                }
-            };
-            li.appendChild(img);
-            li.appendChild(a);
-            channelList.appendChild(li);
-        });
-    }
-
-    function filterChannels() {
-        const searchInput = document.getElementById('search-input').value.toLowerCase();
-        const filteredChannels = channels.filter(channel => channel.name.toLowerCase().includes(searchInput));
-        displayChannels(filteredChannels);
-    }
-
-    function toggleMenu() {
-        const menu = document.getElementById('menu');
-        isMenuOpen = !isMenuOpen;
-        menu.style.display = isMenuOpen ? 'flex' : 'none';
-    }
-
-    function handleMenuScroll() {
-        const menu = document.getElementById('menu');
-        const toggleButton = document.querySelector('.toggle-menu');
-        if (menu.scrollTop > 50) {
-            toggleButton.style.opacity = '0';
-        } else {
-            toggleButton.style.opacity = '1';
+                const star = document.createElement('i');
+                star.className = 'fas fa-star';
+                star.style.marginLeft = '10px';
+                star.style.cursor = 'pointer';
+                star.onclick = () => toggleFavorite(channel.name);
+                a.onclick = (e) => {
+                    e.preventDefault();
+                    playChannel(channel.url);
+                };
+                li.appendChild(img);
+                li.appendChild(a);
+                li.appendChild(star);
+                channelList.appendChild(li);
+            });
         }
-    }
 
-    function togglePlayPause() {
-        const videoPlayer = document.getElementById('video-player');
-        const playPauseIcon = document.getElementById('play-pause-icon');
-        if (videoPlayer.paused) {
-            videoPlayer.play();
-            playPauseIcon.classList.remove('fa-play');
-            playPauseIcon.classList.add('fa-pause');
-        } else {
-            videoPlayer.pause();
-            playPauseIcon.classList.remove('fa-pause');
-            playPauseIcon.classList.add('fa-play');
-        }
-    }
-
-    function stopVideo() {
-        const videoPlayer = document.getElementById('video-player');
-        videoPlayer.pause();
-        videoPlayer.currentTime = 0;
-    }
-
-    function toggleFullScreen() {
-        const videoPlayer = document.getElementById('video-player');
-        if (!document.fullscreenElement) {
-            videoPlayer.requestFullscreen();
-        } else {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
+        function toggleFavorite(channelName) {
+            if (pinnedChannels.includes(channelName)) {
+                pinnedChannels.splice(pinnedChannels.indexOf(channelName), 1);
+            } else {
+                pinnedChannels.push(channelName);
             }
+            sortChannels();
+            displayChannels(channels);
         }
-    }
 
-    window.onload = function() {
-        loadChannels();
-    };
-</script>
-<script src="../js/logger.js"></script>
-<script src="../js/statistics.js"></script>
-<script src="../js/restrictedshortcut.js"></script>
-<script src="../js/blockIP.js"></script>
-<script src="../js/smoothscroll.js"></script>
-<script src="../js/blocker.js"></script>
-<script src="../js/popupblocker.js"></script>
-<script src="../js/popup.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/kursor@0.0.14/dist/kursor.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const storedCursor = localStorage.getItem("selectedCursor");
-        const cursorType = storedCursor ? parseInt(storedCursor) : 1;
+        function playChannel(url) {
+            const videoPlayer = document.getElementById('video-player');
+            if (Hls.isSupported()) {
+                const hls = new Hls();
+                hls.loadSource(url);
+                hls.attachMedia(videoPlayer);
+            } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+                videoPlayer.src = url;
+            }
+            videoPlayer.play();
+        }
 
-        new kursor({
-            type: cursorType
-        });
-    });
-</script>
-<script>
-    const myPopup = new Popup({
-        id: "my-popup",
-        title: "BETA PROGRESS!",
-        content: `
-            This is not an final version of this LiveTV, its only 70% Completed!`,
-        showImmediately: true,
-    });
-</script>
+        function filterChannels() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const filteredChannels = channels.filter(channel => channel.name.toLowerCase().includes(query));
+            displayChannels(filteredChannels);
+        }
+
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            isMenuOpen = !isMenuOpen;
+            menu.style.display = isMenuOpen ? 'block' : 'none';
+        }
+
+        function handleMenuScroll() {
+            const menu = document.getElementById('menu');
+            const toggleMenuButton = document.querySelector('.toggle-menu');
+            toggleMenuButton.style.opacity = menu.scrollTop > 50 ? '0' : '1';
+        }
+
+        window.onload = loadChannels;
+    </script>
 </body>
+
 </html>
