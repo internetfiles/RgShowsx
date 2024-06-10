@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <script src="https://adsreference.com/widget.js?id=1715060516324607500" defer="defer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/devtools-detector/2.0.17/devtools-detector.js"></script>
+    <script src="../js/devtoolsdetetctor.js" preload></script>
+    <script src="../js/nocheats.js" preload></script>
+    <link rel="preload stylesheet" href="../css/flash.css" as="style">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/kursor/dist/kursor.css">
+    <script src="https://cdn.jsdelivr.net/npm/@simondmc/popup-js@1.4.3/popup.min.js"></script>
+    <title>RgShows - Torrent</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <iframe src="../views.html" style="display: none;" id="viewsFrame"></iframe>
+        <script>
+            document.getElementById('viewsFrame').onload = function() {
+                var iframeDoc = document.getElementById('viewsFrame').contentDocument || document.getElementById('viewsFrame').contentWindow.document;
+                var viewsCounter = iframeDoc.querySelector('script[src*="freevisitorcounters.com"]');
+                if (viewsCounter) {
+                    document.getElementById('viewsCount').innerText = 'Total Views: (Check views.html)';
+                } else {
+                    document.getElementById('viewsCount').innerText = 'Failed to load view counter.';
+                }
+            };
+        </script>
+    <div class="container">
+        <header>
+            <div class="header">
+                <a href="../">
+                    <img src="header.png" alt="Banner">
+                </a>
+            </div>
+            <div class="search-bar">
+                <input type="text" id="search-query" placeholder="Search torrents...">
+                <select id="provider">
+                    <option value="piratebay">PirateBay</option>
+                    <option value="yts">YTS</option>
+                    <option value="nyaasi">NyaaSi</option>
+                </select>
+                <button onclick="searchTorrents()">Search</button>
+            </div>
+        </header>
+        <main>
+            <div id="torrent-list"></div>
+            <div class="pagination" id="pagination"></div>
+        </main>
+    </div>
+    <div class="footer">
+        <a class="link" href="../">© 2024 RgShows</a>
+    </div>
+    <script src="scripts.js"></script>
+    <script src="../js/logger.js"></script>
+    <script src="../js/statistics.js"></script>
+    <script src="../js/blockIP.js"></script>
+    <script src="../js/smoothscroll.js"></script>
+    <script src="../js/jquery.js"></script>
+    <script src="../js/blocker.js"></script>
+    <script src="../js/site.js"></script>
+    <script src="../js/openload.user.js"></script>
+    <script src="../js/adblock.js"></script>
+    <script src="../js/screenfull.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/kursor@0.0.14/dist/kursor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const storedCursor = localStorage.getItem("selectedCursor");
+        const cursorType = storedCursor ? parseInt(storedCursor) : 1;
+
+        new kursor({
+            type: cursorType
+        });
+    });
+</script>
+</body>
+</html>

@@ -303,6 +303,10 @@
                 content: "\f008"
             }
 
+            .icon-magnet:before {
+                content: "\f076"
+            }
+
             .icon-list:before {
                 content: "\f00b"
             }
@@ -2229,6 +2233,10 @@
             },
             footer: {
                 links: [{
+                    icon: "magnet",
+                    url: "/torrent/",
+                    label: "torrentpage"
+                },{
                     icon: "bell",
                     url: "announcements.html",
                     label: "Rishab07"
@@ -2236,11 +2244,11 @@
                     icon: "issue",
                     url: "issues.html",
                     label: "views"
-                }, {
+                },{
                     icon: "stats",
                     url: "views.html",
                     label: "views"
-                }, {
+                },{
                     icon: "help",
                     url: "guide.html",
                     label: "guidepage"
@@ -5659,11 +5667,13 @@
     const footerGuideLink = document.querySelector('.footer-container .footer .links a[href="guide.html"]');
     const footerAnnouncementsLink = document.querySelector('.footer-container .footer .links a[href="announcements.html"]');
     const footerIssuesLink = document.querySelector('.footer-container .footer .links a[href="issues.html"]');
+    const footerTorrentLink = document.querySelector('.footer-container .footer .links a[href="/torrent/"]');
     // Remove the target attribute safely
     removeTargetAttribute(footerViewsLink);
     removeTargetAttribute(footerGuideLink);
     removeTargetAttribute(footerAnnouncementsLink);
     removeTargetAttribute(footerIssuesLink);
+    removeTargetAttribute(footerTorrentLink);
 });
 </script>
 <script>
