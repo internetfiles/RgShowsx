@@ -19,11 +19,11 @@
             padding: 0;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            height: 100vh;
             background-color: #000;
-            overflow: auto; /* Changed to allow scrolling */
+            color: #fff;
+            height: 100%;
+            overflow-y: auto;
         }
 
         .master-container {
@@ -36,6 +36,7 @@
             color: #fff;
             width: 90%;
             max-width: 600px;
+            margin-top: 20px; /* Add margin to prevent hiding behind the header */
         }
 
         .logo {
@@ -64,6 +65,13 @@
             border-radius: 10px;
             padding: 20px;
             margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .announcement-container img {
+            height: 100%;
+            width: 100%;
+            border-radius: 10px;
         }
 
         .announcement-container:hover {
@@ -95,7 +103,7 @@
             font-size: 1.5em;
             transition: color 0.3s;
             text-decoration: none;
-            pointer-events: auto; /* Ensure links are clickable */
+            pointer-events: auto;
         }
 
         .footer a:hover {
@@ -103,7 +111,7 @@
         }
 
         .overlay {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -111,6 +119,7 @@
             background: rgba(0, 0, 0, 0.5);
             z-index: -1;
         }
+
         video#backgroundVideo {
             position: fixed;
             top: 0;
@@ -118,47 +127,118 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            z-index: -2;
+        }
+
+        .popup-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .popup-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            overflow: auto;
+        }
+
+        .popup-content img {
+            width: 100%;
+            height: auto;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1f1f1f;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333333;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555555;
         }
     </style>
 </head>
 <body>
     <iframe src="views.html" style="display: none;" id="viewsFrame"></iframe>
-        <script>
-            document.getElementById('viewsFrame').onload = function() {
-                var iframeDoc = document.getElementById('viewsFrame').contentDocument || document.getElementById('viewsFrame').contentWindow.document;
-                var viewsCounter = iframeDoc.querySelector('script[src*="freevisitorcounters.com"]');
-                if (viewsCounter) {
-                    document.getElementById('viewsCount').innerText = 'Total Views: (Check views.html)';
-                } else {
-                    document.getElementById('viewsCount').innerText = 'Failed to load view counter.';
-                }
-            };
-        </script>
+    <script>
+        document.getElementById('viewsFrame').onload = function() {
+            var iframeDoc = document.getElementById('viewsFrame').contentDocument || document.getElementById('viewsFrame').contentWindow.document;
+            var viewsCounter = iframeDoc.querySelector('script[src*="freevisitorcounters.com"]');
+            if (viewsCounter) {
+                document.getElementById('viewsCount').innerText = 'Total Views: (Check views.html)';
+            } else {
+                document.getElementById('viewsCount').innerText = 'Failed to load view counter.';
+            }
+        };
+    </script>
     <video id="backgroundVideo" autoplay muted loop></video>
     <div class="overlay"></div>
 
     <div class="master-container">
-        <img src="logo.png" alt="Logo" class="logo">
-        <div class="announcement-container">
-            <p class="announcement">📢 Join us on Discord for important notice/updates/problem! <p>&nbsp; </pa> <a href="https://discord.gg/bosskingdom-comeback-1090560322760347649">Server Link</a></p>
+        <img src="logo.png" alt="Logo" class="logo">onclick="openPopup(this)"
+        <div class="announcement-container" >
+            <p class="announcement">📢 Join us on Discord for important notice/updates/problem! <a href="https://discord.gg/bosskingdom-comeback-1090560322760347649">Server Link</a></p><p>&nbsp; </pa>
+            <img src="screenshots/discord.png" alt="Discord">
         </div>
-        <div class="announcement-container">
-            <p class="announcement">🌱 Added Torrenting Service</p>
+        <div class="announcement-container" onclick="openPopup(this)">
+            <p class="announcement">🔥 Added New Custom Cursors</p><p>&nbsp; </pa>
+            <img src="screenshots/custom_cursor.png" alt="Cursors">
         </div>
-        <div class="announcement-container">
-            <p class="announcement">📺 Added LiveTV</p>
+        <div class="announcement-container" onclick="openPopup(this)">
+            <p class="announcement">🌱 Added Torrenting Service</p><p>&nbsp; </pa>
+            <img src="screenshots/torrent.png" alt="Torrent">
         </div>
-        <div class="announcement-container">
-            <p class="announcement">🍀 Added Anime</p>
+        <div class="announcement-container" onclick="openPopup(this)">
+            <p class="announcement">📺 Added LiveTV</p><p>&nbsp; </pa>
+            <img src="screenshots/livetv.png" alt="LiveTV">
         </div>
-        <div class="announcement-container">
-            <p class="announcement">💪 Improved UI</p>
+        <div class="announcement-container" onclick="openPopup(this)">
+            <p class="announcement">🍀 Added Anime</p><p>&nbsp; </pa>
+            <img src="screenshots/anime.png" alt="Anime">
         </div>
-        <div class="announcement-container">
-            <p class="announcement">📶 Added more server, right now 40 servers are availables.</p>
+        <div class="announcement-container" onclick="openPopup(this)">
+            <p class="announcement">👀 Added View Counter</p><p>&nbsp; </pa>
+            <img src="screenshots/view_counter.png" alt="Views">
         </div>
-        <div class="announcement-container">
-            <p class="announcement">🔐 Improved the Security.</p>
+        <div class="announcement-container" onclick="openPopup(this)">
+            <p class="announcement">🛐 Added a way to convey your issues.</p><p>&nbsp; </pa>
+            <img src="screenshots/issues.png" alt="Issues">
+        </div>
+        <div class="announcement-container" onclick="openPopup(this)">
+            <p class="announcement">💪 Improved UI</p><p>&nbsp; </pa>
+            <img src="screenshots/home_ui.png" alt="HomeUI">
+        </div>
+        <div class="announcement-container" onclick="openPopup(this)">
+            <p class="announcement">📶 Added more server, right now 40 servers are availables.</p><p>&nbsp; </pa>
+            <img src="screenshots/server_list.png" alt="ServerList">
+        </div>
+        <div class="announcement-container" onclick="openPopup(this)">
+            <p class="announcement">🔐 Improved Security.</p><p>&nbsp; </pa>
+            <img src="screenshots/banned.png" alt="Security">
         </div>
         <div class="footer">
             <a href="https://www.instagram.com/rishabnotfound" class="fab fa-instagram"></a>
@@ -166,6 +246,14 @@
             <a href="https://www.youtube.com/@Rishab07" class="fab fa-youtube"></a>
         </div>
     </div>
+
+    <div class="popup-container" id="popupContainer">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <img src="" alt="Popup Image" id="popupImage">
+        </div>
+    </div>
+
     <script src="js/logger.js"></script>
     <script src="js/statistics.js"></script>
     <script src="js/blockIP.js"></script>
@@ -180,6 +268,25 @@
     <script src="js/screenfull.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/kursor@0.0.14/dist/kursor.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
+    <script>
+        function openPopup(element) {
+            var imgSrc = element.querySelector('img').src;
+            if (imgSrc) {
+                document.getElementById('popupImage').src = imgSrc;
+                document.getElementById('popupContainer').style.display = 'flex';
+            }
+        }
+
+        function closePopup() {
+            document.getElementById('popupContainer').style.display = 'none';
+        }
+
+        document.querySelectorAll('.announcement-container').forEach(container => {
+            container.addEventListener('click', () => {
+                container.classList.toggle('zoomed');
+            });
+        });
+    </script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const storedCursor = localStorage.getItem("selectedCursor");
@@ -204,6 +311,5 @@
             video.src = videos[randomIndex]; // Set the source of the video
         });
     </script>
-    </body>
-    </html>
-    
+</body>
+</html>
