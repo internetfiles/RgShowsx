@@ -42,15 +42,15 @@ Press `alt`+`6` keys to go to Settings page quickly.
 
 Press `alt`+`T or t` keys to go to Torrent page quickly.
 
-Press `alt`+`← (Leftward arrow key)` keys to navigate to the backward page if exist.
-
-Press `alt`+`→ (Rightward arrow key)` keys to navigate to the forward page if exist.
-
 Press `alt`+`M or m` keys to watch a random movie.
 
 Press `alt`+`S or s` keys to watch a random series/show.
 
 Press `alt`+`X or x` keys to close the movies/series/shows player.
+
+Press `alt`+`← (Leftward arrow key)` keys to navigate to the backward page if exist.
+
+Press `alt`+`→ (Rightward arrow key)` keys to navigate to the forward page if exist.
 
 Press `alt`+`Delete` keys to clear all the data.
 
