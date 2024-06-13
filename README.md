@@ -1,6 +1,6 @@
 # RgShows 🎬
 
-RgShows is an open-source HTML-based platform that allows users to watch a variety of content, including TV shows, movies, anime and Live TV – all for free! Our mission is to provide an enjoyable streaming experience with minimal ads and customizable features.
+RgShows is an open-source HTML-based platform that allows users to watch a variety of content, including TV shows, movies, anime, Live TV and explore torrents – all for free! Our mission is to provide an enjoyable streaming experience with minimal ads and customizable features.
 
 ## Features
 
