@@ -11,6 +11,8 @@ document.addEventListener('keydown', function(event) {
         updatePageParameter('5');
     } else if (event.altKey && event.key === '6') {
         updatePageParameter('6');
+    } else if (event.altKey && (event.key === 't' || event.key === 't')) {
+        goToTorrents();
     } else if (event.altKey && event.key === 'ArrowRight') {
         goToNextPage();                             
     } else if (event.altKey && event.key === 'ArrowLeft') {
@@ -18,9 +20,13 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
+function goToTorrents() {
+    window.location.href = '/torrent/';
+}
+
 function isRestrictedPath() {
     const path = window.location.pathname;
-    return path.includes('/anime/') || path.includes('/livetv/');
+    return path.includes('/anime/') || path.includes('/livetv/') || path.includes('/torrent/');
 }
 
 function updatePageParameter(page) {
