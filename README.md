@@ -40,6 +40,8 @@ Press `alt`+`5` keys to go to LiveTV page quickly.
 
 Press `alt`+`6` keys to go to Settings page quickly.
 
+Press `alt`+`T or t` keys to go to Torrent page quickly.
+
 Press `alt`+`← (Leftward arrow key)` keys to navigate to the backward page if exist.
 
 Press `alt`+`→ (Rightward arrow key)` keys to navigate to the forward page if exist.

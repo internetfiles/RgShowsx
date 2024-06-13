@@ -70,6 +70,8 @@ document.addEventListener('keydown', function(event) {
         updatePageParameter('5');
     } else if (event.altKey && event.key === '6') {
         updatePageParameter('6');
+    } else if (event.altKey && (event.key === 't' || event.key === 't')) {
+        goToTorrents();
     } else if (event.altKey && (event.key === 'm' || event.key === 'M')) {
         redirectToRandomMovie();
     } else if (event.altKey && (event.key === 's' || event.key === 'S')) {
@@ -84,6 +86,10 @@ document.addEventListener('keydown', function(event) {
         goToPreviousPage();
     }
 });
+
+function goToTorrents() {
+    window.location.href = '/torrent/';
+}
 
 function isRestrictedPath() {
     const path = window.location.pathname;
