@@ -1,3 +1,5 @@
+// lastloginlocation.js
+
 // Function to save the current location
 function saveLastLocation() {
     const currentLocation = window.location.href;
@@ -7,7 +9,9 @@ function saveLastLocation() {
 // Function to redirect to the last location
 function redirectToLastLocation() {
     const lastLocation = localStorage.getItem('lastLocation');
-    if (lastLocation) {
+    if (lastLocation && lastLocation !== window.location.href) {
+        // Clear the stored location to prevent redirect loop
+        localStorage.removeItem('lastLocation');
         window.location.href = lastLocation;
     }
 }
@@ -16,4 +20,4 @@ function redirectToLastLocation() {
 window.addEventListener('beforeunload', saveLastLocation);
 
 // Redirect to the last location on page load
-window.addEventListener('load', redirectToLastLocation);
+window.addEventListener('DOMContentLoaded', redirectToLastLocation);
