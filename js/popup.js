@@ -38,7 +38,8 @@ const blockedUrls = [
     "https://vidsrc.vip/",    
     "https://frembed.pro/" ,
     "https://playsrc.streamscripts.xyz/",
-    "https://streamug.com/"
+    "https://streamug.com/",
+    "https://anyembed.xyz/"
 ];
 
 // Function to block popups
