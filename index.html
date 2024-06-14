@@ -2720,31 +2720,13 @@
                     return `https://streamug.com/video/${e}s${t}e${n}/`
                 }
             },
-            "moviesapi": {
-                name: "moviesapi",
-                movieUrl: function({id: e}) {
-                    return `https://moviesapi.club/movie/${e}/`
-                },
-                showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://moviesapi.club/tv/${e}-${t}-${n}`
-                }
-            },
-            "moviesapi": {
-                name: "moviesapi",
+            "anyembed": {
+                name: "anyembed",
                 movieUrl: function({id: e}) {
                     return `https://anyembed.xyz/movie/${e}/`
                 },
                 showUrl: function({id: e, season: t, episode: n}) {
                     return `https://anyembed.xyz/tv/${e}/${t}/${n}`
-                }
-            },
-            "superembed": {
-                name: "superembed",
-                movieUrl: function({id: e}) {
-                    return `https://multiembed.mov/?video_id=${e}&tmdb=1`
-                },
-                showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://multiembed.mov/?video_id=${e}&tmdb=1&s=${t}&e=${n}`
                 }
             },
         }
