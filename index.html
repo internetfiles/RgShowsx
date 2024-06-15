@@ -2729,6 +2729,15 @@
                     return `https://anyembed.xyz/tv/${e}/${t}/${n}`
                 }
             },
+            "vidsrc.cc": {
+                name: "vidsrc.cc",
+                movieUrl: function({id: e}) {
+                    return `https://vidsrc.cc/v2/embed/movie/${e}/`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://vidsrc.cc/v2/embed/tv/${e}/${t}/${n}`
+                }
+            },
         }
           , o = {
             Search: !0,
