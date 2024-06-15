@@ -79,6 +79,60 @@ Or
 4) Enjoy the content for free with minimal interruptions.
 5) Customize your viewing experience using the provided settings.
 
+## ScreenShots : 
+### How to open movies ?
+<img src="guidescreenshots/Movies_1.png">
+
+### How play movies from Servers ?
+<img src="guidescreenshots/Movies_2.png">
+
+### How to open Shows ?
+<img src="guidescreenshots/Shows_1.png">
+
+### How to choose episodes ?
+<img src="guidescreenshots/Shows_2.png">
+
+### How to play episodes from different Servers ?
+<img src="guidescreenshots/Shows_3.png">
+
+### How to open Anime ?
+<img src="guidescreenshots/Anime_1.png">
+
+### How to select episodes in Anime?
+<img src="guidescreenshots/Anime_2.png">
+
+### How to select different Servers or Download Anime?
+<img src="guidescreenshots/Anime_3.png">
+
+### How to open LiveTv?
+<img src="guidescreenshots/LiveTV_1.png">
+
+### How to select different channels?
+<img src="guidescreenshots/LiveTV_2.png">
+
+### How to Mark Channel as Favorite?
+<img src="guidescreenshots/LiveTV_3.png">
+
+### How to open Settings?
+<img src="guidescreenshots/Settings_1.png">
+
+### How to customize RgShows or Clear my data?
+<img src="guidescreenshots/Settings_2.png">
+<img src="guidescreenshots/Settings_3.png">
+
+### How to Search?
+<img src="guidescreenshots/Search_1.png">
+
+### How to open Torrent?
+<img src="guidescreenshots/Torrents_1.png">
+
+### How to Search or use Torrent Search Engine?
+<img src="guidescreenshots/Torrents_2.png">
+
+### How to report us any issues?
+<img src="guidescreenshots/Issues_1.png">
+<img src="guidescreenshots/Issues_2.png">
+
 ## Contributing
 We welcome contributions from the community! Whether it's fixing bugs, adding new features, or improving documentation, every contribution is valuable.
 
