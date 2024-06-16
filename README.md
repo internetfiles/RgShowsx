@@ -129,6 +129,10 @@ Or
 ### How to Search or use Torrent Search Engine?
 <img src="guidescreenshots/Torrents_2.png">
 
+### How to add RgShows PWA?
+<img src="guidescreenshots/PWA_pc.png">
+<img src="guidescreenshots/PWA_mobile.png">
+
 ### How to report us any issues?
 <img src="guidescreenshots/Issues_1.png">
 <img src="guidescreenshots/Issues_2.png">
