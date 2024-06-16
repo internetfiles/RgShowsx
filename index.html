@@ -2174,6 +2174,32 @@
             </div>
         </div>
     </div>
+
+    <!-- Domain Changed -->
+    <div id="domain-change-popup" class="popup-overlay" style="display: none;">
+    <div class="popup-content">
+        <h2>Notice 🚨</h2>
+        <p>The domain has changed! Please update your bookmarks to the new domain.</p>
+        <div class="button-container">
+            <a id="domain-popup-button" class="button" href="https://rgshows.me">Got it!</a>
+        </div>
+    </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    // Check the current URL
+    if (window.location.href === 'https://rgshows.vercel.app/') {
+        // Show the domain change popup
+        document.getElementById('domain-change-popup').style.display = 'flex';
+    }
+
+    // Add event listener to the button to close the popup
+    document.getElementById('domain-popup-button').addEventListener('click', () => {
+        document.getElementById('domain-change-popup').style.display = 'none';
+    });
+});
+</script>
+        
     <script>
         if ('serviceWorker' in navigator) {
           window.addEventListener('load', () => {
