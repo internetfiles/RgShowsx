@@ -15,6 +15,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/devtools-detector/2.0.17/devtools-detector.js"></script>
         <script src="js/devtoolsdetetctor.js" preload></script>
         <script src="js/nocheats.js" preload></script>
+        <link rel="manifest" href="/manifest.json">
         <link rel="preload stylesheet" href="css/flash.css" as="style">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
         <link rel="stylesheet" href="https://unpkg.com/kursor/dist/kursor.css">
@@ -2173,6 +2174,17 @@
             </div>
         </div>
     </div>
+    <script>
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js').then((registration) => {
+              console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            }, (error) => {
+              console.log('ServiceWorker registration failed: ', error);
+            });
+          });
+        }
+      </script>      
         <iframe src="views.html" style="display: none;" id="viewsFrame"></iframe>
         <script>
             document.getElementById('viewsFrame').onload = function() {
