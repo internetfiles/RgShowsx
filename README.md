@@ -131,7 +131,9 @@ Or
 
 ### How to add RgShows PWA?
 <img src="guidescreenshots/PWA_pc.png">
-<img src="guidescreenshots/PWA_mobile.png">
+<img src="guidescreenshots/PWA_mobile_1.png">
+<img src="guidescreenshots/PWA_mobile_2.png">
+<img src="guidescreenshots/PWA_mobile_3.png">
 
 ### How to report us any issues?
 <img src="guidescreenshots/Issues_1.png">
