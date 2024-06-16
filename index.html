@@ -2179,16 +2179,16 @@
     <div id="domain-change-popup" class="popup-overlay" style="display: none;">
         <div class="popup-content">
             <h2>Domain Changed 🚨</h2>
-            <p>We have moved to a new domain. Please update your bookmarks to the new address: <a class="link" href="https://rgshows.me target="_blank">https://rgshows.me</a></p>
+            <p>We have moved to a new domain. Please update your bookmarks to the new address: https://rgshows.me</p>
             <div class="button-container">
-                <a id="domain-popup-button" class="button">Got it!</a>
+                <a id="domain-popup-button" class="button" href="https://rgshows.me">Got it!</a>
             </div>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            if (window.location.href === 'https://rgshows.vercel.app/?p=1' || window.location.href === 'https://rgshows.vercel.app') {
+            if (window.location.href === 'https://rgshows.vercel.app' || window.location.href === 'https://rgshows.vercel.app/?p=1' || window.location.href === 'https://rgshows.vercel.app/?p=2' || window.location.href === 'https://rgshows.vercel.app/?p=3' || window.location.href === 'https://rgshows.vercel.app/?p=4' || window.location.href === 'https://rgshows.vercel.app/?p=5' || window.location.href === 'https://rgshows.vercel.app/?p=6' {
                 document.getElementById('domain-change-popup').style.display = 'flex';
             }
 
