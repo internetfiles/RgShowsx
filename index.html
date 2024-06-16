@@ -2188,7 +2188,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-           if (
+            if (
                 window.location.href === 'https://rgshows.vercel.app' || 
                 window.location.href === 'https://rgshows.vercel.app/?p=1' || 
                 window.location.href === 'https://rgshows.vercel.app/?p=2' || 
@@ -2197,6 +2197,8 @@
                 window.location.href === 'https://rgshows.vercel.app/?p=5' || 
                 window.location.href === 'https://rgshows.vercel.app/?p=6'
             ) {
+                document.getElementById('domain-change-popup').style.display = 'flex';
+            }
 
             document.getElementById('domain-popup-button').addEventListener('click', function() {
                 document.getElementById('domain-change-popup').style.display = 'none';
