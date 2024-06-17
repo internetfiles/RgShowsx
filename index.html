@@ -2416,6 +2416,15 @@
                     return `https://rgshows.me/player/series/api1/index.html?id=${e}&s=${t}&e=${n}`
                 }
             },
+            "rgshows.me 2": {
+                name: "rgshows.me 2",
+                movieUrl: function({id: e}) {
+                    return `https://rgshows.me/player/movies/api2/index.html?id=${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://rgshows.me/player/series/api2/index.html?id=${e}&s=${t}&e=${n}`
+                }
+            },
             "vidsrc.to": {
                 name: "vidsrc.to",
                 movieUrl: function({id: e}) {
