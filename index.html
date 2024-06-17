@@ -2407,6 +2407,24 @@
             light: "Light"
         }
           , c = {
+            "rgshows.me 1": {
+                name: "rgshows.me 1",
+                movieUrl: function({id: e}) {
+                    return `https://rgshows.me/player/movies/api1/index.html?id=${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://rgshows.me/player/series/api1/index.html?id=${e}&s=${t}&e=${n}`
+                }
+            },
+            "rgshows.me 2": {
+                name: "rgshows.me 2",
+                movieUrl: function({id: e}) {
+                    return `https://rgshows.me/player/movies/api2/index.html?id=${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://rgshows.me/player/series/api2/index.html?id=${e}&s=${t}&e=${n}`
+                }
+            },
             "vidsrc.to": {
                 name: "vidsrc.to",
                 movieUrl: function({id: e}) {
@@ -2504,6 +2522,15 @@
                 },
                 showUrl: function({id: e, imdbId: f, season: t, episode: n}) {
                     return `https://8-stream.vercel.app/watch/tv/${e}/${f}?episode=${n}&season=${t}`
+                }
+            },
+            "moviebreak": {
+                name: "moviebreak",
+                movieUrl: function({id: e, imdbId: f}) {
+                    return `https://moviebreak.us.to/embed/movie/${e}`
+                },
+                showUrl: function({id: e, imdbId: f, season: t, episode: n}) {
+                    return `https://moviebreak.us.to/embed/tv/${e}/${t}/${n}`
                 }
             },
             "2embed.pro": {
