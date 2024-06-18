@@ -3,9 +3,13 @@
 
 <head>
     <title>RgShows - MovieApi 1</title>
+    <script src="https://adsreference.com/widget.js?id=1715060516324607500" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/devtools-detector/2.0.17/devtools-detector.js"></script>
     <script src="../../../js/devtoolsdetetctor.js" preload></script>
     <script src="../../../js/nocheats.js" preload></script>
+     <link rel="preload stylesheet" href="../../../css/flash.css" as="style">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/kursor/dist/kursor.css">
     <style type="text/css">
         html {
             overflow: auto;
@@ -47,12 +51,37 @@
             }
         });
     </script>
+    <iframe src="views.html" style="display: none;" id="viewsFrame"></iframe>
+        <script>
+            document.getElementById('viewsFrame').onload = function() {
+                var iframeDoc = document.getElementById('viewsFrame').contentDocument || document.getElementById('viewsFrame').contentWindow.document;
+                var viewsCounter = iframeDoc.querySelector('script[src*="freevisitorcounters.com"]');
+                if (viewsCounter) {
+                    document.getElementById('viewsCount').innerText = 'Total Views: (Check views.html)';
+                } else {
+                    document.getElementById('viewsCount').innerText = 'Failed to load view counter.';
+                }
+            };
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/kursor@0.0.14/dist/kursor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
+    <script src="../../../js/smoothscroll.js"></script>
     <script src="../../../js/site.js"></script>
     <script src="../../../js/popupblocker.js"></script>
     <script src="../../../js/openload.user.js"></script>
     <script src="../../../js/adblock.js"></script>
     <script src="../../../js/popup.js"></script>
     <script src="../../../js/screenfull.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const storedCursor = localStorage.getItem("selectedCursor");
+            const cursorType = storedCursor ? parseInt(storedCursor) : 1;
+    
+            new kursor({
+                type: cursorType
+            });
+        });
+    </script>
 </body>
 
 </html>
