@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RgShows - MovieApi 2</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/devtools-detector/2.0.17/devtools-detector.js"></script>
+    <script src="../../../js/devtoolsdetetctor.js" preload></script>
+    <script src="../../../js/nocheats.js" preload></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #151515;
+            color: #eeeeee;
+        }
+        video {
+            width: 95%;
+            height: 85%;
+            border: 1px solid #eeeeee;
+        }
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .button {
+            padding: 10px 20px;
+            background-color: #222;
+            color: #eee;
+            border: 1px solid #444;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #333;
+        }
+        #change-language-button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #222;
+            color: #eee;
+            border: 1px solid #444;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <video id="video" controls></video>
+    <div class="controls" id="language-buttons"></div>
+    <button id="change-language-button">Change Language</button>
+    <script>
+        function getParameterByName(name, url = window.location.href) {
+            name = name.replace(/[\[\]]/g, '\\$&');
+            const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`);
+            const results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        async function fetchVideoUrls(tmdbId) {
+            try {
+                const response = await fetch(`https://autoembed.cc/embed/player.php?id=${tmdbId}`);
+                const text = await response.text();
+
+                // Create a DOM parser to parse the HTML response
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(text, 'text/html');
+
+                // Extract the script content
+                const scriptElement = Array.from(doc.scripts).find(script => script.innerHTML.includes('Playerjs'));
+                if (!scriptElement) {
+                    throw new Error('Playerjs script not found in the HTML response');
+                }
+
+                const scriptContent = scriptElement.innerHTML;
+
+                // Extract the JSON string containing the file array
+                const jsonStartIndex = scriptContent.indexOf('"file":') + 7;
+                const jsonEndIndex = scriptContent.lastIndexOf(']');
+                let fileArrayString = scriptContent.substring(jsonStartIndex, jsonEndIndex + 1);
+
+                // Log the extracted string for debugging
+                console.log('Extracted file array string:', fileArrayString);
+
+                // Remove the trailing comma before the closing bracket
+                fileArrayString = fileArrayString.replace(/},\s*]$/, '}]');
+
+                const files = JSON.parse(fileArrayString.replace(/\\\//g, '/'));
+
+                return files;
+            } catch (error) {
+                console.error('Error parsing video URLs:', error);
+                throw error;
+            }
+        }
+
+        function initializePlayer(url) {
+            const video = document.getElementById('video');
+            if (Hls.isSupported()) {
+                const hls = new Hls();
+                hls.loadSource(url);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                    video.play();
+                });
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = url;
+                video.addEventListener('canplay', function() {
+                    video.play();
+                });
+            }
+        }
+
+        function createLanguageButtons(files) {
+            const buttonsContainer = document.getElementById('language-buttons');
+            buttonsContainer.innerHTML = '';
+            files.forEach(file => {
+                const button = document.createElement('button');
+                button.textContent = file.title;
+                button.classList.add('button');
+                button.addEventListener('click', () => {
+                    initializePlayer(file.file);
+                });
+                buttonsContainer.appendChild(button);
+            });
+        }
+
+        function toggleLanguageButtons() {
+            const buttonsContainer = document.getElementById('language-buttons');
+            buttonsContainer.style.display = (buttonsContainer.style.display === 'none' || buttonsContainer.style.display === '') ? 'block' : 'none';
+        }
+
+        document.getElementById('change-language-button').addEventListener('click', toggleLanguageButtons);
+
+        (async () => {
+            try {
+                const tmdbId = getParameterByName('id'); // Get the id from the URL params
+                if (!tmdbId) {
+                    throw new Error('TMDB ID not provided in the URL');
+                }
+                const videoFiles = await fetchVideoUrls(tmdbId);
+                if (videoFiles && videoFiles.length > 0) {
+                    initializePlayer(videoFiles[0].file);
+                    createLanguageButtons(videoFiles);
+                }
+            } catch (error) {
+                console.error('Error fetching video data:', error);
+            }
+        })();
+    </script>
+    <script src="../../../js/site.js"></script>
+    <script src="../../../js/popupblocker.js"></script>
+    <script src="../../../js/openload.user.js"></script>
+    <script src="../../../js/adblock.js"></script>
+    <script src="../../../js/popup.js"></script>
+    <script src="../../../js/screenfull.js"></script>
+</body>
+</html>
