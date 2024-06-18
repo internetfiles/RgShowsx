@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>RgShows - Series Api 10</title>
+    <title>RgShows - Series Api 18</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/devtools-detector/2.0.17/devtools-detector.js"></script>
     <script src="../../../js/devtoolsdetetctor.js" preload></script>
     <script src="../../../js/nocheats.js" preload></script>
@@ -42,7 +42,7 @@
             const s = urlParams.get('s');
             const e = urlParams.get('e');
             if (id && s && e) {
-                const iframeUrl = `https://autoembed.co/tv/tmdb/${id}-${s}-${e}`;
+                const iframeUrl = `https://vidsrc.in/embed/tv?tmdb=${id}&season=${s}&episode=${e}`;
                 document.getElementById('videoFrame').src = iframeUrl;
             } else {
                 console.error("ID, season, or episode parameter is missing from the URL");
