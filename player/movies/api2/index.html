@@ -142,7 +142,7 @@
 
         (async () => {
             try {
-                const tmdbId = getParameterByName('e'); // Get the id from the URL params
+                const tmdbId = getParameterByName('id'); // Get the id from the URL params
                 if (!tmdbId) {
                     throw new Error('TMDB ID not provided in the URL');
                 }
