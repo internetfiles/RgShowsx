@@ -17,6 +17,7 @@
         <script src="js/nocheats.js" preload></script>
         <link rel="manifest" href="/manifest.json">
         <link rel="preload stylesheet" href="css/flash.css" as="style">
+        <script src="https://cdn.jsdelivr.net/npm/@simondmc/popup-js@1.4.3/popup.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
         <link rel="stylesheet" href="https://unpkg.com/kursor/dist/kursor.css">
         <style>
@@ -3847,7 +3848,7 @@
             A.className = "title",
             P.className = "icon icon-tv",
             D.className = "text",
-            D.innerText = "Providers \n (USE SMASHYSTREAM OR 8STREAM FOR DUAL AUDIO)",
+            D.innerText = "Providers \n (USE SERVER 2, 4, 10, 14 FOR MULTI LANGUAGE)",
             R.className = "control",
             H.className = "button secondary icon-only",
             W.className = "icon icon-sync",
@@ -5763,5 +5764,16 @@
             eventPopup.style.display = 'none';
         });
     }
+</script>
+<script>
+const myPopup = new Popup({
+    id: "resetdata",
+    title: "Error Notice",
+    content: `
+        I am so Sorry, Users for the movie unplayable error, i know some people would be getting a error
+        that are not able to play the movie, this bcz the new servers are obstructing the previous srv user used that are stored in localstorage but not present in site
+        so in SHORT YOU ARE REQUIRED TO CLEAR SITE DATA, FROM SETTINGS OF RGSHOWS CLICK ON CLEAR EVERYTHING PLEASE :).`,
+    showImmediately: true
+});
 </script>
 </body></html>

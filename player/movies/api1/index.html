@@ -41,7 +41,7 @@
             const urlParams = new URLSearchParams(window.location.search);
             const id = urlParams.get('id');
             if (id) {
-                document.getElementById('videoFrame').src = `https://autoembed.cc/embed/player.php?id=${id}`;
+                document.getElementById('videoFrame').src = `https://vidsrc.to/embed/movie/${id}`;
             } else {
                 console.error("ID parameter is missing from the URL");
             }
