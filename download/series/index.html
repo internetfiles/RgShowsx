@@ -30,13 +30,12 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            display: flex; /* Use flexbox */
-            flex-direction: column; /* Stack children vertically */
-            align-items: center; /* Center items horizontally */
-            justify-content: center; /* Center items vertically */
-            height: 80vh; /* Adjust the height as needed */
             width: 80%; /* Adjust the width as needed */
-            margin: auto; /* Center the container horizontally */
+            margin: 0 auto; /* Center the container horizontally */
+            position: absolute; /* Position the container */
+            top: 50%; /* Move the top of the container to the vertical center */
+            left: 50%; /* Move the left of the container to the horizontal center */
+            transform: translate(-50%, -50%); /* Move the container back by half its width and height */
         }
 
         .input-group {
