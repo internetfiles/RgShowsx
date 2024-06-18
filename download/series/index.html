@@ -2,12 +2,16 @@
 <html lang="en">
 
 <head>
+    <script src="https://adsreference.com/widget.js?id=1715060516324607500" defer="defer"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RgShows - SeriesApi 1</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/devtools-detector/2.0.17/devtools-detector.js"></script>
     <script src="../../../js/devtoolsdetetctor.js" preload></script>
     <script src="../../../js/nocheats.js" preload></script>
+    <link rel="preload stylesheet" href="../../../css/flash.css" as="style">
+    <link rel="stylesheet" href="https://unpkg.com/kursor/dist/kursor.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
             background-color: #121212;
@@ -97,12 +101,27 @@
             }
         });
     </script>
+    <script src="../../../js/logger.js"></script>
+    <script src="../../../js/statistics.js"></script>
+    <script src="../../../js/smoothscroll.js"></script>
     <script src="../../../js/site.js"></script>
     <script src="../../../js/popupblocker.js"></script>
     <script src="../../../js/openload.user.js"></script>
     <script src="../../../js/adblock.js"></script>
     <script src="../../../js/popup.js"></script>
     <script src="../../../js/screenfull.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/kursor@0.0.14/dist/kursor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const storedCursor = localStorage.getItem("selectedCursor");
+        const cursorType = storedCursor ? parseInt(storedCursor) : 1;
+
+        new kursor({
+            type: cursorType
+        });
+    });
+</script>
 </body>
 
 </html>
