@@ -373,6 +373,10 @@
                 content: "\f063"
             }
 
+            .icon-download:before {
+                content: "\f019"
+            }
+
             .icon-eye:before {
                 content: "\f06e"
             }
@@ -3059,19 +3063,31 @@
             ))
         }
         function se() {
-            const t = k(e.query.page)
-              , n = k(e.query.modal);
+            const t = k(e.query.page);
+            const n = k(e.query.modal);
             var a;
-            t && n && (W.classList.add("copied"),
-            j.className = "icon icon-check",
-            a = `${window.location.origin}${window.location.pathname}?${e.query.modal}=${n}`,
-            window.navigator.clipboard.writeText(a),
-            setTimeout((function() {
-                j.className = "icon icon-link",
-                W.classList.remove("copied")
+            if (t && n) {
+                W.classList.add("copied");
+                j.className = "icon icon-check";
+                a = `${window.location.origin}${window.location.pathname}?${e.query.modal}=${n}`;
+                window.navigator.clipboard.writeText(a);
+                setTimeout(() => {
+                    j.className = "icon icon-download";
+                    W.classList.remove("copied");
+            
+                    // Extract the numeric part of n
+                    const numericPart = n.match(/\d+/)[0];
+
+                    // Check the value of n and redirect accordingly
+                    if (n.includes('m')) {
+                        window.location.href = `https://rgshows.me/download/movies/index.html?id=${numericPart}`;
+                    } else if (n.includes('s')) {
+                        window.location.href = `https://rgshows.me/download/series/index.html?id=${numericPart}`;
+                    }
+                }, 2000);
             }
-            ), 2e3))
         }
+
         function re() {
             return localStorage.getItem(n.names.adult) || (le("false"),
             "false")
@@ -3647,6 +3663,7 @@
                     _t.prepend(Ct)
                 }
             }
+        
             var a, o;
             const i = ve("Video")
               , r = ve("Providers")
@@ -4905,7 +4922,7 @@
             c.className = "button secondary icon-only",
             J.className = "icon icon-times",
             W.className = "button secondary icon-only",
-            j.className = "icon icon-link",
+            j.className = "icon icon-download",
             a.append(D),
             a.append(R),
             c.append(J),

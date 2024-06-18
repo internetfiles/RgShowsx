@@ -86,6 +86,9 @@ Or
 ### How play movies from Servers ?
 <img src="guidescreenshots/Movies_2.png">
 
+### How Download movies ?
+<img src="guidescreenshots/Movies_3.png">
+
 ### How to open Shows ?
 <img src="guidescreenshots/Shows_1.png">
 
@@ -94,6 +97,10 @@ Or
 
 ### How to play episodes from different Servers ?
 <img src="guidescreenshots/Shows_3.png">
+
+### How to Download TvShows ?
+<img src="guidescreenshots/Shows_4.png">
+<img src="guidescreenshots/Shows_5.png">
 
 ### How to open Anime ?
 <img src="guidescreenshots/Anime_1.png">
