@@ -2412,6 +2412,33 @@
             light: "Light"
         }
           , c = {
+            "vidsrc.to": {
+                name: "vidsrc.to",
+                movieUrl: function({id: e}) {
+                    return `https://vidsrc.to/embed/movie/${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://vidsrc.to/embed/tv/${e}/${t}/${n}`
+                }
+            },
+            "vidsrc.me": {
+                name: "vidsrc.me",
+                movieUrl: function({id: e}) {
+                    return `https://vidsrc.me/embed/movie?tmdb=${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://vidsrc.me/embed/tv?tmdb=${e}&season=${t}&episode=${n}`
+                }
+            },
+            "show2embed": {
+                name: "show2embed",
+                movieUrl: function({id: e}) {
+                    return `https://vidsrc.me/embed/movie?tmdb=${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://vidsrc.me/embed/tv?tmdb=${e}&season=${t}&episode=${n}`
+                }
+            },
             "rgshows.me 1": {
                 name: "rgshows.me 1",
                 movieUrl: function({id: e}) {
@@ -2430,373 +2457,356 @@
                     return `https://rgshows.me/player/series/api2/index.html?id=${e}&s=${t}&e=${n}`
                 }
             },
-            "rgshows.me 3": {
-                name: "rgshows.me 3",
-                movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api3/index.html?id=${e}`
-                },
-                showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api3/index.html?id=${e}&s=${t}&e=${n}`
-                }
-            },
-            "rgshows.me 4": {
-                name: "rgshows.me 4",
-                movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api4/index.html?id=${e}`
-                },
-                showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api4/index.html?id=${e}&s=${t}&e=${n}`
-                }
-            },
-            "rgshows.me 5": {
-                name: "rgshows.me 5",
-                movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api5/index.html?id=${e}`
-                },
-                showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api5/index.html?id=${e}&s=${t}&e=${n}`
-                }
-            },
-            "rgshows.me 6": {
-                name: "rgshows.me 6",
-                movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api6/index.html?id=${e}`
-                },
-                showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api6/index.html?id=${e}&s=${t}&e=${n}`
-                }
-            },
-            "rgshows.me 7": {
-                name: "rgshows.me 7",
-                movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api7/index.html?id=${e}`
-                },
-                showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api7/index.html?id=${e}&s=${t}&e=${n}`
-                }
-            },
-            "rgshows.me 8": {
-                name: "rgshows.me 8",
-                movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api8/index.html?id=${e}`
-                },
-                showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api8/index.html?id=${e}&s=${t}&e=${n}`
-                }
-            },
-            "rgshows.me 9": {
-                name: "rgshows.me 9",
-                movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api9/index.html?id=${e}`
-                },
-                showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api9/index.html?id=${e}&s=${t}&e=${n}`
-                }
-            },
-            "rgshows.me 10": {
-                name: "rgshows.me 10",
+            "autoembed.co": {
+                name: "autoembed.co",
                 movieUrl: function({imdbId: e}) {
-                    return `https://rgshows.me/player/movies/api10/index.html?id=${e}`
+                    return `https://autoembed.co/movie/imdb/${e}`
                 },
                 showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api10/index.html?id=${e}&s=${t}&e=${n}`
+                    return `https://autoembed.co/tv/tmdb/${e}-${t}-${n}`
                 }
             },
-            "rgshows.me 11": {
-                name: "rgshows.me 11",
-                movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api11/index.html?id=${e}`
-                },
-                showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api11/index.html?id=${e}&s=${t}&e=${n}`
-                }
-            },
-            "rgshows.me 12": {
-                name: "rgshows.me 12",
-                movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api12/index.html?id=${e}`
-                },
-                showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api12/index.html?id=${e}&s=${t}&e=${n}`
-                }
-            },
-            "rgshows.me 13": {
-                name: "rgshows.me 13",
-                movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api13/index.html?id=${e}`
-                },
-                showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api13/index.html?id=${e}&s=${t}&e=${n}`
-                }
-            },
-            "rgshows.me 14": {
-                name: "rgshows.me 14",
-                movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api14/index.html?id=${e}`
-                },
-                showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api14/index.html?id=${e}&s=${t}&e=${n}`
-                }
-            },
-            "rgshows.me 15": {
-                name: "rgshows.me 15",
-                movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api15/index.html?id=${e}`
-                },
-                showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api15/index.html?id=${e}&s=${t}&e=${n}`
-                }
-            },
-            "rgshows.me 16": {
-                name: "rgshows.me 16",
-                movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api16/index.html?id=${e}`
-                },
-                showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api16/index.html?id=${e}&s=${t}&e=${n}`
-                }
-            },
-            "rgshows.me 17": {
-                name: "rgshows.me 17",
-                movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api17/index.html?id=${e}`
-                },
-                showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api17/index.html?id=${e}&s=${t}&e=${n}`
-                }
-            },
-            "rgshows.me 18": {
-                name: "rgshows.me 18",
-                movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api18/index.html?id=${e}`
-                },
-                showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api18/index.html?id=${e}&s=${t}&e=${n}`
-                }
-            },
-            "rgshows.me 19": {
-                name: "rgshows.me 19",
-                movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api19/index.html?id=${e}`
-                },
-                showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api19/index.html?id=${e}&s=${t}&e=${n}`
-                }
-            },
-            "rgshows.me 20": {
-                name: "rgshows.me 20",
-                movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api20/index.html?id=${e}`
-                },
-                showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api20/index.html?id=${e}&s=${t}&e=${n}`
-                }
-            },
-            "rgshows.me 21": {
-                name: "rgshows.me 21",
-                movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api21/index.html?id=${e}`
-                },
-                showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api21/index.html?id=${e}&s=${t}&e=${n}`
-                }
-            },
-            "rgshows.me 22": {
-                name: "rgshows.me 22",
-                movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api22/index.html?id=${e}`
-                },
-                showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api22/index.html?id=${e}&s=${t}&e=${n}`
-                }
-            },
-            "rgshows.me 23": {
-                name: "rgshows.me 23",
-                movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api23/index.html?id=${e}`
-                },
-                showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api23/index.html?id=${e}&s=${t}&e=${n}`
-                }
-            },
-            "rgshows.me 24": {
-                name: "rgshows.me 24",
-                movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api24/index.html?id=${e}`
-                },
-                showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api24/index.html?id=${e}&s=${t}&e=${n}`
-                }
-            },
-            "rgshows.me 25": {
-                name: "rgshows.me 25",
+            "autoembed.cc": {
+                name: "autoembed.co",
                 movieUrl: function({imdbId: e}) {
-                    return `https://rgshows.me/player/movies/api25/index.html?id=${e}`
+                    return `https://autoembed.cc/embed/player.php?id=${e}`
                 },
                 showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api25/index.html?id=${e}&s=${t}&e=${n}`
+                    return `https://autoembed.cc/embed/player.php?id=${e}&s=${t}&e=${n}`
                 }
             },
-            "rgshows.me 26": {
-                name: "rgshows.me 26",
+            "multiembed": {
+                name: "multiembed",
                 movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api26/index.html?id=${e}`
+                    return `https://multiembed.mov/directstream.php?tmdb=1&video_id=${e}`
                 },
                 showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api26/index.html?id=${e}&s=${t}&e=${n}`
+                    return `https://multiembed.mov/directstream.php?tmdb=1&video_id=${e}&s=${t}&e=${n}`
                 }
             },
-            "rgshows.me 27": {
-                name: "rgshows.me 27",
+            "123embed.net": {
+                name: "123embed.net",
                 movieUrl: function({imdbId: e}) {
-                    return `https://rgshows.me/player/movies/api27/index.html?id=${e}`
+                    return `https://play2.123embed.net/movie/${e}`
                 },
                 showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api27/index.html?id=${e}&s=${t}&e=${n}`
+                    return `https://play2.123embed.net/tv/${e}/${t}/${n}`
                 }
             },
-            "rgshows.me 28": {
-                name: "rgshows.me 28",
+            "2embed.cc": {
+                name: "2embed.cc",
                 movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api28/index.html?id=${e}`
+                    return `https://www.2embed.cc/embed/${e}`
                 },
                 showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api28/index.html?id=${e}`
+                    return `https://www.2embed.cc/embedtv/${e}&s=${t}&e=${n}`
                 }
             },
-            "rgshows.me 29": {
-                name: "rgshows.me 29",
+            "2embed.stream": {
+                name: "2embed.stream",
                 movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api29/index.html?id=${e}`
+                    return `https://www.2embed.stream/embed/movie/${e}`
                 },
                 showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api29/index.html?id=${e}&s=${t}&e=${n}`
+                    return `https://www.2embed.stream/embed/tv/${e}/${t}/${n}`
                 }
             },
-            "rgshows.me 30": {
-                name: "rgshows.me 30",
+            "primewire.tf": {
+                name: "primewire.tf",
                 movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api30/index.html?id=${e}`
+                    return `https://www.primewire.tf/embed/movie?tmdb=${e}`
                 },
                 showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api30/index.html?id=${e}&s=${t}&e=${n}`
+                    return `https://www.primewire.tf/embed/tv?tmdb=${e}&season=${t}&episode=${n}`
                 }
             },
-            "rgshows.me 31": {
-                name: "rgshows.me 31",
+            "smashystream": {
+                name: "smashystream",
+                movieUrl: function({id: e}) {
+                    return `https://embed.smashystream.com/playere.php?tmdb=${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://embed.smashystream.com/playere.php?tmdb=${e}&season=${t}&episode=${n}`
+                }
+            },
+            "8stream": {
+                name: "8stream",
+                movieUrl: function({id: e, imdbId: f}) {
+                    return `https://8-stream.vercel.app/watch/movie/${e}/${f}`
+                },
+                showUrl: function({id: e, imdbId: f, season: t, episode: n}) {
+                    return `https://8-stream.vercel.app/watch/tv/${e}/${f}?episode=${n}&season=${t}`
+                }
+            },
+            "moviebreak": {
+                name: "moviebreak",
+                movieUrl: function({id: e, imdbId: f}) {
+                    return `https://moviebreak.us.to/embed/movie/${e}`
+                },
+                showUrl: function({id: e, imdbId: f, season: t, episode: n}) {
+                    return `https://moviebreak.us.to/embed/tv/${e}/${t}/${n}`
+                }
+            },
+            "2embed.pro": {
+                name: "2embed.pro",
+                movieUrl: function({id: e}) {
+                    return `https://2embed.pro/embed/movie/${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://2embed.pro/embed/tv/${e}/${t}/${n}`
+                }
+            },
+            "vidsrc.pro": {
+                name: "vidsrc.pro",
+                movieUrl: function({id: e}) {
+                    return `https://vidsrc.pro/embed/movie/${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://vidsrc.pro/embed/tv/${e}/${t}/${n}`
+                }
+            },
+            "vidsrc.xyz": {
+                name: "vidsrc.xyz",
+                movieUrl: function({id: e}) {
+                    return `https://vidsrc.xyz/embed/movie/${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://vidsrc.xyz/embed/tv?tmdb=${e}&season=${t}&episode=${n}`
+                }
+            },
+            "flixon.click": {
+                name: "flixon.click",
+                movieUrl: function({id: e}) {
+                    return `https://flixon.click/${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    e = e.startsWith("tt") ? e.substring(2) : e;
+                    return `https://flixon.click/${e}-${n}-${t}`
+                }
+            },
+            "vidsrc.in": {
+                name: "vidsrc.in",
+                movieUrl: function({id: e}) {
+                    return `https://vidsrc.in/embed/movie/${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://vidsrc.in/embed/tv?tmdb=${e}&season=${t}&episode=${n}`
+                }
+            },
+            "vidsrc.pm": {
+                name: "vidsrc.pm",
+                movieUrl: function({id: e}) {
+                    return `https://vidsrc.pm/embed/movie/${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://vidsrc.pm/embed/tv?tmdb=${e}&season=${t}&episode=${n}`
+                }
+            },
+            "2embed.org": {
+                name: "2embed.org",
+                movieUrl: function({id: e}) {
+                    return `https://2embed.org/embed/movie/${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://2embed.org/embed/tv/${e}/${t}/${n}`
+                }
+            },
+            "vidsrc.icu": {
+                name: "vidsrc.icu",
+                movieUrl: function({id: e}) {
+                    return `https://vidsrc.icu/embed/movie/${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://vidsrc.icu/embed/tv/${e}/${t}/${n}`
+                }
+            },
+            "vidsrc.net": {
+                name: "vidsrc.net",
+                movieUrl: function({id: e}) {
+                    return `https://vidsrc.xyz/embed/movie?tmdb=${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://vidsrc.xyz/embed/tv?tmdb=${e}&season=${t}&episode=${n}`
+                }
+            },
+            "gdrive": {
+                name: "gdrive",
+                movieUrl: function({id: e}) {
+                    return `https://databasegdriveplayer.xyz/player.php?tmdb=${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://databasegdriveplayer.xyz/player.php?type=series&tmdb=${e}&season=${t}&episode=${n}`
+                }
+            },
+            "moviehab.to": {
+                name: "moviehab.to",
+                movieUrl: function({id: e}) {
+                    return `https://moviehab.to/embed/${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://moviehab.to/embed/series?tmdb=${e}&sea=${t}&epi=${n}`
+                }
+            },
+            "123movies": {
+                name: "123movies",
                 movieUrl: function({imdbId: e}) {
-                    return `https://rgshows.me/player/movies/api31/index.html?id=${e}`
+                    return `https://api.123movie.cc/imdb.php?imdb=${e}&server=hydrax`
                 },
                 showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api31/index.html?id=${e}&s=${t}&e=${n}`
+                    return `https://api.123movie.cc/tmdb_api.php?se=${t}&ep=${n}&tmdb=${e}&server_name=hydrax`
                 }
             },
-            "rgshows.me 32": {
-                name: "rgshows.me 32",
-                movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api32/index.html?id=${e}`
+            "warezcdn.com": {
+                name: "warezcdn.com",
+                movieUrl: function({imdbId: e}) {
+                    return `https://embed.warezcdn.com/filme/${e}`
                 },
                 showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api32/index.html?id=${e}&s=${t}&e=${n}`
+                    return `https://embed.warezcdn.com/serie/${e}/${t}/${n}`
                 }
             },
-            "rgshows.me 33": {
-                name: "rgshows.me 33",
+            "nunflix": {
+                name: "nunflix",
                 movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api33/index.html?id=${e}`
+                    return `https://new-nunflix-player.vercel.app/media/tmdb-movie-${e}`
                 },
                 showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api33/index.html?id=${e}&s=${t}&e=${n}`
+                    return `https://new-nunflix-player.vercel.app/media/tmdb-tv-${e}`
                 }
             },
-            "rgshows.me 34": {
-                name: "rgshows.me 34",
+            "streamflix 1": {
+                name: "streamflix 1",
                 movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api34/index.html?id=${e}`
+                    return `https://watch.streamflix.one/movie/${e}/watch?server=1`
                 },
                 showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api34/index.html?id=${e}&s=${t}&e=${n}`
+                    return `https://watch.streamflix.one/tv/${e}/watch?server=1&season=${t}&episode=${n}`
                 }
             },
-            "rgshows.me 35": {
-                name: "rgshows.me 35",
+            "streamflix 2": {
+                name: "streamflix 2",
                 movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api35/index.html?id=${e}`
+                    return `https://watch.streamflix.one/movie/${e}/watch?server=2`
                 },
                 showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api35/index.html?id=${e}&s=${t}&e=${n}`
+                    return `https://watch.streamflix.one/tv/${e}/watch?server=2&season=${t}&episode=${n}`
                 }
             },
-            "rgshows.me 36": {
-                name: "rgshows.me 36",
-                movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api36/index.html?id=${e}`
+            "superflix": {
+                name: "superflix",
+                movieUrl: function({imdbId: e}) {
+                    return `https://superflixapi.top/filme/${e}`
                 },
                 showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api36/index.html?id=${e}&s=${t}&e=${n}`
+                    return `https://superflixapi.top/serie/${e}/${t}/${n}`
                 }
             },
-            "rgshows.me 37": {
-                name: "rgshows.me 37",
+            "api.slidemovies": {
+                name: "api.slidemovies",
                 movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api37/index.html?id=${e}`
+                    return `https://api.slidemovies.org/movies/?id=${e}`
                 },
                 showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api37/index.html?id=${e}&s=${t}&e=${n}`
+                    return `https://api.slidemovies.org/tv/?id=${e}&s=${t}&e=${n}`
                 }
             },
-            "rgshows.me 38": {
-                name: "rgshows.me 38",
+            "moviesclub": {
+                name: "moviesclub",
                 movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api38/index.html?id=${e}`
+                    return `https://moviesapi.club/movie/${e}`
                 },
                 showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api38/index.html?id=${e}&s=${t}&e=${n}`
+                    return `https://moviesapi.club/tv/${e}-${t}-${n}`
                 }
             },
-            "rgshows.me 39": {
-                name: "rgshows.me 39",
+            "filmclub": {
+                name: "filmclub",
                 movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api39/index.html?id=${e}`
+                    return `https://vip.filmclub.tv/embed/movie?tmdb=${e}`
                 },
                 showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api39/index.html?id=${e}&s=${t}&e=${n}`
+                    return `https://vip.filmclub.tv/embed/series?tmdb=${e}&sea=${t}&epi=${n}`
                 }
             },
-            "rgshows.me 40": {
-                name: "rgshows.me 40",
+            "mostream": {
+                name: "mostream",
                 movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api40/index.html?id=${e}`
+                    return `https://mostream.us/embed.php?tmdb=${e}`
                 },
                 showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api40/index.html?id=${e}&s=${t}&e=${n}`
+                    return `https://mostream.us/embed.php?tmdb=${e}&s=${t}&e=${n}`
                 }
             },
-            "rgshows.me 41": {
-                name: "rgshows.me 41",
+            "nontongo": {
+                name: "nontongo",
                 movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api41/index.html?id=${e}`
+                    return `https://www.NontonGo.win/embed/movie/${e}`
                 },
                 showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api41/index.html?id=${e}&s=${t}&e=${n}`
+                    return `https://www.NontonGo.win/embed/tv/${e}/${t}/${n}`
                 }
             },
-            "rgshows.me 42": {
-                name: "rgshows.me 42",
+            "vidsrc.top": {
+                name: "vidsrc.top",
                 movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api42/index.html?id=${e}`
+                    return `https://vidsrc.top/embed/movie/tmdb/${e}`
                 },
                 showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api42/index.html?id=${e}&s=${t}&e=${n}`
+                    return `https://vidsrc.top/embed/tv/tmdb/${e}/${t}/${n}`
                 }
             },
-            "rgshows.me 43": {
-                name: "rgshows.me 43",
+            "vidsrc.vip": {
+                name: "vidsrc.vip",
                 movieUrl: function({id: e}) {
-                    return `https://rgshows.me/player/movies/api43/index.html?id=${e}`
+                    return `https://vidsrc.vip/embed/movie/${e}`
                 },
                 showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://rgshows.me/player/series/api43/index.html?id=${e}&s=${t}&e=${n}`
+                    return `https://vidsrc.vip/embed/tv/${e}/${t}/${n}`
+                }
+            },
+            "frembed": {
+                name: "frembed",
+                movieUrl: function({id: e}) {
+                    return `https://frembed.pro/api/film.php?id=${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://frembed.pro/api/serie.php?id=${e}&sa=${t}&epi=${n}`
+                }
+            },
+            "playsrc": {
+                name: "playsrc",
+                movieUrl: function({id: e}) {
+                    return `https://playsrc.streamscripts.xyz/embed/movie/${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://playsrc.streamscripts.xyz/embed/tv/${e}/?related=1&episode=${n}&season=${t}`
+                }
+            },
+            "streamug": {
+                name: "streamug",
+                movieUrl: function({id: e}) {
+                    return `https://streamug.com/video/${e}/`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://streamug.com/video/${e}s${t}e${n}/`
+                }
+            },
+            "anyembed": {
+                name: "anyembed",
+                movieUrl: function({id: e}) {
+                    return `https://anyembed.xyz/movie/${e}/`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://anyembed.xyz/tv/${e}/${t}/${n}`
+                }
+            },
+            "vidsrc.cc": {
+                name: "vidsrc.cc",
+                movieUrl: function({id: e}) {
+                    return `https://vidsrc.cc/v2/embed/movie/${e}/`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://vidsrc.cc/v2/embed/tv/${e}/${t}/${n}`
                 }
             },
         }
@@ -5787,8 +5797,8 @@ const myPopup = new Popup({
     id: "resetdata",
     title: "Error Notice",
     content: `
-        I am so Sorry, Users for the movie unplayable error, i know some people would be getting a error
-        that are not able to play the movie, this bcz the new servers are obstructing the previous srv user used that are stored in localstorage but not present in site
+        I am so Sorry to you Users for the movie unplayable error, i know some people would be getting a error
+        that they are not able to play the movie, this bcz the new servers are obstructing the previous srv user used that are stored in localstorage but not present in site
         so in SHORT YOU ARE REQUIRED TO CLEAR SITE DATA, FROM SETTINGS OF RGSHOWS CLICK ON CLEAR EVERYTHING PLEASE :).`,
     showImmediately: true
 });
