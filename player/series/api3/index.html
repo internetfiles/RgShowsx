@@ -42,7 +42,7 @@
             const e = urlParams.get('e');
             
             if (tmdb) {
-                fetch(`https://api.themoviedb.org/3/find/${tmdb}?external_source=tvdb_id&api_key=${apiKey}`)
+                fetch(`https://api.themoviedb.org/3/movie/${tmdb}?external_ids?api_key=${apiKey}`)
                     .then(response => response.json())
                     .then(data => {
                         let imdbId;
