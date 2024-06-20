@@ -3,152 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RgShows - SeriesApi 3</title>
+    <title>RgShows - SeriesApi 2</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/devtools-detector/2.0.17/devtools-detector.js"></script>
     <script src="../../../js/devtoolsdetetctor.js" preload></script>
     <script src="../../../js/nocheats.js" preload></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
-        /* Add your CSS here */
         body {
             margin: 0;
-            padding: 0;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #000;
+            background-color: #151515;
+            color: #eeeeee;
         }
-
-        #player-container {
-            position: fixed;
-            width: 100vw;
-            height: 100vh;
-            background: #000;
-            overflow: hidden;
+        video {
+            width: 95%;
+            height: 85%;
+            border: 1px solid #eeeeee;
         }
-
-
-        #videoPlayer {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-
-        #controls {
+        .controls {
+            margin-top: 20px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: absolute;
-            bottom: 10px;
-            width: 95vw;
-            left: 2.5vw;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 10px;
-            border-radius: 5px;
+            justify-content: center;
+            gap: 10px;
         }
-
-        .control-button {
-            color: #fff;
-            font-size: 18px;
+        .button {
+            padding: 10px 20px;
+            background-color: #222;
+            color: #eee;
+            border: 1px solid #444;
             cursor: pointer;
-            margin: 0 5px;
+            transition: background-color 0.3s;
         }
-
-        #progressBarContainer {
-            flex: 1;
-            margin: 0 10px;
-            position: relative;
+        .button:hover {
+            background-color: #333;
+        }
+        #change-language-button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #222;
+            color: #eee;
+            border: 1px solid #444;
             cursor: pointer;
-        }
-
-        #progressBar {
-            width: 100%;
-            height: 5px;
-            background: #444;
-        }
-
-        #progress {
-            width: 0;
-            height: 100%;
-            background: #ff0000;
-        }
-
-        #volumeBar {
-            width: 100px;
-        }
-
-        /* Full screen styles */
-        .fullscreen #player-container {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: 9999;
-            top: 0;
-            left: 0;
-            background: #000;
-        }
-
-        .fullscreen #controls {
-            width: 100%;
-            bottom: 0;
-            left: 0;
-        }
-
-        .quality-menu {
-            position: absolute;
-            top: -100px;
-            left: 0;
-            width: 100px;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 5px;
-            border-radius: 5px;
-            display: none;
-            z-index: 10000;
-        }
-
-        .quality-menu.show {
-            display: block;
-        }
-
-        .quality-menu button {
-            display: block;
-            width: 100%;
-            padding: 5px 0;
-            background: none;
-            border: none;
-            color: #fff;
-            cursor: pointer;
-            text-align: left;
+            transition: background-color 0.3s;
         }
     </style>
 </head>
 <body>
-    <div id="player-container">
-        <video id="videoPlayer" playsinline>
-            Your browser does not support the video tag.
-        </video>
-        <div id="controls">
-            <i class="fas fa-play control-button" id="playPauseButton"></i>
-            <div id="progressBarContainer">
-                <div id="progressBar">
-                    <div id="progress"></div>
-                </div>
-            </div>
-            <input type="range" id="volumeBar" min="0" max="1" step="0.01" value="1" class="control-button">
-            <i class="fas fa-volume-up control-button" id="muteButton"></i>
-            <div class="quality-menu" id="qualityMenu">
-                <!-- Quality options will be inserted here -->
-            </div>
-            <i class="fas fa-cog control-button" id="qualityButton"></i>
-            <i class="fas fa-expand control-button" id="fullScreenButton"></i>
-        </div>
-    </div>
+    <video id="video" controls></video>
+    <div class="controls" id="language-buttons"></div>
+    <button id="change-language-button">Change Language</button>
+    <script>
+        function getParameterByName(name, url = window.location.href) {
+            name = name.replace(/[\[\]]/g, '\\$&');
+            const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`);
+            const results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
 
-    <!-- Include hls.js -->
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    <script src="script.js"></script>
+        async function fetchVideoUrls(tmdbId, season, episode) {
+            try {
+                const response = await fetch(`https://autoembed.cc/embed/player.php?id=${tmdbId}&s=${season}&e=${episode}`);
+                const text = await response.text();
+
+                // Create a DOM parser to parse the HTML response
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(text, 'text/html');
+
+                // Extract the script content
+                const scriptElement = Array.from(doc.scripts).find(script => script.innerHTML.includes('Playerjs'));
+                if (!scriptElement) {
+                    throw new Error('Playerjs script not found in the HTML response');
+                }
+
+                const scriptContent = scriptElement.innerHTML;
+
+                // Extract the JSON string containing the file array
+                const jsonStartIndex = scriptContent.indexOf('"file":') + 7;
+                const jsonEndIndex = scriptContent.lastIndexOf(']');
+                let fileArrayString = scriptContent.substring(jsonStartIndex, jsonEndIndex + 1);
+
+                // Log the extracted string for debugging
+                console.log('Extracted file array string:', fileArrayString);
+
+                // Remove the trailing comma before the closing bracket
+                fileArrayString = fileArrayString.replace(/},\s*]$/, '}]');
+
+                const files = JSON.parse(fileArrayString.replace(/\\\//g, '/'));
+
+                return files;
+            } catch (error) {
+                console.error('Error parsing video URLs:', error);
+                throw error;
+            }
+        }
+
+        function initializePlayer(url) {
+            const video = document.getElementById('video');
+            if (Hls.isSupported()) {
+                const hls = new Hls();
+                hls.loadSource(url);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                    video.play();
+                });
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = url;
+                video.addEventListener('canplay', function() {
+                    video.play();
+                });
+            }
+        }
+
+        function createLanguageButtons(files) {
+            const buttonsContainer = document.getElementById('language-buttons');
+            buttonsContainer.innerHTML = '';
+            files.forEach(file => {
+                const button = document.createElement('button');
+                button.textContent = file.title;
+                button.classList.add('button');
+                button.addEventListener('click', () => {
+                    initializePlayer(file.file);
+                });
+                buttonsContainer.appendChild(button);
+            });
+        }
+
+        function toggleLanguageButtons() {
+            const buttonsContainer = document.getElementById('language-buttons');
+            buttonsContainer.style.display = (buttonsContainer.style.display === 'none' || buttonsContainer.style.display === '') ? 'block' : 'none';
+        }
+
+        document.getElementById('change-language-button').addEventListener('click', toggleLanguageButtons);
+
+        (async () => {
+            try {
+                const tmdbId = getParameterByName('id'); // Get the id from the URL params
+                const season = getParameterByName('s');
+                const episode = getParameterByName('e');
+                if (!tmdbId || !season || !episode) {
+                    throw new Error('TMDB ID, season, or episode not provided in the URL');
+                }
+                const videoFiles = await fetchVideoUrls(tmdbId,season,episode);
+                if (videoFiles && videoFiles.length > 0) {
+                    initializePlayer(videoFiles[0].file);
+                    createLanguageButtons(videoFiles);
+                }
+            } catch (error) {
+                console.error('Error fetching video data:', error);
+            }
+        })();
+    </script>
     <script src="../../../js/site.js"></script>
     <script src="../../../js/popupblocker.js"></script>
     <script src="../../../js/openload.user.js"></script>
