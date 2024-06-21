@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!imdbId) return;
 
         // Fetch media info
-        const mediaInfoEndpoint = `https://8-stream-api.vercel.app/api/v1/mediaInfo?id=${imdbId}`;
+        const mediaInfoEndpoint = `https://rgshowsapi1.vercel.app/api/v1/mediaInfo?id=${imdbId}`;
         fetch(mediaInfoEndpoint)
             .then(response => response.json())
             .then(data => {
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function playStream(file, key) {
-        fetch('https://8-stream-api.vercel.app/api/v1/getStream', {
+        fetch('https://rgshowsapi1.vercel.app/api/v1/getStream', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ file, key })
