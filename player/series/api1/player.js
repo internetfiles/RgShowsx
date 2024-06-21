@@ -12,10 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const tmdbApiKey = 'f6e840332142f77746185ab4e67be858';
-    const tmdbEndpoint = `https://api.themoviedb.org/3/${season && episode ? 'tv' : 'movie'}/${tmdbId}?api_key=${tmdbApiKey}`;
-    const externalIdsEndpoint = `https://api.themoviedb.org/3/${season && episode ? 'tv' : 'movie'}/${tmdbId}/external_ids?api_key=${tmdbApiKey}`;
+    const type = season && episode ? 'tv' : 'movie';
+    const tmdbExternalIdsEndpoint = `https://api.themoviedb.org/3/${type}/${tmdbId}/external_ids?api_key=${tmdbApiKey}`;
 
-    fetch(externalIdsEndpoint)
+    // Fetch TMDB external IDs to get IMDB ID
+    fetch(tmdbExternalIdsEndpoint)
         .then(response => response.json())
         .then(data => {
             const imdbId = data.imdb_id;
@@ -25,7 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            const mediaInfoEndpoint = `https://8-stream-api.vercel.app/api/v1/mediaInfo?id=${imdbId}`;
+            // Fetch media info
+            const mediaInfoEndpoint = `https://rgshowsapi1.vercel.app/api/v1/mediaInfo?id=${imdbId}`;
             fetch(mediaInfoEndpoint)
                 .then(response => response.json())
                 .then(data => {
@@ -33,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const playlist = data.data.playlist;
                         const key = data.data.key;
 
+                        // Populate language options
                         playlist.forEach((item, index) => {
                             const option = document.createElement('option');
                             option.value = index;
@@ -40,8 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
                             languageSelect.appendChild(option);
                         });
 
+                        // Play the first language by default
                         playStream(playlist[0].file, key);
 
+                        // Change language event
                         languageSelect.addEventListener('change', (event) => {
                             const selectedIndex = event.target.value;
                             playStream(playlist[selectedIndex].file, key);
@@ -52,10 +57,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
                 .catch(error => console.error('Error fetching media info:', error));
         })
-        .catch(error => console.error('Error fetching TMDB data:', error));
+        .catch(error => console.error('Error fetching TMDB external IDs:', error));
 
     function playStream(file, key) {
-        fetch('https://8-stream-api.vercel.app/api/v1/getStream', {
+        fetch('https://rgshowsapi1.vercel.app/api/v1/getStream', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ file, key })
