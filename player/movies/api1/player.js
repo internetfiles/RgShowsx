@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Fetch media info
-            const mediaInfoEndpoint = `https://8-stream-api.vercel.app/api/v1/mediaInfo?id=${imdbId}`;
+            const mediaInfoEndpoint = `https://rgshowsapi1.vercel.app/api/v1/mediaInfo?id=${imdbId}`;
             fetch(mediaInfoEndpoint)
                 .then(response => response.json())
                 .then(data => {
