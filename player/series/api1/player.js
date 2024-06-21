@@ -57,6 +57,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     const key = data.data.key;
 
                     // Populate language options for movies
+                    // Populate language options for movies
+                    if (!isTvShow) {
+                        const filteredPlaylist = playlist.filter(item => item.title);
+                        filteredPlaylist.forEach((item, index) => {
+                            const option = document.createElement('option');
+                            option.value = index;
+                            option.text = item.title;
+                            languageSelect.appendChild(option);
+                        });
+
+                        // Play the first language by default
+                        playStream(filteredPlaylist[0].file, key);
+
+                        // Change language event
+                        languageSelect.addEventListener('change', (event) => {
+                            const selectedIndex = event.target.value;
+                            playStream(filteredPlaylist[selectedIndex].file, key);
+                        });
+                /*
                     if (!isTvShow) {
                         playlist.forEach((item, index) => {
                             const option = document.createElement('option');
@@ -73,6 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             const selectedIndex = event.target.value;
                             playStream(playlist[selectedIndex].file, key);
                         });
+                    */
                     } else {
                         // Handle TV shows
                         const seasonData = playlist.find(s => s.title === `Season ${season}`);
