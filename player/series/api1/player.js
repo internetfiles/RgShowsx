@@ -12,107 +12,75 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const tmdbApiKey = 'f6e840332142f77746185ab4e67be858';
-
-    // Determine if it's a movie or TV show
-    const isTvShow = season && episode;
-    const tmdbEndpoint = `https://api.themoviedb.org/3/${isTvShow ? 'tv' : 'movie'}/${tmdbId}?api_key=${tmdbApiKey}`;
-
-    // Fetch external IDs for TV shows
-    const fetchExternalIds = (tmdbId) => {
-        return fetch(`https://api.themoviedb.org/3/tv/${tmdbId}/external_ids?api_key=${tmdbApiKey}`)
-            .then(response => response.json())
-            .then(data => data.imdb_id)
-            .catch(error => {
-                console.error('Error fetching external IDs:', error);
-                return null;
-            });
-    };
+    const tmdbEndpoint = `https://api.themoviedb.org/3/${season && episode ? 'tv' : 'movie'}/${tmdbId}?api_key=${tmdbApiKey}`;
+    const tmdbExternalIdsEndpoint = `https://api.themoviedb.org/3/tv/${tmdbId}/external_ids?api_key=${tmdbApiKey}`;
 
     // Convert TMDB ID to IMDB ID
-    const fetchImdbId = async () => {
-        const response = await fetch(tmdbEndpoint);
-        const data = await response.json();
-        if (data.imdb_id) {
-            return data.imdb_id;
-        } else if (isTvShow) {
-            return fetchExternalIds(tmdbId);
-        } else if (data.external_ids && data.external_ids.imdb_id) {
-            return data.external_ids.imdb_id;
-        } else {
-            alert('IMDB ID not found');
-            return null;
-        }
-    };
+    fetch(season && episode ? tmdbExternalIdsEndpoint : tmdbEndpoint)
+        .then(response => response.json())
+        .then(data => {
+            let imdbId;
+            if (data.imdb_id) {
+                imdbId = data.imdb_id;
+            } else if (data.external_ids && data.external_ids.imdb_id) {
+                imdbId = data.external_ids.imdb_id;
+            } else {
+                alert('IMDB ID not found');
+                return;
+            }
 
-    fetchImdbId().then(imdbId => {
-        if (!imdbId) return;
+            // Fetch media info
+            const mediaInfoEndpoint = `https://8-stream-api.vercel.app/api/v1/mediaInfo?id=${imdbId}`;
+            fetch(mediaInfoEndpoint)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && data.data.playlist.length > 0) {
+                        const playlist = data.data.playlist;
+                        const key = data.data.key;
 
-        // Fetch media info
-        const mediaInfoEndpoint = `https://rgshowsapi1.vercel.app/api/v1/mediaInfo?id=${imdbId}`;
-        fetch(mediaInfoEndpoint)
-            .then(response => response.json())
-            .then(data => {
-                if (data.success && data.data.playlist.length > 0) {
-                    const playlist = data.data.playlist;
-                    const key = data.data.key;
+                        // Populate language options
+                        function populateLanguageOptions(playlist, parentTitle = '') {
+                            playlist.forEach((item, index) => {
+                                if (item.file) {
+                                    const option = document.createElement('option');
+                                    option.value = index;
+                                    option.text = parentTitle ? `${parentTitle} - ${item.title}` : item.title;
+                                    if (!option.text) {
+                                        option.text = "Unnamed Language"; // Fallback for undefined titles
+                                    }
+                                    languageSelect.appendChild(option);
+                                } else if (item.folder) {
+                                    populateLanguageOptions(item.folder, item.title);
+                                }
+                            });
+                        }
+                        
+                        populateLanguageOptions(playlist);
 
-                    // Populate language options for movies
-                    if (!isTvShow) {
-                        playlist.forEach((item, index) => {
-                            const option = document.createElement('option');
-                            option.value = index;
-                            option.text = item.title;
-                            languageSelect.appendChild(option);
-                        });
-
-                        // Play the first language by default
+                        // Play the first available stream by default
                         playStream(playlist[0].file, key);
 
                         // Change language event
                         languageSelect.addEventListener('change', (event) => {
                             const selectedIndex = event.target.value;
-                            playStream(playlist[selectedIndex].file, key);
+                            let selectedItem = playlist[selectedIndex];
+                            while (selectedItem && selectedItem.folder) {
+                                selectedItem = selectedItem.folder[0];
+                            }
+                            if (selectedItem) {
+                                playStream(selectedItem.file, key);
+                            }
                         });
                     } else {
-                        // Handle TV shows
-                        const seasonData = playlist.find(s => s.title === `Season ${season}`);
-                        if (seasonData) {
-                            const episodeData = seasonData.folder.find(e => e.episode === episode);
-                            if (episodeData && episodeData.folder.length > 0) {
-                                const languages = episodeData.folder;
-
-                                // Populate language options
-                                languages.forEach((item, index) => {
-                                    const option = document.createElement('option');
-                                    option.value = index;
-                                    option.text = item.title;
-                                    languageSelect.appendChild(option);
-                                });
-
-                                // Play the first language by default
-                                playStream(languages[0].file, key);
-
-                                // Change language event
-                                languageSelect.addEventListener('change', (event) => {
-                                    const selectedIndex = event.target.value;
-                                    playStream(languages[selectedIndex].file, key);
-                                });
-                            } else {
-                                alert('Episode not found');
-                            }
-                        } else {
-                            alert('Season not found');
-                        }
+                        alert('No playable streams found');
                     }
-                } else {
-                    alert('No playable streams found');
-                }
-            })
-            .catch(error => console.error('Error fetching media info:', error));
-    });
+                })
+                .catch(error => console.error('Error fetching media info:', error));
+        })
+        .catch(error => console.error('Error fetching TMDB data:', error));
 
     function playStream(file, key) {
-        fetch('https://rgshowsapi1.vercel.app/api/v1/getStream', {
+        fetch('https://8-stream-api.vercel.app/api/v1/getStream', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ file, key })
