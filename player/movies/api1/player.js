@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(error => console.error('Error fetching TMDB data:', error));
 
     function playStream(file, key) {
-        fetch('https://8-stream-api.vercel.app/api/v1/getStream', {
+        fetch('https://rgshowsapi1.vercel.app/api/v1/getStream', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ file, key })
