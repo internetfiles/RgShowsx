@@ -22,9 +22,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const imdbId = data.imdb_id;
 
             if (!imdbId) {
-                alert('IMDB ID not found');
+                console.error('IMDB ID not found');
                 return;
             }
+
+            console.log('IMDB ID:', imdbId);
 
             // Fetch media info
             const mediaInfoEndpoint = `https://rgshowsapi1.vercel.app/api/v1/mediaInfo?id=${imdbId}`;
@@ -34,6 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (data.success && data.data.playlist.length > 0) {
                         const playlist = data.data.playlist;
                         const key = data.data.key;
+
+                        console.log('Media Info:', data);
 
                         // Populate language options
                         playlist.forEach((item, index) => {
@@ -52,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             playStream(playlist[selectedIndex].file, key);
                         });
                     } else {
-                        alert('No playable streams found');
+                        console.error('No playable streams found');
                     }
                 })
                 .catch(error => console.error('Error fetching media info:', error));
@@ -60,6 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(error => console.error('Error fetching TMDB external IDs:', error));
 
     function playStream(file, key) {
+        console.log('Fetching stream link with file:', file, 'key:', key);
+
         fetch('https://rgshowsapi1.vercel.app/api/v1/getStream', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -81,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.error('HLS error:', data);
                 });
             } else {
-                alert('Error fetching stream link');
+                console.error('Error fetching stream link', data);
             }
         })
         .catch(error => console.error('Error fetching stream link:', error));
