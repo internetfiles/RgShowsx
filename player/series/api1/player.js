@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const tmdbApiKey = 'f6e840332142f77746185ab4e67be858';
-    const tmdbEndpoint = `https://api.themoviedb.org/3/${season && episode ? 'tv' : 'movie'}/${tmdbId}?api_key=${tmdbApiKey}`;
+    const tmdbEndpoint = `https://api.themoviedb.org/3/${season && episode ? 'tv' : 'movie'}/${tmdbId}?api_key=${tmdbApiKey}&language=en-US`;
 
     // Convert TMDB ID to IMDB ID
     fetch(tmdbEndpoint)
