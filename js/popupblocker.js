@@ -3,7 +3,7 @@
     // Whitelisted URLs
     const whitelist = [
         "https://discord.gg/bosskingdom-comeback-1090560322760347649",
-        "https://google.com/search?"
+        "https://google.com/"
     ];
 
     // Function to block popups
