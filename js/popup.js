@@ -10,7 +10,6 @@ const blockedUrls = [
     "https://www.2embed.stream/",
     "https://www.primewire.tf/",
     "https://embed.smashystream.com/",
-    "https://8-stream.vercel.app/",
     "https://2embed.pro/",
     "https://vidsrc.pro/",
     "https://vidsrc.xyz/",
