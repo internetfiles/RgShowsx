@@ -64,8 +64,7 @@ function shuffle(array) {
     return array;
 }
 
-let slideIndex = 1;
-
+// Adding slider animes (trending animes from anilist)
 async function getTrendingAnimes(data) {
     let SLIDER_HTML = "";
 
@@ -90,28 +89,8 @@ async function getTrendingAnimes(data) {
     document.querySelector(".slideshow-container").innerHTML =
         SLIDER_HTML +
         '<a class="prev" onclick="plusSlides(-1)">&#10094;</a><a class="next" onclick="plusSlides(1)">&#10095;</a>';
-
-    showSlides(slideIndex);
 }
 
-function plusSlides(n) {
-    showSlides(slideIndex += n);
-}
-
-function currentSlide(n) {
-    showSlides(slideIndex = n);
-}
-
-function showSlides(n) {
-    let i;
-    let slides = document.getElementsByClassName("mySlides");
-    if (n > slides.length) { slideIndex = 1 }
-    if (n < 1) { slideIndex = slides.length }
-    for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-    }
-    slides[slideIndex - 1].style.display = "block";
-}
 // Adding popular animes (popular animes from gogoanime)
 async function getPopularAnimes(data) {
     let POPULAR_HTML = "";
