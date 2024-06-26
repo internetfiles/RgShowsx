@@ -1703,6 +1703,23 @@ h2 {
     font-size: 16px;
 }
 
+#removeFromContinue {
+    margin: 10px 0px 10px 0px;
+    color: white;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    background-color: red;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+#removeFromContinue:hover {
+    background-color: darkred;
+}
+
 #dldiv {
     text-align: left;
 }
@@ -1995,4 +2012,10 @@ h2 {
     #title1 img {
         height: 55px;
     }
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

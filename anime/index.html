@@ -15,6 +15,7 @@
     <link rel="icon" type="image/x-icon" href="../favicon.ico" />
     <script src="https://adsreference.com/widget.js?id=1715060516324607500" defer="defer"></script>
     <title>RgShows - Anime</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/devtools-detector/2.0.17/devtools-detector.js"></script>
     <script src="../js/devtoolsdetetctor.js" preload></script>
     <script src="../js/nocheats.js" preload></script>
     <link href="./css/index.css" rel="stylesheet" />
@@ -22,6 +23,35 @@
     <link rel="preload stylesheet" href="../css/flash.css" as="style">
     <link rel="stylesheet" href="https://unpkg.com/kursor/dist/kursor.css">
     <script src="https://cdn.jsdelivr.net/npm/@simondmc/popup-js@1.4.3/popup.min.js"></script>
+    <style>
+        .poster {
+            position: relative;
+            display: inline-block;
+            margin: 10px;
+        }
+        .la-details {
+            text-align: center;
+        }
+        .lzy_img {
+            width: 100%;
+            height: auto;
+        }
+        .shadow {
+            position: relative;
+        }
+        .remove-btn {
+            background-color: #ed3832;
+            color: white;
+            border: none;
+            padding: 8px 8px;
+            cursor: pointer;
+            border-radius: 5px;
+            position: absolute;
+            top: 1px;
+            right: 8px;
+        }
+    </style>
+    
 </head>
 
 <body>
@@ -40,17 +70,26 @@
     <section>
         <div class="slideshow-container"></div>
     </section>
+    
+    <section>
+        <div class="divox">
+            <h2 id="Continue">Continue 👀</h2>
+            <button class="remove-btn" id="removeButton" onclick="window.location.href='./manage.html'">Manage Watch History</button>
+
+            <div id="Continue2" class="Continue3Js">CONTINUE_SECTION</div>
+        </div>
+    </section>
 
     <section>
         <div class="divox">
-            <h2 id="latest">Most Popular</h2>
+            <h2 id="latest">Most Popular ✨</h2>
             <div id="latest2" class="popularg">MOST_POPULAR</div>
         </div>
     </section>
 
     <section>
         <div class="divox">
-            <h2 id="latest">Recent Release</h2>
+            <h2 id="latest">Recent Release 🔥</h2>
             <div id="latest2" class="recento"></div>
         </div>
     </section>
@@ -78,6 +117,8 @@
         </script>
     <script src="../js/logger.js"></script>
     <script src="./js/index.js"></script>
+    <script src="./js/continue.js"></script>
+    <script src="./js/updatecontinue.js"></script>
     <script async src="https://kit.fontawesome.com/45cb819601.js" crossorigin="anonymous"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-BHQX4066ZV"></script>
     <script src="../js/smoothscroll.js"></script>
