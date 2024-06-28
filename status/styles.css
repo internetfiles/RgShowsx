@@ -1,0 +1,112 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    max-width: 800px;
+    width: 100%;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #1e1e1e;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+header p {
+    margin: 10px 0 0;
+    color: #888;
+}
+
+main {
+    margin-bottom: 40px;
+}
+
+.status {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.status-item {
+    text-align: center;
+    flex: 1;
+}
+
+.status-item:not(:last-child) {
+    margin-right: 20px;
+}
+
+.status-icon {
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+
+.status-icon.up {
+    color: #4caf50;
+}
+
+.status-icon.maintenance {
+    color: #ff9800;
+}
+
+.status-icon.down {
+    color: #f44336;
+}
+
+.history {
+    background-color: #2a2a2a;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.history h2 {
+    margin-top: 0;
+}
+
+.history ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.history li {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.incident-date {
+    flex: 0 0 120px;
+    color: #888;
+    font-weight: bold;
+}
+
+.incident-details {
+    flex: 1;
+}
+
+.incident-details h3 {
+    margin: 0 0 10px;
+}
+
+footer {
+    text-align: center;
+    color: #888;
+    font-size: 0.9em;
+}
