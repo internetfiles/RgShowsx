@@ -24,10 +24,21 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <iframe src="views.html" style="display: none;" id="viewsFrame"></iframe>
+        <script>
+            document.getElementById('viewsFrame').onload = function() {
+                var iframeDoc = document.getElementById('viewsFrame').contentDocument || document.getElementById('viewsFrame').contentWindow.document;
+                var viewsCounter = iframeDoc.querySelector('script[src*="freevisitorcounters.com"]');
+                if (viewsCounter) {
+                    document.getElementById('viewsCount').innerText = 'Total Views: (Check views.html)';
+                } else {
+                    document.getElementById('viewsCount').innerText = 'Failed to load view counter.';
+                }
+            };
+        </script>
     <div class="container">
         <header>
             <img src="https://rgshows.me/banner.png" alt="RgShows Logo" class="logo">
-            <h1>STATUS</h1>
             <p>Monitor the current status of our services.</p>
         </header>
         <main>
