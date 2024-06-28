@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://adsreference.com/widget.js?id=1715060516324607500" defer="defer"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ff0000" />
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="Discover and stream your favorite Movies, TV Shows, Anime, LiveTV, and explore Torrents with RgShows - a content search and watch website. Enjoy unlimited access to a vast library of content for free." />
+    <meta property="og:title" content="RgShows - Status" />
+    <meta property="og:description" content="Discover and stream your favorite Movies, TV Shows, Anime, LiveTV, and explore Torrents with RgShows - a content search and watch website. Enjoy unlimited access to a vast library of content for free." />
+    <meta property="og:image" content="https://rgshows.me/logo.png" />
+    <meta property="og:url" content="https://rgshows.me/status/" />
+    <meta property="og:type" content="website" />
+    <title>RgShows - Status</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/devtools-detector/2.0.17/devtools-detector.js"></script>
+    <script src="../js/devtoolsdetetctor.js" preload></script>
+    <script src="../js/nocheats.js" preload></script>
+    <link rel="preload stylesheet" href="../css/flash.css" as="style">
+    <link rel="stylesheet" href="https://unpkg.com/kursor/dist/kursor.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>RgShows Status</h1>
+            <p>Monitor the current status of our services.</p>
+        </header>
+        <main>
+            <section class="status">
+                <div class="status-item">
+                    <i class="fas fa-check-circle status-icon up"></i>
+                    <h2>Main Site</h2>
+                    <p>Operational</p>
+                </div>
+                <div class="status-item">
+                    <i class="fas fa-check-circle status-icon up"></i>
+                    <h2>Api</h2>
+                    <p>Operational</p>
+                </div>
+            </section>
+            <section class="history">
+                <h2>Incident History</h2>
+                <ul>
+                    <li>
+                        <div class="incident-date">June 28, 2024</div>
+                        <div class="incident-details">
+                            <h3>Database Outage</h3>
+                            <p>The database was down for 2 hours due to a network issue.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="incident-date">June 27, 2024</div>
+                        <div class="incident-details">
+                            <h3>API Maintenance</h3>
+                            <p>Planned maintenance for API services. No downtime expected.</p>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+        </main>
+        <footer>
+            <p>© 2024 RgShows. All rights reserved.</p>
+        </footer>
+    </div>
+    <script src="../js/logger.js"></script>
+    <script src="../js/statistics.js"></script>
+    <script src="../js/blockIP.js"></script>
+    <script src="../js/smoothscroll.js"></script>
+    <script src="../js/screenfull.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/kursor@0.0.14/dist/kursor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const storedCursor = localStorage.getItem("selectedCursor");
+            const cursorType = storedCursor ? parseInt(storedCursor) : 1;
+
+            new kursor({
+                type: cursorType
+            });
+        });
+    </script>
+</body>
+</html>
