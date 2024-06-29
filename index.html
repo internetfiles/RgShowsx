@@ -2710,15 +2710,6 @@
                     return `https://moviesapi.club/tv/${e}-${t}-${n}`
                 }
             },
-            "filmclub": {
-                name: "filmclub",
-                movieUrl: function({id: e}) {
-                    return `https://vip.filmclub.tv/embed/movie?tmdb=${e}`
-                },
-                showUrl: function({id: e, season: t, episode: n}) {
-                    return `https://vip.filmclub.tv/embed/series?tmdb=${e}&sea=${t}&epi=${n}`
-                }
-            },
             "mostream": {
                 name: "mostream",
                 movieUrl: function({id: e}) {
@@ -2798,6 +2789,24 @@
                 },
                 showUrl: function({id: e, season: t, episode: n}) {
                     return `https://vidsrc.cc/v2/embed/tv/${e}/${t}/${n}`
+                }
+            },
+            "filmku.stream": {
+                name: "filmku.stream",
+                movieUrl: function({id: e}) {
+                    return `https://filmku.stream//embed/movie?tmdb=${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://filmku.stream//embed/series?tmdb=${e}&sea=${t}&epi=${n}`
+                }
+            },
+            "showbox": {
+                name: "showbox",
+                movieUrl: function({id: e}) {
+                    return `https://showbox.justbinge.lol/embed/${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://showbox.justbinge.lol/embed/${e}?s=${t}e=${n}`
                 }
             },
         }
