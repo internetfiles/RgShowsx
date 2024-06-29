@@ -7,7 +7,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .container {
@@ -20,6 +20,7 @@ body {
     display: flex;
     flex-direction: column;
     height: 100%;
+    box-sizing: border-box;
 }
 
 header {
@@ -117,6 +118,7 @@ footer {
     color: #888;
     font-size: 0.9em;
 }
+
 ::-webkit-scrollbar {
     width: 8px;
 }
