@@ -1,14 +1,13 @@
-html, body {
-    height: 100%;
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #121212;
+    color: #ffffff;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Roboto', sans-serif;
-    background-color: #121212;
-    color: #ffffff;
-    box-sizing: border-box;
+    height: 100vh;
 }
 
 .container {
@@ -20,7 +19,7 @@ html, body {
     background-color: #1e1e1e;
     display: flex;
     flex-direction: column;
-    box-sizing: border-box;
+    height: 100%;
 }
 
 header {
@@ -118,7 +117,6 @@ footer {
     color: #888;
     font-size: 0.9em;
 }
-
 ::-webkit-scrollbar {
     width: 8px;
 }
