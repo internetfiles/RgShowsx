@@ -2809,6 +2809,15 @@
                     return `https://showbox.justbinge.lol/embed/${e}?s=${t}e=${n}`
                 }
             },
+            "vidsrc.uk": {
+                name: "vidsrc.uk",
+                movieUrl: function({id: e}) {
+                    return `https://vidsrc.uk/embed/movie/${e}`
+                },
+                showUrl: function({id: e, season: t, episode: n}) {
+                    return `https://vidsrc.uk/embed/tv/${e}/${t}/${n}`
+                }
+            },
         }
           , o = {
             Search: !0,
