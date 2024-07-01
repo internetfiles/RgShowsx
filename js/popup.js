@@ -40,6 +40,8 @@ const blockedUrls = [
     "https://streamug.com/",
     "https://anyembed.xyz/",
     "https://www.vidsrc.cc/",
+    "https://filmku.stream/",
+    "https://showbox.justbinge.lol/",
     "https://vidsrc.uk/"
 ];
 
