@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="https://adsreference.com/widget.js?id=1719603444479954000" defer="defer"></script>
+       
         <meta name="theme-color" content="#ff0000" />
         <meta name="robots" content="index, follow" />
         <meta name="description" content="Discover and stream your favorite Movies, TV Shows, Anime, LiveTV, and explore Torrents with RgShows - a content search and watch website. Enjoy unlimited access to a vast library of content for free." />
@@ -2159,7 +2159,7 @@
     </head>
     <body>
         <!-- Guide Popup -->
-    <div id="guide-popup" class="popup-overlay" style="display: none;">
+   <!--  <div id="guide-popup" class="popup-overlay" style="display: none;">
         <div class="popup-content">
             <h2>How to use RgShows?</h2>
             <p>Make sure to read the guide of RgShows before using it at your own discretion. By the way, you have no choice but to read it ;)</p>
@@ -2167,10 +2167,10 @@
                 <a id="guide-popup-button" class="button" href="./guide.html">Read the Guide</a>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Event Popup -->
-    <div id="event-popup" class="popup-overlay" style="display: none;">
+   <!--  <div id="event-popup" class="popup-overlay" style="display: none;">
         <div class="popup-content">
             <h2>Event ✨</h2>
             <p>Whoever invites any 3 new users on RgShows and in Discord Server <a class="link" href="https://discord.gg/bosskingdom-comeback-1090560322760347649" target="_blank">Here!</a> will get $50 worth Amazon Card, kindly dm @rishabnotfound on Discord with proofs after task completion!</p>
@@ -2179,7 +2179,7 @@
             </div>
         </div>
     </div>
-
+ -->
     <!-- Domain change popup -->
     <div id="domain-change-popup" class="popup-overlay" style="display: none;">
         <div class="popup-content">
@@ -2226,7 +2226,7 @@
           });
         }
       </script>      
-        <iframe src="views.html" style="display: none;" id="viewsFrame"></iframe>
+        
         <script>
             document.getElementById('viewsFrame').onload = function() {
                 var iframeDoc = document.getElementById('viewsFrame').contentDocument || document.getElementById('viewsFrame').contentWindow.document;
@@ -2279,15 +2279,13 @@
                 }, {
                     icon: "tv",
                     text: "Shows"
-                }, {
+                }, 
+                
+                {
                     icon: "anime",
                     text: "Anime",
                     url: "./anime.html"
-                }, {
-                    icon: "livetv",
-                    text: "Live Tv",
-                    url: "./livetv/"
-                }, {
+                },  {
                     icon: "cog",
                     text: "Settings"
                 }]
@@ -2297,17 +2295,14 @@
                     icon: "magnet",
                     url: "/torrent/",
                     label: "torrentpage"
-                },{
+                },
+            {
                     icon: "bell",
                     url: "announcements.html",
                     label: "Rishab07"
                 },{
                     icon: "issue",
                     url: "issues.html",
-                    label: "views"
-                },{
-                    icon: "stats",
-                    url: "views.html",
                     label: "views"
                 },{
                     icon: "help",
